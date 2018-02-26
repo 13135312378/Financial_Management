@@ -41,15 +41,15 @@
               <div class="log">
 
 
-                  <form action="index.jsp" method="post">
+                  <form action="/login.action" method="post">
 
                 <div class="name">
-                    <label>用户名</label><input type="text" class="text" id="value_1" placeholder="用户名" name="value_1" >
+                    <label>用户名</label><input type="text" class="text" id="value_1" placeholder="用户名" name="uname" >
                 </div>
 
 
                 <div class="pwd">
-                    <label>密　码</label><input type="password" class="text" id="value_2" placeholder="密码" name="value_2" >
+                    <label>密　码</label><input type="password" class="text" id="value_2" placeholder="密码" name="upass" >
                     <input type="submit" class="submit"  value="登录">
                 <div class="check"></div>
 

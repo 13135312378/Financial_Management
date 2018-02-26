@@ -20,10 +20,16 @@ public class UserController {
 
 
     @RequestMapping("login")
-    public List<User> getAll() throws Exception{
-      List<User> list=iUserDaos.getAllUsers();
-        System.out.println("进入：");
-      return list;
+    public String getAll(User user) throws Exception{
+        //List<User> list=iUserDaos.getAllUsers();
+        User u=iUserDaos.login(user);
+        System.out.println(user.getUname()+"one"+user.getUpass());
+
+        if (u!=null){
+            return"redirect:/index.jsp";
+        }else {
+            return "redirect:/login.jsp";
+        }
 //     "redirect:/user.jsp";
     }
 
