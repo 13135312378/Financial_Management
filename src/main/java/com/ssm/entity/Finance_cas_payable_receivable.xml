@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssm.dao.IFinance_cas_payable_receivable">
+    <!--查询集合-->
+    <select id="getFinance_cas_payable_receivable" resultType="com.ssm.entity.Finance_cas_payable_receivable">
+        select * from finance_cas_payable_receivable;
+    </select>
+
+
+</mapper>

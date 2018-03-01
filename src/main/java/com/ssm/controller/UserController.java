@@ -1,6 +1,8 @@
 package com.ssm.controller;
 
+import com.ssm.dao.IFinance_bac_subject_def;
 import com.ssm.dao.IUserDaos;
+import com.ssm.entity.Finance_bac_subject_def;
 import com.ssm.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +19,19 @@ public class UserController {
 
     @Autowired
     private IUserDaos iUserDaos;
+    @Autowired
+    private IFinance_bac_subject_def iFinance_bac_subject_def;
 
 
     @RequestMapping("login")
-    public String getAll(User user) throws Exception{
+    public String login(User user) throws Exception{
         //List<User> list=iUserDaos.getAllUsers();
         User u=iUserDaos.login(user);
-        System.out.println(user.getUname()+"one"+user.getUpass());
+
+     System.out.println("草率从事cs");
 
         if (u!=null){
-            return"redirect:/index.jsp";
+           return"redirect:/index.jsp";
         }else {
             return "redirect:/login.jsp";
         }

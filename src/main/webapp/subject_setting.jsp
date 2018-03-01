@@ -23,12 +23,74 @@
     <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
+
 </head>
 
 
 <body data-type="widgets">
 
+<script src="js/vue.js"></script>
 <script src="assets/js/theme.js"></script>
+
+
+<script>
+
+    $(function(){
+            var vm=new Vue({
+                el:'#fgetall',
+                data: {
+                    submitUrl: "/fgetall.action", //跳转的路径
+                    user: "",
+                    users: [],  //表单数据集合
+                    titleName: "",
+                    TyuserId: "" , //表单数据的id
+                    nowIndex:-1,
+                    uname:"",
+                    upwd:"",
+                    uid:""
+                }
+                ,
+                methods:{
+                    getAll : function(){
+                        //上面方法从新赋值
+                        var currenr_this=this;
+                        //跳转的路径
+                        currenr_this.submitUrl='/fgetall.action';
+                        //通过json方式得到数据
+                        $.getJSON(currenr_this.submitUrl,function(result,status){
+                            //把结果集赋给定义的users，用来页面展示
+                            currenr_this._data.users=result;
+                            // alert(result);  //得到对象集合
+                        })
+                    },
+
+
+
+                    add : function () {
+                        //   $('#addform').modal('show');
+
+                    },
+                    update :function (index) {
+                        var current_this=this;
+                        var item=this.users[index];
+                        current_this.uname=item.uname;
+                        current_this.upwd=item.upwd;
+                        current_this. uid=item.uid;
+                    }
+
+
+                },
+
+                created : function(){
+                    this.getAll();
+                },
+
+
+            });
+        }
+    )
+
+</script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
     <header>
@@ -573,7 +635,7 @@
 
 
     <!-- 内容区域 -->
-    <div class="tpl-content-wrapper" >
+    <div class="tpl-content-wrapper" id="fgetall">
 
         <div class="container-fluid am-cf" style="height:26px;  ">
             <div class="page-header-heading" ><span class=""></span> 营收款管理 <small>科目设置 </small></div>
@@ -603,131 +665,92 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-                                <div class="am-form-group tpl-table-list-select">
-                                    <select data-am-selected="{btnSize: 'sm'}">
-                                        <option value="option1">所有类别</option>
-                                        <option value="option2">IT业界</option>
-                                        <option value="option3">数码产品</option>
-                                        <option value="option3">笔记本电脑</option>
-                                        <option value="option3">平板电脑</option>
-                                        <option value="option3">只能手机</option>
-                                        <option value="option3">超极本</option>
+                            </br>
+                            </br>
+                            </br>
+
+
+
+
+
+
+
+
+
+                            <form action="" method="post">
+
+
+                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                    科目等级
+                                    <select  style="width:138px; padding-top:3px; padding-bottom:3px;">
+                                        <option value="option2">所有</option>
+                                        <option value="option3">一级</option>
+                                        <option value="option3">二级</option>
+                                        <option value="option3">三级</option>
+                                        <option value="option3">四级</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-                                <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                    <input type="text" class="am-form-field ">
-                                    <span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-          </span>
+
+                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                     科目名称
+                                    <input type="text" style="width:138px; padding-top:3px; padding-bottom:3px;" >
+
+
                                 </div>
-                            </div>
+
+
+
+
+
+
+
+
+
+
+                                <br> <br><br>
+
+                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                                    <button type="button" class="am-btn am-btn-warning am-square" style="width:68px; height:34px;  margin-left:360px; ">查询</button>
+                                    <button type="reset" class="am-btn am-btn-default" style="width:68px; height:34px;  margin-left:30px; ">重置</button>
+                                </div>
+
+                            </form>
+
+
+
+
+
+
+
+
+
 
                             <div class="am-u-sm-12">
                                 <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                                     <thead>
                                     <tr>
-                                        <th>文章标题</th>
-                                        <th>作者</th>
-                                        <th>时间</th>
-                                        <th>操作</th>
+                                        <th>科目名称</th>
+                                        <th>科目代码</th>
+                                        <th>余额方向</th>
+                                        <th>手工记账</th>
+                                        <th>父级代码</th>
+                                        <th>科目级别</th>
+                                        <th>备注</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="gradeX">
-                                        <td>Amaze UI 模式窗口</td>
-                                        <td>张鹏飞</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有适配微信小程序的计划吗</td>
-                                        <td>天纵之人</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX">
-                                        <td>请问有没有amazeui 分享插件</td>
-                                        <td>王宽师</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>关于input输入框的问题</td>
-                                        <td>着迷</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有没有发现官网上的下载包不好用</td>
-                                        <td>醉里挑灯看键</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <tr v-for="(user,index) in users" class="text-center">
+                                        <td>{{user.subject_name}}</td>
+                                        <td>{{user.subject_code}}</td>
 
-                                    <tr class="even gradeC">
-                                        <td>我建议WEB版本文件引入问题</td>
-                                        <td>罢了</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
+                                        <td >{{user.balance_direction}}</td>
+                                        <td>{{user.manual_entry}}</td>
+                                        <td>{{user.parent_code}}</td>
+                                        <td>{{user.subject_level}}</td>
+                                        <td>{{user.Column_1}}</td>
+
+
                                     </tr>
-                                    <!-- more data -->
                                     </tbody>
                                 </table>
                             </div>

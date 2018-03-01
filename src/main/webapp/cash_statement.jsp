@@ -23,12 +23,78 @@
     <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/amazeui.datetimepicker.css"/>
+    <script src="assets/js/amazeui.datetimepicker.min.js"></script>
+
 </head>
 
 
 <body data-type="widgets">
 
+<script src="js/vue.js"></script>
 <script src="assets/js/theme.js"></script>
+<script>
+
+    $(function(){
+            var vm=new Vue({
+                el:'#xjrb',
+                data: {
+                    submitUrl: "/fgetalla.action", //跳转的路径
+                    user: "",
+                    users: [],  //表单数据集合
+                    titleName: "",
+                    TyuserId: "" , //表单数据的id
+                    nowIndex:-1,
+                    uname:"",
+                    upwd:"",
+                    uid:""
+                }
+                ,
+                methods:{
+                    getAll : function(){
+                        //上面方法从新赋值
+                        var currenr_this=this;
+                        //跳转的路径
+                        currenr_this.submitUrl='/fgetalla.action';
+                        //通过json方式得到数据
+                        $.getJSON(currenr_this.submitUrl,function(result,status){
+                            //把结果集赋给定义的users，用来页面展示
+                            currenr_this._data.users=result;
+                            // alert(result);  //得到对象集合
+                        })
+                    },
+
+
+
+                    add : function () {
+                        //   $('#addform').modal('show');
+
+                    },
+                    update :function (index) {
+                        var current_this=this;
+                        var item=this.users[index];
+                        current_this.uname=item.uname;
+                        current_this.upwd=item.upwd;
+                        current_this. uid=item.uid;
+                    }
+
+
+                },
+
+                created : function(){
+                    this.getAll();
+                },
+
+
+            });
+            $('#data1').datetimepicker();  //日期显示
+            $('#data2').datetimepicker();  //日期显示
+
+        }
+    )
+
+</script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
     <header>
@@ -558,7 +624,7 @@
 
 
     <!-- 内容区域 -->
-    <div class="tpl-content-wrapper" >
+    <div class="tpl-content-wrapper" id="xjrb">
 
         <div class="container-fluid am-cf" style="height:26px;  ">
                     <div class="page-header-heading" ><span class=""></span> 营收款管理 <small>现金日报表</small></div>
@@ -567,122 +633,51 @@
 
         <div class="row" style="padding-left:18px; padding-right:18px; padding-bottom:18px; ">
             <div class="am-u-sm-12 am-u-md-12 am-u-lg-12" >
-
+                <form action="" method="post">
                 <div class="widget am-cf">
-                    <div class="widget-head am-cf">
-                        <div class="widget-title am-fl">斑马线</div>
-                        <div class="widget-function am-fr">
-                            <a href="javascript:;" class="am-icon-cog"></a>
+
+
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                            填报日期&nbsp;:&nbsp;<input type="text" style="width:139px; " value="2018-03-01" id="data1" data-date-format="yyyy-mm-dd">
                         </div>
+
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                            至&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="text" style="width:139px; " value="2018-03-01" id="data2" data-date-format="yyyy-mm-dd">
+                        </div>
+
+
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                        填报网点
+                        <input type="text" style="width:138px; padding-top:3px; padding-bottom:3px;" >
+                            <span class="am-input-group-btn">
+            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+          </span>
                     </div>
+
 
                     <div class="widget-body  widget-body-lg am-fr" style="">
                         <table width="100%"  class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                             <thead>
                             <tr>
-                                <th>文章标题</th>
-                                <th>作者</th>
-                                <th>时间</th>
-                                <th>操作</th>
+                                <th>现金情况</th>
+                                <th>手工记账</th>
+                                <th>对冲</th>
+                                <th>金额</th>
+                                <th>备注</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="gradeX">
-                                <td>Amaze UI 模式窗口</td>
-                                <td>张鹏飞</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="even gradeC">
-                                <td>有适配微信小程序的计划吗</td>
-                                <td>天纵之人</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="gradeX">
-                                <td>请问有没有amazeui 分享插件</td>
-                                <td>王宽师</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="even gradeC">
-                                <td>关于input输入框的问题</td>
-                                <td>着迷</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="even gradeC">
-                                <td>有没有发现官网上的下载包不好用</td>
-                                <td>醉里挑灯看键</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
+                            <tr v-for="(user,index) in users" class="text-center">
+                                <td>{{user.dept_code}}</td>
 
-                            <tr class="even gradeC">
-                                <td>我建议WEB版本文件引入问题</td>
-                                <td>罢了</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
+
                             </tr>
-                            <!-- more data -->
                             </tbody>
                         </table>
                     </div>
                 </div>
+                </form>
             </div>
 
         </div>
@@ -698,6 +693,8 @@
 
 
 </div>
+
+
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/amazeui.datatables.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>
