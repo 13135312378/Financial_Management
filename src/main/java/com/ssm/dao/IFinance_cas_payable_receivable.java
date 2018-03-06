@@ -9,4 +9,8 @@ public interface IFinance_cas_payable_receivable {
 
     //查询所有
     public List<Finance_cas_payable_receivable> getFinance_cas_payable_receivable();
+
+    //科目——账单
+    public List<Finance_cas_payable_receivable> getv_d();
+
 }

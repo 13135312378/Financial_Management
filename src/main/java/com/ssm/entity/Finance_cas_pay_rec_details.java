@@ -1,5 +1,8 @@
 package com.ssm.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Finance_cas_pay_rec_details {
@@ -11,7 +14,8 @@ public class Finance_cas_pay_rec_details {
     private double fee_amt;//金额
     private String fee_type_code;//费用类型
     private String creater;//创建人
-    private Date creater_time;//创建日期
+
+    private Timestamp creater_timee;//创建日期
     private String comp_code;//公司代码
     private String modifier_time;//修改人
     private  Date record_version;//修改日期
@@ -31,14 +35,14 @@ public class Finance_cas_pay_rec_details {
     public Finance_cas_pay_rec_details() {
     }
 
-    public Finance_cas_pay_rec_details(int pay_rec_detail_id, Date bill_dt, String dept_code, double fee_amt, String fee_type_code, String creater, Date creater_time, String comp_code, String modifier_time, Date record_version, String latest_time) {
+    public Finance_cas_pay_rec_details(int pay_rec_detail_id, Date bill_dt, String dept_code, double fee_amt, String fee_type_code, String creater, Timestamp creater_timee, String comp_code, String modifier_time, Date record_version, String latest_time) {
         this.pay_rec_detail_id = pay_rec_detail_id;
         this.bill_dt = bill_dt;
         this.dept_code = dept_code;
         this.fee_amt = fee_amt;
         this.fee_type_code = fee_type_code;
         this.creater = creater;
-        this.creater_time = creater_time;
+        this.creater_timee = creater_timee;
         this.comp_code = comp_code;
         this.modifier_time = modifier_time;
         this.record_version = record_version;
@@ -92,13 +96,13 @@ public class Finance_cas_pay_rec_details {
     public void setCreater(String creater) {
         this.creater = creater;
     }
-
-    public Date getCreater_time() {
-        return creater_time;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    public Timestamp getCreater_timee() {
+        return creater_timee;
     }
 
-    public void setCreater_time(Date creater_time) {
-        this.creater_time = creater_time;
+    public void setCreater_timee(Timestamp creater_timee) {
+        this.creater_timee = creater_timee;
     }
 
     public String getComp_code() {

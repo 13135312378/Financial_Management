@@ -40,7 +40,7 @@
             var vm=new Vue({
                 el:'#xjrb',
                 data: {
-                    submitUrl: "/fgetalla.action", //跳转的路径
+                    submitUrl: "/fgetallb.action", //跳转的路径
                     user: "",
                     users: [],  //表单数据集合
                     titleName: "",
@@ -48,7 +48,9 @@
                     nowIndex:-1,
                     uname:"",
                     upwd:"",
-                    uid:""
+                    uid:"",
+                    uss:[],
+                    ua:""
                 }
                 ,
                 methods:{
@@ -77,7 +79,35 @@
                         current_this.uname=item.uname;
                         current_this.upwd=item.upwd;
                         current_this. uid=item.uid;
-                    }
+                    },
+                    search_waybill:function(index){
+                          var item=this.users[index];
+                        // var pay_receivable_id=item.pay_receivable_id;
+                        //上面方法从新赋值
+                          var currenr_thises=this;
+                        //跳转的路径
+                        //currenr_thises.submitUrl='/gettb_waybill.action?pay_receivable_id='+pay_receivable_id;
+                        //通过json方式得到数据
+                        // $.getJSON(currenr_thises.submitUrl,function(result,status){
+                        //把结果集赋给定义的users，用来页面展示
+
+                            //  currenr_thises.tb_waybills=result;
+                         currenr_thises.uss=item.finance_cas_pay_rec_details;
+                         console.info(item);
+                       //  alert(currenr_thises.uss[0].pay_rec_detail_id);
+                        //   if(result!=null){
+                        $('#search').modal({
+                            width:860,
+                            height:360
+                        });
+                        //  }
+                        // else if(result==null){
+                        //  $('#nulls').modal({
+                        //   });
+                        // }
+                        // })
+
+                    },
 
 
                 },
@@ -624,7 +654,9 @@
 
 
     <!-- 内容区域 -->
-    <div class="tpl-content-wrapper" id="xjrb">
+    <div id="xjrb">
+
+    <div class="tpl-content-wrapper" >
 
         <div class="container-fluid am-cf" style="height:26px;  ">
                     <div class="page-header-heading" ><span class=""></span> 营收款管理 <small>现金日报表</small></div>
@@ -669,8 +701,21 @@
                             </thead>
                             <tbody>
                             <tr v-for="(user,index) in users" class="text-center">
-                                <td>{{user.dept_code}}</td>
-
+                                <td>{{user.finance_bac_subject_def.subject_name}}</td>
+                                <td>{{user.finance_bac_subject_def.manual_entry}}</td>
+                                <td>{{user.finance_bac_subject_def.is_red_dashed}}</td>
+                                <td>{{user.bill_fee}}</td>
+                                <td>略</td>
+                                <td>
+                                <div class="tpl-table-black-operation">
+                                    <a href="javascript:;" @click="search_waybill(index)">
+                                        <i class="am-icon-pencil"></i> 详情
+                                    </a>
+                                    <a href="javascript:;" class="tpl-table-black-operation-del">
+                                        <i class="am-icon-trash"></i> 删除
+                                    </a>
+                                </div>
+                                </td>
 
                             </tr>
                             </tbody>
@@ -682,11 +727,70 @@
 
         </div>
 
+        <%--查看运单详情--%>
+        <%--批量查询--%>
 
 
     </div>
 
+        <div class="am-modal am-modal-no-btn" tabindex="" id="search">
+            <div class="am-modal-dialog" style="background-color:white; ">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">账单明细
+                    <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                </div>
+                <div class="am-modal-bd">
+                    <%--表单内容--%>
+                    <div class="am-scrollable-vertical" >
+                        <table width="100%"  class="am-table am-table-bordered am-table-striped am-text-nowrap" id="searchs">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>账单号</th>
+                                <th>费用类型</th>
+                                <th>营收时间</th>
+                                <th>费用</th>
 
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr class="gradeX"  v-for="(ua,index) in uss">
+                                <td>{{index}}</td>
+                                <td>{{ua.pay_rec_detail_id}}</td>
+                                <td>{{ua.fee_type_code}}</td>
+                                <td>{{ua.creater_timee}}</td>
+                                <td>{{ua.fee_amt}}</td>
+
+
+                            </tr>
+                            <!-- more data -->
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <%--运单信息为空提示--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="nulls">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">运单信息为空提示</div>
+                <div class="am-modal-bd">
+                    亲，关于该代收款记录还没有运单信息哦！
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
 
 
 

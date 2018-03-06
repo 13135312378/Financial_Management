@@ -9,4 +9,7 @@ public interface IFinance_bac_subject_def {
 
     //查询所有
     public List<Finance_bac_subject_def> getfinance_bac_subject_def();
+
+    //科目--账单
+    public List<Finance_bac_subject_def>getdef_veceivable(int id);
 }

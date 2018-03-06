@@ -1,6 +1,7 @@
 package com.ssm.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 public class Finance_bac_subject_def {
       private  int sub_id;//id
@@ -25,8 +26,22 @@ public class Finance_bac_subject_def {
       private   String record_version;//版本号　
       private   String org_type;//组织类型:作业、财务结算、成员企业
       private  String Column_1 ;
-     private  String Column_2 ;
-     private  String Column_3 ;
+      private  String Column_2 ;
+      private  String Column_3 ;
+
+
+      //账单
+    private Set<Finance_cas_payable_receivable> finance_cas_payable_receivables;
+
+    public Set<Finance_cas_payable_receivable> getFinance_cas_payable_receivables() {
+        return finance_cas_payable_receivables;
+    }
+
+    public void setFinance_cas_payable_receivables(Set<Finance_cas_payable_receivable> finance_cas_payable_receivables) {
+        this.finance_cas_payable_receivables = finance_cas_payable_receivables;
+    }
+
+
 
 
     public Finance_bac_subject_def() {
