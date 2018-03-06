@@ -23,12 +23,108 @@
     <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/amazeui.datetimepicker.css"/>
+    <script src="assets/js/amazeui.datetimepicker.min.js"></script>
+
 </head>
 
 
 <body data-type="widgets">
 
+<script src="js/vue.js"></script>
 <script src="assets/js/theme.js"></script>
+<script>
+
+    $(function(){
+            var vm=new Vue({
+                el:'#xjrb',
+                data: {
+                    submitUrl: "/fgetallb.action", //跳转的路径
+                    user: "",
+                    users: [],  //表单数据集合
+                    titleName: "",
+                    TyuserId: "" , //表单数据的id
+                    nowIndex:-1,
+                    uname:"",
+                    upwd:"",
+                    uid:"",
+                    uss:[],
+                    ua:""
+                }
+                ,
+                methods:{
+                    getAll : function(){
+                        //上面方法从新赋值
+                        var currenr_this=this;
+                        //跳转的路径
+                        currenr_this.submitUrl='/fgetalla.action';
+                        //通过json方式得到数据
+                        $.getJSON(currenr_this.submitUrl,function(result,status){
+                            //把结果集赋给定义的users，用来页面展示
+                            currenr_this._data.users=result;
+                            // alert(result);  //得到对象集合
+                        })
+                    },
+
+
+
+                    add : function () {
+                        //   $('#addform').modal('show');
+
+                    },
+                    update :function (index) {
+                        var current_this=this;
+                        var item=this.users[index];
+                        current_this.uname=item.uname;
+                        current_this.upwd=item.upwd;
+                        current_this. uid=item.uid;
+                    },
+                    search_waybill:function(index){
+                          var item=this.users[index];
+                        // var pay_receivable_id=item.pay_receivable_id;
+                        //上面方法从新赋值
+                          var currenr_thises=this;
+                        //跳转的路径
+                        //currenr_thises.submitUrl='/gettb_waybill.action?pay_receivable_id='+pay_receivable_id;
+                        //通过json方式得到数据
+                        // $.getJSON(currenr_thises.submitUrl,function(result,status){
+                        //把结果集赋给定义的users，用来页面展示
+
+                            //  currenr_thises.tb_waybills=result;
+                         currenr_thises.uss=item.finance_cas_pay_rec_details;
+                         console.info(item);
+                       //  alert(currenr_thises.uss[0].pay_rec_detail_id);
+                        //   if(result!=null){
+                        $('#search').modal({
+                            width:860,
+                            height:360
+                        });
+                        //  }
+                        // else if(result==null){
+                        //  $('#nulls').modal({
+                        //   });
+                        // }
+                        // })
+
+                    },
+
+
+                },
+
+                created : function(){
+                    this.getAll();
+                },
+
+
+            });
+            $('#data1').datetimepicker();  //日期显示
+            $('#data2').datetimepicker();  //日期显示
+
+        }
+    )
+
+</script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
     <header>
@@ -558,6 +654,8 @@
 
 
     <!-- 内容区域 -->
+    <div id="xjrb">
+
     <div class="tpl-content-wrapper" >
 
         <div class="container-fluid am-cf" style="height:26px;  ">
@@ -567,125 +665,128 @@
 
         <div class="row" style="padding-left:18px; padding-right:18px; padding-bottom:18px; ">
             <div class="am-u-sm-12 am-u-md-12 am-u-lg-12" >
-
+                <form action="" method="post">
                 <div class="widget am-cf">
-                    <div class="widget-head am-cf">
-                        <div class="widget-title am-fl">斑马线</div>
-                        <div class="widget-function am-fr">
-                            <a href="javascript:;" class="am-icon-cog"></a>
+
+
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                            填报日期&nbsp;:&nbsp;<input type="text" style="width:139px; " value="2018-03-01" id="data1" data-date-format="yyyy-mm-dd">
                         </div>
+
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                            至&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="text" style="width:139px; " value="2018-03-01" id="data2" data-date-format="yyyy-mm-dd">
+                        </div>
+
+
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                        填报网点
+                        <input type="text" style="width:138px; padding-top:3px; padding-bottom:3px;" >
+                            <span class="am-input-group-btn">
+            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+          </span>
                     </div>
+
 
                     <div class="widget-body  widget-body-lg am-fr" style="">
                         <table width="100%"  class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                             <thead>
                             <tr>
-                                <th>文章标题</th>
-                                <th>作者</th>
-                                <th>时间</th>
-                                <th>操作</th>
+                                <th>现金情况</th>
+                                <th>手工记账</th>
+                                <th>对冲</th>
+                                <th>金额</th>
+                                <th>备注</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="gradeX">
-                                <td>Amaze UI 模式窗口</td>
-                                <td>张鹏飞</td>
-                                <td>2016-09-26</td>
+                            <tr v-for="(user,index) in users" class="text-center">
+                                <td>{{user.finance_bac_subject_def.subject_name}}</td>
+                                <td>{{user.finance_bac_subject_def.manual_entry}}</td>
+                                <td>{{user.finance_bac_subject_def.is_red_dashed}}</td>
+                                <td>{{user.bill_fee}}</td>
+                                <td>略</td>
                                 <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
+                                <div class="tpl-table-black-operation">
+                                    <a href="javascript:;" @click="search_waybill(index)">
+                                        <i class="am-icon-pencil"></i> 详情
+                                    </a>
+                                    <a href="javascript:;" class="tpl-table-black-operation-del">
+                                        <i class="am-icon-trash"></i> 删除
+                                    </a>
+                                </div>
                                 </td>
-                            </tr>
-                            <tr class="even gradeC">
-                                <td>有适配微信小程序的计划吗</td>
-                                <td>天纵之人</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="gradeX">
-                                <td>请问有没有amazeui 分享插件</td>
-                                <td>王宽师</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="even gradeC">
-                                <td>关于input输入框的问题</td>
-                                <td>着迷</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="even gradeC">
-                                <td>有没有发现官网上的下载包不好用</td>
-                                <td>醉里挑灯看键</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
 
-                            <tr class="even gradeC">
-                                <td>我建议WEB版本文件引入问题</td>
-                                <td>罢了</td>
-                                <td>2016-09-26</td>
-                                <td>
-                                    <div class="tpl-table-black-operation">
-                                        <a href="javascript:;">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
-                                    </div>
-                                </td>
                             </tr>
-                            <!-- more data -->
                             </tbody>
                         </table>
                     </div>
                 </div>
+                </form>
             </div>
 
         </div>
+
+        <%--查看运单详情--%>
+        <%--批量查询--%>
+
+
+    </div>
+
+        <div class="am-modal am-modal-no-btn" tabindex="" id="search">
+            <div class="am-modal-dialog" style="background-color:white; ">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">账单明细
+                    <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                </div>
+                <div class="am-modal-bd">
+                    <%--表单内容--%>
+                    <div class="am-scrollable-vertical" >
+                        <table width="100%"  class="am-table am-table-bordered am-table-striped am-text-nowrap" id="searchs">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>账单号</th>
+                                <th>费用类型</th>
+                                <th>营收时间</th>
+                                <th>费用</th>
+
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr class="gradeX"  v-for="(ua,index) in uss">
+                                <td>{{index}}</td>
+                                <td>{{ua.pay_rec_detail_id}}</td>
+                                <td>{{ua.fee_type_code}}</td>
+                                <td>{{ua.creater_timee}}</td>
+                                <td>{{ua.fee_amt}}</td>
+
+
+                            </tr>
+                            <!-- more data -->
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <%--运单信息为空提示--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="nulls">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">运单信息为空提示</div>
+                <div class="am-modal-bd">
+                    亲，关于该代收款记录还没有运单信息哦！
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                </div>
+            </div>
+        </div>
+
 
 
 
@@ -695,9 +796,9 @@
 
 
 
-
-
 </div>
+
+
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/amazeui.datatables.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>

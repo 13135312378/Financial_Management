@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssm.dao.IFinance_bac_subject_def">
+    
+
+     <resultMap id="myPayment"  type="com.ssm.entity.Finance_bac_subject_def">
+         <id property="sub_id" column="sub_id"></id>
+         <result property="subject_name" column="subject_name"></result>
+         <result property="manual_entry" column="manual_entry"></result>
+         <result property="is_red_dashed" column="is_red_dashed"></result>
+                 <collection property="finance_cas_payable_receivables" ofType="com.ssm.entity.Finance_cas_payable_receivable">
+                     <id property="pay_receivable_id" column="pay_receivable_id"></id>
+                      <result property="dept_code" column="dept_code"></result>
+
+                 </collection>
+     </resultMap>
+
+
+
+
+    
+    <select id="getdef_veceivable" parameterType="int" resultMap="myPayment">
+        select *FROM finance_cas_payable_receivable r,finance_bac_subject_def d WHERE d.sub_id=r.sub_id and d.sub_id=#{sub_id};
+    </select>
+    
+    <!--查询集合-->
+    <select id="getfinance_bac_subject_def" resultType="com.ssm.entity.Finance_bac_subject_def">
+        select * from finance_bac_subject_def;
+    </select>
+
+
+</mapper>

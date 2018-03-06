@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssm.dao.IFinance_cas_payable_receivable">
+
+      <resultMap id="myPaymenta" type="com.ssm.entity.Finance_cas_payable_receivable">
+          <id property="pay_receivable_id" column="pay_receivable_id"></id>
+          <result property="dept_code" column="dept_code"></result>
+          <result property="bill_fee" column="bill_fee"></result>
+          <collection property="finance_bac_subject_def" ofType="com.ssm.entity.Finance_bac_subject_def">
+              <id property="sub_id" column="sub_id"></id>
+              <result property="subject_name" column="subject_name"></result>
+              <result property="manual_entry" column="manual_entry"></result>
+              <result property="is_red_dashed" column="is_red_dashed"></result>
+          </collection>
+          <collection property="Finance_cas_pay_rec_details" ofType="com.ssm.entity.Finance_cas_pay_rec_details">
+               <id property="pay_rec_detail_id" column="pay_rec_detail_id"></id>
+               <result property="fee_amt" column="fee_amt"></result>
+               <result property="fee_type_code" column="fee_type_code"></result>
+              <!--账单时间-->
+              <result property="creater_timee" column="creater_timee"  jdbcType="TIMESTAMP" ></result>
+          </collection>
+      </resultMap>
+
+    <!--科目-主账单-->
+    <select id="getv_d" resultMap="myPaymenta">
+        select *FROM finance_cas_payable_receivable r,finance_bac_subject_def d,finance_cas_pay_rec_details s WHERE d.sub_id=r.sub_id and  r.pay_receivable_id=s.pay_receivable_id
+    </select>
+
+    <!--查询集合-->
+    <select id="getFinance_cas_payable_receivable" resultType="com.ssm.entity.Finance_cas_payable_receivable">
+        select * from finance_cas_payable_receivable;
+    </select>
+
+
+</mapper>
