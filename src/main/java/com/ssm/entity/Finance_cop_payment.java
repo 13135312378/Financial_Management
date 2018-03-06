@@ -1,56 +1,60 @@
 package com.ssm.entity;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
- * 代收款付款表
+ * 代收款付款表 主表
  */
 public class Finance_cop_payment {
 
-    private  int finance_cop_paymentid;  //代收款付款id
+    private  int waybill_id;  //代收款付款id
 
+    //与运单表产生关系--一对一关系
+    private  Tb_waybill tb_waybill;
 
+    public Tb_waybill getTb_waybill() {
+        return tb_waybill;
+    }
 
-    //与运单表产生关系--一对多
-    private int waybill_id;	//运单id
-
-    private String waybill_no;		//运单号
-    private  String goods_no;		//货单号
-
-
-
+    public void setTb_waybill(Tb_waybill tb_waybill) {
+        this.tb_waybill = tb_waybill;
+    }
 
     private String source_zone_code;	//寄件网点
     private String dest_zone_code;	//收件网点
     private String payment_account;	//转款帐号
     private String account_type;		//转款帐号类型
     private Date income_tm;		//营收日期
-    private String receive_account;	//收款帐号
+    private String receive_account;	//银行收款帐号
     private String bankaccount_type;		//银行卡号类型
-    private  double fee_amount;  //货款金额
-    private  double service_fee;		//货款金额
+    private  double fee_amount;  //代收货款金额
+    private  double service_fee;		//代收货款服务费
     private  double minus_total_fee;		//代收扣款总金额
     private  double lost_fee;		//挂失费
     private  String purpose;		//目的,用途
     private  String payment_note;		//付款备注信息
     private  String payment_emp;		//发款人
-    private  Date payment_tm;		//发款时间 (导出时填写)
+    private  Date payment_tm;		//发款（转帐）时间 (导出时填写)
     private  int payment_type;	//转帐类型
     private int payment_state;	//转帐状态
     private  String consignor_cont_name;		//寄件联系人
     private  String consignor_mobile;		//寄方手机
     private Date consigned_tm;		//寄件时间
-    private  String register_name;	//登记联系人
-    private  String register_mobile;		//登记联系手机
+    private  String register_name;	//登记人
+    private  String register_mobile;		//登记人手机
     private  String register_identify;		//登记人的证件号码
     private  String send_peo;		//寄件联系人
     private  String send_mobile;		//寄件人电话
     private  Date send_tm;		//寄件时间
+
     private  String oper_state;		//操作状态1-无操作,2-取消发款,3-确认已转款,4-冻结,5-解冻,6-登记,7-取消登记,8-登记审核,9-临时挂失,10-正式挂失,11-解挂失,12超期审核,13-删除代收款,
-    private  String oper_emp_code;	//操作人员工号
+
+    private  String oper_emp_code;	//操作人
     private  Date oper_tm;		//操作时间
     private  String note;		//备注
-    private int warning_state;	//状态  1-使用警告  2-解除警告
+    private int warning_state;	//预警标志  1-使用警告  2-解除警告
     private int messaged_flag;	//短信发送状态
     private  String register_dept_code;		//登记人点部
     private Date register_tm;		//登记时间
@@ -68,9 +72,6 @@ public class Finance_cop_payment {
     private  String batch_code;		//批次号
     private Date batch_oper_tm;	//批次登记日期
     private  String e_card_no;		//e卡通号
-
-
-
     private  String payee_mobile;		//领款手机
     private  String payee_identify;		//领款人身份证号
     private  String payee;		//领款人
@@ -88,14 +89,20 @@ public class Finance_cop_payment {
 
     }
 
-    public Finance_cop_payment(int finance_cop_paymentid, int waybill_id, String waybill_no, String source_zone_code, String dest_zone_code, String payment_account, String account_type, Date income_tm, String receive_account, String bankaccount_type, double fee_amount, double service_fee, double minus_total_fee, double lost_fee, String purpose, String payment_note, String payment_emp, Date payment_tm, int payment_type, int payment_state, String consignor_cont_name, String consignor_mobile, Date consigned_tm, String register_name, String register_mobile, String register_identify, String send_peo, String send_mobile, Date send_tm, String oper_state, String oper_emp_code, Date oper_tm, String note, int warning_state, int messaged_flag, String register_dept_code, Date register_tm, String lost_identify, String lost_name, double message_server_fee, int is_expire, String comp_code, int biz_type_code, String apply_emp_name, String apply_emp_code, Date apply_tm, String to_comp_code, Date period_days, String batch_code, Date batch_oper_tm, String e_card_no, String goods_no, String payee_mobile, String payee_identify, String payee, String org_type, String creater, String creater_time, String modifier, Date modifier_time, Date latest_time, double record_version) {
-        this.finance_cop_paymentid = finance_cop_paymentid;
+    public Finance_cop_payment(String oper_state,String lost_name,String lost_identify,String note,double lost_fee){
+        this.oper_state=oper_state;
+        this.lost_name=lost_name;
+        this.lost_identify=lost_identify;
+        this.note=note;
+        this.lost_fee=lost_fee;
+
+    }
+
+
+    public Finance_cop_payment(int waybill_id, String source_zone_code, String dest_zone_code, Date income_tm, String receive_account, String bankaccount_type, double fee_amount, double service_fee, double minus_total_fee, double lost_fee, Date payment_tm, int payment_type, int payment_state, String register_name, String register_mobile, String register_identify, String send_peo, String send_mobile, String oper_state, String oper_emp_code, Date oper_tm, String note, int warning_state, int messaged_flag, double message_server_fee, String batch_code, String e_card_no) {
         this.waybill_id = waybill_id;
-        this.waybill_no = waybill_no;
         this.source_zone_code = source_zone_code;
         this.dest_zone_code = dest_zone_code;
-        this.payment_account = payment_account;
-        this.account_type = account_type;
         this.income_tm = income_tm;
         this.receive_account = receive_account;
         this.bankaccount_type = bankaccount_type;
@@ -103,130 +110,30 @@ public class Finance_cop_payment {
         this.service_fee = service_fee;
         this.minus_total_fee = minus_total_fee;
         this.lost_fee = lost_fee;
-        this.purpose = purpose;
-        this.payment_note = payment_note;
-        this.payment_emp = payment_emp;
         this.payment_tm = payment_tm;
         this.payment_type = payment_type;
         this.payment_state = payment_state;
-        this.consignor_cont_name = consignor_cont_name;
-        this.consignor_mobile = consignor_mobile;
-        this.consigned_tm = consigned_tm;
         this.register_name = register_name;
         this.register_mobile = register_mobile;
         this.register_identify = register_identify;
         this.send_peo = send_peo;
         this.send_mobile = send_mobile;
-        this.send_tm = send_tm;
         this.oper_state = oper_state;
         this.oper_emp_code = oper_emp_code;
         this.oper_tm = oper_tm;
         this.note = note;
         this.warning_state = warning_state;
         this.messaged_flag = messaged_flag;
-        this.register_dept_code = register_dept_code;
-        this.register_tm = register_tm;
-        this.lost_identify = lost_identify;
-        this.lost_name = lost_name;
         this.message_server_fee = message_server_fee;
-        this.is_expire = is_expire;
-        this.comp_code = comp_code;
-        this.biz_type_code = biz_type_code;
-        this.apply_emp_name = apply_emp_name;
-        this.apply_emp_code = apply_emp_code;
-        this.apply_tm = apply_tm;
-        this.to_comp_code = to_comp_code;
-        this.period_days = period_days;
         this.batch_code = batch_code;
-        this.batch_oper_tm = batch_oper_tm;
         this.e_card_no = e_card_no;
-        this.goods_no = goods_no;
-        this.payee_mobile = payee_mobile;
-        this.payee_identify = payee_identify;
-        this.payee = payee;
-        this.org_type = org_type;
-        this.creater = creater;
-        this.creater_time = creater_time;
-        this.modifier = modifier;
-        this.modifier_time = modifier_time;
-        this.latest_time = latest_time;
-        this.record_version = record_version;
     }
-
-    public Finance_cop_payment(String source_zone_code, String dest_zone_code, String payment_account, String account_type, Date income_tm, String receive_account, String bankaccount_type, double fee_amount, double service_fee, double minus_total_fee, double lost_fee, String purpose, String payment_note, String payment_emp, Date payment_tm, int payment_type, int payment_state, String consignor_cont_name, String consignor_mobile, Date consigned_tm, String register_name, String register_mobile, String register_identify, String send_peo, String send_mobile, Date send_tm, String oper_state, String oper_emp_code, Date oper_tm, String note, int warning_state, int messaged_flag, String register_dept_code, Date register_tm, String lost_identify, String lost_name, double message_server_fee, int is_expire, String comp_code, int biz_type_code, String apply_emp_name, String apply_emp_code, Date apply_tm, String to_comp_code, Date period_days, String batch_code, Date batch_oper_tm, String e_card_no, String goods_no, String payee_mobile, String payee_identify, String payee, String org_type, String creater, String creater_time, String modifier, Date modifier_time, Date latest_time, double record_version) {
-        this.source_zone_code = source_zone_code;
-        this.dest_zone_code = dest_zone_code;
-        this.payment_account = payment_account;
-        this.account_type = account_type;
-        this.income_tm = income_tm;
-        this.receive_account = receive_account;
-        this.bankaccount_type = bankaccount_type;
-        this.fee_amount = fee_amount;
-        this.service_fee = service_fee;
-        this.minus_total_fee = minus_total_fee;
-        this.lost_fee = lost_fee;
-        this.purpose = purpose;
-        this.payment_note = payment_note;
-        this.payment_emp = payment_emp;
-        this.payment_tm = payment_tm;
-        this.payment_type = payment_type;
-        this.payment_state = payment_state;
-        this.consignor_cont_name = consignor_cont_name;
-        this.consignor_mobile = consignor_mobile;
-        this.consigned_tm = consigned_tm;
-        this.register_name = register_name;
-        this.register_mobile = register_mobile;
-        this.register_identify = register_identify;
-        this.send_peo = send_peo;
-        this.send_mobile = send_mobile;
-        this.send_tm = send_tm;
-        this.oper_state = oper_state;
-        this.oper_emp_code = oper_emp_code;
-        this.oper_tm = oper_tm;
-        this.note = note;
-        this.warning_state = warning_state;
-        this.messaged_flag = messaged_flag;
-        this.register_dept_code = register_dept_code;
-        this.register_tm = register_tm;
-        this.lost_identify = lost_identify;
-        this.lost_name = lost_name;
-        this.message_server_fee = message_server_fee;
-        this.is_expire = is_expire;
-        this.comp_code = comp_code;
-        this.biz_type_code = biz_type_code;
-        this.apply_emp_name = apply_emp_name;
-        this.apply_emp_code = apply_emp_code;
-        this.apply_tm = apply_tm;
-        this.to_comp_code = to_comp_code;
-        this.period_days = period_days;
-        this.batch_code = batch_code;
-        this.batch_oper_tm = batch_oper_tm;
-        this.e_card_no = e_card_no;
-        this.goods_no = goods_no;
-        this.payee_mobile = payee_mobile;
-        this.payee_identify = payee_identify;
-        this.payee = payee;
-        this.org_type = org_type;
-        this.creater = creater;
-        this.creater_time = creater_time;
-        this.modifier = modifier;
-        this.modifier_time = modifier_time;
-        this.latest_time = latest_time;
-        this.record_version = record_version;
-    }
-
 
     //get
-    public int getFinance_cop_paymentid() {
-        return finance_cop_paymentid;
-    }
+
 
     public int getWaybill_id() {
         return waybill_id;
-    }
-
-    public String getWaybill_no() {
-        return waybill_no;
     }
 
     public String getSource_zone_code() {
@@ -421,10 +328,6 @@ public class Finance_cop_payment {
         return e_card_no;
     }
 
-    public String getGoods_no() {
-        return goods_no;
-    }
-
     public String getPayee_mobile() {
         return payee_mobile;
     }
@@ -466,16 +369,10 @@ public class Finance_cop_payment {
     }
 
     //set
-    public void setFinance_cop_paymentid(int finance_cop_paymentid) {
-        this.finance_cop_paymentid = finance_cop_paymentid;
-    }
+
 
     public void setWaybill_id(int waybill_id) {
         this.waybill_id = waybill_id;
-    }
-
-    public void setWaybill_no(String waybill_no) {
-        this.waybill_no = waybill_no;
     }
 
     public void setSource_zone_code(String source_zone_code) {
@@ -668,10 +565,6 @@ public class Finance_cop_payment {
 
     public void setE_card_no(String e_card_no) {
         this.e_card_no = e_card_no;
-    }
-
-    public void setGoods_no(String goods_no) {
-        this.goods_no = goods_no;
     }
 
     public void setPayee_mobile(String payee_mobile) {

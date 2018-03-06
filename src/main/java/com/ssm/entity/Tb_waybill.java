@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * 运单表
+ * 运单表 主表
  */
 public class Tb_waybill {
 
@@ -71,155 +71,26 @@ public class Tb_waybill {
     private String comp_code;		//企业代码
 
 
-    //运单表与代付款收款表产生一对多的关系
-    private Set<Finance_cop_payment> finance_cop_payment;
+    //运单表与代付款收款表产生一对一的关系
+     private Finance_cop_payment finance_cop_payment;
 
-    public Set<Finance_cop_payment> getFinance_cop_payment() {
+    public Finance_cop_payment getFinance_cop_payment() {
         return finance_cop_payment;
     }
 
-    public void setFinance_cop_payment(Set<Finance_cop_payment> finance_cop_payment) {
+    public void setFinance_cop_payment(Finance_cop_payment finance_cop_payment) {
         this.finance_cop_payment = finance_cop_payment;
     }
-
-
-
-
-
-
-
 
     //构造方法
     public  Tb_waybill(){
 
     }
 
-    public Tb_waybill(String waybill_no, String audited_flag, Date audited_tm, String audited_emp_code, String biz_type_code, String goods_no, int category_count, String chargeable_unit, double chargeable_weight, double real_weight, int quantity, double volume, String province_code, String city_code, String county_code, String town_code, String consign_code, String consign_name, String consignee, String consignee_address, String consignee_comp_name, String consignee_cont_name, String consignee_phone_prefix, String consignee_phone, String source_zone_code, String send_comp_name, String send_cont_name, String send_cust_code, String sender, String send_phone_prefix, String send_phone, Date send_tm, String consignor_emp_code, Date consignor_tm, String dest_zone_code, String dispatch_area_code, String dispatch_big_area_code, String dispatch_small_area_code, String forward_code, String forward_flag, String forward_na, String inputer_emp_code, Date input_tm, String data_source_type, String upload_type, String lock_version_no, String memo, String modified_emp_code, Date modified_tm, String order_no, String service_type_code, String settlement_type_code, String product_type_code, String payment_type_code, String print_num, int version_no, String route, String status, String waybill_type_code, String comp_code) {
-        this.waybill_no = waybill_no;
-        this.audited_flag = audited_flag;
-        this.audited_tm = audited_tm;
-        this.audited_emp_code = audited_emp_code;
-        this.biz_type_code = biz_type_code;
-        this.goods_no = goods_no;
-        this.category_count = category_count;
-        this.chargeable_unit = chargeable_unit;
-        this.chargeable_weight = chargeable_weight;
-        this.real_weight = real_weight;
-        this.quantity = quantity;
-        this.volume = volume;
-        this.province_code = province_code;
-        this.city_code = city_code;
-        this.county_code = county_code;
-        this.town_code = town_code;
-        this.consign_code = consign_code;
-        this.consign_name = consign_name;
-        this.consignee = consignee;
-        this.consignee_address = consignee_address;
-        this.consignee_comp_name = consignee_comp_name;
-        this.consignee_cont_name = consignee_cont_name;
-        this.consignee_phone_prefix = consignee_phone_prefix;
-        this.consignee_phone = consignee_phone;
-        this.source_zone_code = source_zone_code;
-        this.send_comp_name = send_comp_name;
-        this.send_cont_name = send_cont_name;
-        this.send_cust_code = send_cust_code;
-        this.sender = sender;
-        this.send_phone_prefix = send_phone_prefix;
-        this.send_phone = send_phone;
-        this.send_tm = send_tm;
-        this.consignor_emp_code = consignor_emp_code;
-        this.consignor_tm = consignor_tm;
-        this.dest_zone_code = dest_zone_code;
-        this.dispatch_area_code = dispatch_area_code;
-        this.dispatch_big_area_code = dispatch_big_area_code;
-        this.dispatch_small_area_code = dispatch_small_area_code;
-        this.forward_code = forward_code;
-        this.forward_flag = forward_flag;
-        this.forward_na = forward_na;
-        this.inputer_emp_code = inputer_emp_code;
-        this.input_tm = input_tm;
-        this.data_source_type = data_source_type;
-        this.upload_type = upload_type;
-        this.lock_version_no = lock_version_no;
-        this.memo = memo;
-        this.modified_emp_code = modified_emp_code;
-        this.modified_tm = modified_tm;
-        this.order_no = order_no;
-        this.service_type_code = service_type_code;
-        this.settlement_type_code = settlement_type_code;
-        this.product_type_code = product_type_code;
-        this.payment_type_code = payment_type_code;
-        this.print_num = print_num;
-        this.version_no = version_no;
-        this.route = route;
-        this.status = status;
-        this.waybill_type_code = waybill_type_code;
-        this.comp_code = comp_code;
-    }
-
-
-    public Tb_waybill(int waybill_id, String waybill_no, String audited_flag, Date audited_tm, String audited_emp_code, String biz_type_code, String goods_no, int category_count, String chargeable_unit, double chargeable_weight, double real_weight, int quantity, double volume, String province_code, String city_code, String county_code, String town_code, String consign_code, String consign_name, String consignee, String consignee_address, String consignee_comp_name, String consignee_cont_name, String consignee_phone_prefix, String consignee_phone, String source_zone_code, String send_comp_name, String send_cont_name, String send_cust_code, String sender, String send_phone_prefix, String send_phone, Date send_tm, String consignor_emp_code, Date consignor_tm, String dest_zone_code, String dispatch_area_code, String dispatch_big_area_code, String dispatch_small_area_code, String forward_code, String forward_flag, String forward_na, String inputer_emp_code, Date input_tm, String data_source_type, String upload_type, String lock_version_no, String memo, String modified_emp_code, Date modified_tm, String order_no, String service_type_code, String settlement_type_code, String product_type_code, String payment_type_code, String print_num, int version_no, String route, String status, String waybill_type_code, String comp_code) {
+    public Tb_waybill(int waybill_id, String waybill_no, String goods_no) {
         this.waybill_id = waybill_id;
         this.waybill_no = waybill_no;
-        this.audited_flag = audited_flag;
-        this.audited_tm = audited_tm;
-        this.audited_emp_code = audited_emp_code;
-        this.biz_type_code = biz_type_code;
         this.goods_no = goods_no;
-        this.category_count = category_count;
-        this.chargeable_unit = chargeable_unit;
-        this.chargeable_weight = chargeable_weight;
-        this.real_weight = real_weight;
-        this.quantity = quantity;
-        this.volume = volume;
-        this.province_code = province_code;
-        this.city_code = city_code;
-        this.county_code = county_code;
-        this.town_code = town_code;
-        this.consign_code = consign_code;
-        this.consign_name = consign_name;
-        this.consignee = consignee;
-        this.consignee_address = consignee_address;
-        this.consignee_comp_name = consignee_comp_name;
-        this.consignee_cont_name = consignee_cont_name;
-        this.consignee_phone_prefix = consignee_phone_prefix;
-        this.consignee_phone = consignee_phone;
-        this.source_zone_code = source_zone_code;
-        this.send_comp_name = send_comp_name;
-        this.send_cont_name = send_cont_name;
-        this.send_cust_code = send_cust_code;
-        this.sender = sender;
-        this.send_phone_prefix = send_phone_prefix;
-        this.send_phone = send_phone;
-        this.send_tm = send_tm;
-        this.consignor_emp_code = consignor_emp_code;
-        this.consignor_tm = consignor_tm;
-        this.dest_zone_code = dest_zone_code;
-        this.dispatch_area_code = dispatch_area_code;
-        this.dispatch_big_area_code = dispatch_big_area_code;
-        this.dispatch_small_area_code = dispatch_small_area_code;
-        this.forward_code = forward_code;
-        this.forward_flag = forward_flag;
-        this.forward_na = forward_na;
-        this.inputer_emp_code = inputer_emp_code;
-        this.input_tm = input_tm;
-        this.data_source_type = data_source_type;
-        this.upload_type = upload_type;
-        this.lock_version_no = lock_version_no;
-        this.memo = memo;
-        this.modified_emp_code = modified_emp_code;
-        this.modified_tm = modified_tm;
-        this.order_no = order_no;
-        this.service_type_code = service_type_code;
-        this.settlement_type_code = settlement_type_code;
-        this.product_type_code = product_type_code;
-        this.payment_type_code = payment_type_code;
-        this.print_num = print_num;
-        this.version_no = version_no;
-        this.route = route;
-        this.status = status;
-        this.waybill_type_code = waybill_type_code;
-        this.comp_code = comp_code;
     }
 
     //get

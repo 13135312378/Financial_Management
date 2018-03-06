@@ -9,6 +9,7 @@
     <select id="getAllUsers" resultType="com.ssm.entity.User">
         select * from user;
     </select>
+
     <!--登入-->
     <select id="login" resultType="com.ssm.entity.User">
         select * from user where uname=#{uname}and upass=#{upass};

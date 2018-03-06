@@ -1,4 +1,4 @@
-<%--
+<%@ page import="sun.management.counter.Variability" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2018/1/22
@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -566,7 +568,8 @@
 
 
     <!-- 内容区域 -->
-    <div class="tpl-content-wrapper" id="app">
+    <div id="app">
+    <div class="tpl-content-wrapper" >
 
         <div class="container-fluid am-cf" style="height:26px;  ">
             <div class="page-header-heading" ><span class=""></span> 代收货款管理 <small>代收款登记 </small></div>
@@ -574,20 +577,22 @@
 
 
         <div class="row-content am-cf">
+
+
             <div class="row">
+
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+
                     <div class="widget am-cf">
+
                         <div class="widget-body  am-fr">
                             <%--操作按钮区域--%>
                             <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
                                 <div class="am-form-group">
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs">
-                                            <button type="button" class="am-btn am-btn-default am-btn-success" @click="fund_dengji()"><span class="am-icon-search"></span> 登记</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"  @click="fund_quxiao()"><span class="am-icon-save"></span> 取消登记</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-warning" @click="fund_buying()"><span class="am-icon-reply"></span> 凭证补印</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-danger" @click="fund_guashi()" ><span class="am-icon-send-o"></span> 挂失</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-send-o"></span> 导出列表</button>
+                                             <button type="button" class="am-btn am-btn-default am-btn-warning" @click="fund_buying()"><span class="am-icon-reply"></span> 凭证补印</button>
+                                             <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-send-o" @click="getExcle()"></span> 导出列表</button>
                                         </div>
                                     </div>
                                 </div>
@@ -646,81 +651,123 @@
                                 <table width="100%" class="am-table am-table-bordered am-table-striped am-text-nowrap" id="example-r1" >
                                     <thead>
                                     <tr>
-                                        <th>序号</th>
+                                        <th>代付款序号</th>
                                         <th><input type="checkbox" name="fund_all" value="1"></th>
                                         <th>登记批次号</th>
+                                        <th>E通卡</th>
                                         <th>运单号</th>
                                         <th>货单号</th>
-                                        <th>E通卡</th>
                                         <th>操作状态</th>
-                                        <th>审核状态</th>
-                                        <th>返款时效</th>
-                                        <th>实转货款</th>
-                                        <th>收款人</th>
-                                        <th>银行类型</th>
-                                        <th>银行账号</th>
+                                        <th>银行收款类型</th>
+                                        <th>银行收款账号</th>
                                         <th>代收货款</th>
                                         <th>代收货款服务费</th>
-                                        <th>代收扣款</th>
+                                        <th>收扣款总金额</th>
                                         <th>挂失费</th>
                                         <th>短信服务费</th>
                                         <th>转账状态</th>
                                         <th>转账类型</th>
                                         <th>转账时间</th>
-                                        <th>原寄地</th>
-                                        <th>目的地</th>
+                                        <th>寄件网点</th>
+                                        <th>收件网点</th>
                                         <th>营收日期</th>
-                                        <th>登记人</th>
+                                        <th>登记联系人</th>
                                         <th>登记人手机</th>
                                         <th>寄件联系人</th>
-                                        <th>寄件手机</th>
-                                        <th>登记证件号</th>
+                                        <th>寄件人手机</th>
+                                        <th>登记人证件号</th>
                                         <th>操作人</th>
                                         <th>操作时间</th>
                                         <th>预警标志</th>
                                         <th>短信发送标志</th>
                                         <th>备注</th>
-                                        <th>转款批次</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
 
                                     <tbody id="fund_tb">
-                                    <tr class="gradeX" v-for="(payment,index) in payments">
-                                        <td>{{payment.finance_cop_paymentid}}</td>
-                                        <td><input type="checkbox" name="id" value="{{ payment.finance_cop_paymentid}}"></td>
-                                        <td>{{payment.uname}}</td>
-                                        <td>{{user.upass}}</td>
-                                        <td>{{user.upass}}</td>
-                                        <td>2016-09-26</td>
-                                        <td>{{user.upass}}</td>
-                                        <td>{{user.upass}}</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
+                                    <tr class="gradeX" v-for="(tbwaybill,index) in tbwaybills">
+                                        <td>{{tbwaybill.waybill_id}}</td>
+                                        <td><input type="checkbox" name="id" :value="tbwaybill.waybill_id"></td>
+                                        <td>{{tbwaybill.finance_cop_payment.batch_code}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.e_card_no}}</td>
+                                        <td>{{tbwaybill.waybill_no}}</td>
+                                        <td>{{tbwaybill.goods_no}}</td>
+                                        <%--1-无操作,2-取消发款,3-确认已转款,4-冻结,5-解冻,6-登记,7-取消登记,8-登记审核,9-临时挂失,10-正式挂失,11-解挂失,12超期审核,13-删除代收款--%>
+                                        <td v-if="tbwaybill.finance_cop_payment.oper_state=='1'">未登记</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='2'">取消发款</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='3'">确认已转款</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='4'">冻结</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='5'">解冻</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='6'">已登记</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='7'">取消登记</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='8'">登记审核</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='9'">临时挂失</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='10'">正式挂失</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='11'">解挂失</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='12'">超期审核</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='13'">删除代收款</td>
+
+                                        <td>{{tbwaybill.finance_cop_payment.bankaccount_type}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.receive_account}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.fee_amount}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.service_fee}}</td>
+
+                                        <td>{{tbwaybill.finance_cop_payment.minus_total_fee}}</td>
+
+                                        <td>{{tbwaybill.finance_cop_payment.lost_fee}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.message_server_fee}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.payment_state}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.payment_type}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.payment_tm}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.source_zone_code}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.dest_zone_code}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.income_tm}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.register_name}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.register_mobile}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.send_peo}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.send_mobile}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.register_identify}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.oper_emp_code}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.oper_tm}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.warning_state}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.messaged_flag}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.note}}</td>
+
+                                        <%--修改状态--%>
+                                        <%--未登记显示登记操作--%>
+
+                                        <td v-if="tbwaybill.finance_cop_payment.oper_state=='1' || tbwaybill.finance_cop_payment.oper_state=='7'">
+                                            <div class="tpl-table-black-operation">
+                                            <a href="javascript:;" @click="fund_dengji(index)">
+                                                <i class="am-icon-send-o"></i>
+                                                登记
+                                            </a>
+                                            </div>
+                                         </td>
+                                       <%--登记状态显示取消登记--%>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='6'">
+                                            <div class="tpl-table-black-operation">
+                                            <a href="javascript:;" @click="fund_quxiao(index)">
+                                                <i class="am-icon-send-o"></i>
+                                                取消登记
+                                            </a>
+                                            </div>
+                                        </td>
+                                        <%--不是未登记和取消登记状态不显示--%>
+                                         <td v-else-if="tbwaybill.finance_cop_payment.oper_state!='1' || tbwaybill.finance_cop_payment.oper_state!='6'"></td>
+
+                                        <td v-if="tbwaybill.finance_cop_payment.oper_state=='1' || tbwaybill.finance_cop_payment.oper_state=='7' || tbwaybill.finance_cop_payment.oper_state=='2' || tbwaybill.finance_cop_payment.oper_state=='4' || tbwaybill.finance_cop_payment.oper_state=='5' || tbwaybill.finance_cop_payment.oper_state=='11'">
+                                            <div class="tpl-table-black-operation">
+                                                <a href="javascript:;" class="tpl-table-black-operation-del" @click="guashi(index)">
+                                                    <i class="am-icon-save"></i>挂失
+                                                </a>
+                                            </div>
+                                        </td>
+                                       <td v-else-if="tbwaybill.finance_cop_payment.oper_state!='1' || tbwaybill.finance_cop_payment.oper_state!='7' || tbwaybill.finance_cop_payment.oper_state!='2' || tbwaybill.finance_cop_payment.oper_state!='4' || tbwaybill.finance_cop_payment.oper_state!='5' || tbwaybill.finance_cop_payment.oper_state!='11'"></td>
+
+
+
                                     </tr>
                                     <!-- more data -->
                                     </tbody>
@@ -751,24 +798,108 @@
 
 
 
+        <%--查看运单详情--%>
+        <%--登记--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="funddengji">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">代付款登记操作</div>
+                <div class="am-modal-bd">
+                    你，确定要登记这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="payments()">确定</span>
+                </div>
+            </div>
+        </div>
 
+
+        <%--取消登记--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="fundquxiao">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">代付款登记的取消登记</div>
+                <div class="am-modal-bd">
+                    你，确定要取消登记这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="paymentsure()">确定</span>
+                </div>
+            </div>
+        </div>
+
+          <%--挂失操作--%>
+        <%--挂失登记--%>
+        <div class="am-modal am-modal-no-btn" tabindex="-1" id="fundguahsi">
+            <div class="am-modal-dialog" style="background-color:white; ">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">挂失操作
+                    <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                </div>
+
+                <div class="am-modal-bd">
+                    <%--查询输入区域--%>
+                    <form id="formti" method="post" >
+
+                        &nbsp;&nbsp;&nbsp;
+                         <div id="rap">
+                        <input type="radio" value="9" name="ra" >临时挂失
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" value="10" name="ra" >正式挂失，挂失费20元
+                         </div>
+                        &nbsp;&nbsp;&nbsp;
+                        运单号&nbsp;:&nbsp;<input type="text" style="width:226px;" value="" id="waybill_id" disabled="true"/></td>
+                        <br/><br/>
+                        &nbsp;&nbsp;&nbsp;
+                        挂失人&nbsp;:&nbsp;<input type="text" style="width:226px;" value="" id="lost_name"/></td>
+                        <br/><br/>
+                        &nbsp;&nbsp;&nbsp;
+                        登记证件号&nbsp;:&nbsp;<input type="text" style="width:200px;" value="" id="lost_identify"/></td>
+                        <br/><br/>
+                        &nbsp;&nbsp;&nbsp;
+                        备注&nbsp;:&nbsp;<textarea name="" cols="24" rows="4" id="note" ></textarea>
+                        <br/> <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="am-btn am-btn-warning am-radius" style="height:34px; " @click="guashi_sure()">确定挂失</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="am-btn am-btn-default" style="height:34px; " data-am-modal-close>取消</button>
+
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
 
 
 </div>
 
 
 
+
 <script>
 
     $(function(){
+        var waybill_ids;
+        var waybill_id;
+        var waybill_id_guashi;
+
         var vm = new Vue({
             el: "#app", //引用div的id
             data: {
-                submitUrl:"/get_AllFinance.action", //跳转的路径
-                payment:"",
-                payments: [],  //表单数据集合
+                submitUrl:"/get_Allwaybillandpayment.action", //跳转的路径
+                tbwaybill:"",
+                tbwaybills: [],  //表单数据集合
                 titleName:"",
                 paymentId:""  //表单数据的id
+
 
             },
             methods: {
@@ -777,34 +908,111 @@
                     //上面方法从新赋值
                     var currenr_this=this;
                     //跳转的路径
-                    currenr_this.submitUrl='/get_AllFinance.action';
+                    currenr_this.submitUrl='/get_Allwaybillandpayment.action';
                     //通过json方式得到数据
                     $.getJSON(currenr_this.submitUrl,function(result,status){
                         //把结果集赋给定义的users，用来页面展示
-                        currenr_this._data.payments=result;
-                        // alert(result);  //得到对象集合
+                        currenr_this._data.tbwaybills=result;
+                        console.info(result);
                     })
                 },
-                //批量查寻,弹出模态框
-                fund_dengji:function () {
+
+
+                //登记,弹出模态框
+                fund_dengji:function (index) {
+                    var item=this.tbwaybills[index];
+                    waybill_ids=item.finance_cop_payment.waybill_id;
                     $('#funddengji').modal({
-                        width:900,
-                        height:620
-
-
                     });
                 },
-                //取消登记
-                fund_quxiao:function () {
+                //确定
+                payments:function(){
+                    //上面方法从新赋值
+                    alert(waybill_ids);
+                    $.ajax({
+                        url:'/update_state_payment.action',
+                        data:{waybill_ids:waybill_ids},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('登记错误！');
+                        },
+                        error:function(result){
+                            alert('信息登记成功，正在进入登记审核！');
+                            location.reload();  //刷新页面
+                        }
+
+                    })
+                },
+
+                //取消登记，弹出模态框
+                fund_quxiao:function (index) {
+                    var item=this.tbwaybills[index];
+                    waybill_id=item.finance_cop_payment.waybill_id;
                     $('#fundquxiao').modal({
                     });
                 },
+                //确定
+                paymentsure:function(){
+                    $.ajax({
+                        url:'/update_state_payment_quxiao.action',
+                        data:{waybill_id:waybill_id},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('错误！');
+                        },
+                        error:function(result){
+                            alert('取消登记成功，信息显示为未登记！');
+                            location.reload();  //刷新页面
+                        }
+                    })
+                },
+
                 //挂失
-                fund_guashi:function () {
+                guashi:function (index) {
+                    var items=this.tbwaybills[index];
+                    waybill_id_guashi=items.finance_cop_payment.waybill_id;
+                    //运单号
+                    document.getElementById("waybill_id").value=items.waybill_no;
+                    //挂失人
+                    document.getElementById("lost_name").value=items.finance_cop_payment.lost_name;
+                    //登记证件号
+                    document.getElementById("lost_identify").value=items.finance_cop_payment.lost_identify;
+                    //备注
+                    document.getElementById("note").value=items.finance_cop_payment.note;
                     $('#fundguahsi').modal({
-                        width:700,
-                        height:420
+                        width:500,
+                        height:480
                     });
+                },
+                //页面内容,确定操作
+                guashi_sure:function(){
+                    alert(waybill_id_guashi);
+                    //获取挂失状态的值
+                    var lost_state=$('#rap input[name="ra"]:checked ').val();
+                     //挂失人
+                    var lost_name=$('#lost_name').val();
+                    //登记证件号
+                    var lost_identify=$('#lost_identify').val();
+                    //备注
+                    var note=$('#note').val();
+                    $.ajax({
+                        //nid='+$('#nid').val()+'&ntid='+$('#n_tid').val()
+                       // url:"/update_state_payment_guashi.action?waybill_id="+waybill_id_guashi+"&& lost_state="+lost_state+"&& lost_identify="+lost_identify+"&& note="+note,  //地址
+                         url:'/update_state_payment_guashi.action?waybill_id='+waybill_id_guashi+'&oper_state='+lost_state+'&lost_identify='+lost_identify+'&note='+note+'&lost_name='+lost_name+' ',
+                        data:$('#formti').serialize(),  //表单提交数据
+                        dataType:'JSON',   //转json格式
+                        success:function(result){
+                            alert("操作失败!");
+                        },
+                        error:function(result){
+                            alert( "操作成功!");
+                            location.reload();  //刷新页面
+                        }
+                    });
+                },
+                //导出列表
+                getExcle:function(){
+                    window.location.href="/getFinanceReceiptExcle.action";
                 }
             },
             //页面加载数据
@@ -827,215 +1035,10 @@
 
 </script>
 
-
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/amazeui.datatables.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>
 <script src="assets/js/app.js"></script>
-
-
-
-
-<%--模态框--%>
-<%--批量查询--%>
-<div class="am-modal am-modal-no-btn" tabindex="" id="funddengji">
-    <div class="am-modal-dialog" style="background-color:white; ">
-        <div class="am-modal-hd">代收款登记
-            <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-        </div>
-
-
-        <div class="am-modal-bd">
-            <%--查询输入区域--%>
-            <form action="" method="post">
-                <table class="am-table am-table-centered am-text-middle am-text-nowrap" border="0">
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            客户名称&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;客户手机&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-                        <td>
-                            <button type="button" class="am-btn am-btn-warning am-radius" style="height:34px; ">查询</button>
-                         </td>
-                    </tr>
-
-                </table>
-            </form>
-
-
-            <%--表单内容--%>
-            <div class="am-scrollable-vertical" >
-                <table width="100%"  class="am-table am-table-compact am-table-striped" id="example-r">
-                    <thead>
-                    <tr>
-                        <th>序号</th>
-                        <th>客户名称</th>
-                        <th>E卡通</th>
-                        <th>客户手机</th>
-                        <th>银行类型</th>
-                        <th>银行账号</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr class="gradeX" v-for="">
-                        <td>{{user.uid}}</td>
-                        <td>{{user.uname}}</td>
-                        <td>{{user.upass}}</td>
-                        <td>{{user.upass}}</td>
-                        <td>2016-09-26</td>
-                        <td>{{user.upass}}</td>
-
-                    </tr>
-                    <tr class="gradeX" v-for="">
-                        <td>{{user.uid}}</td>
-                        <td>{{user.uname}}</td>
-                        <td>{{user.upass}}</td>
-                        <td>{{user.upass}}</td>
-                        <td>2016-09-26</td>
-                        <td>{{user.upass}}</td>
-                    </tr>
-
-                    <!-- more data -->
-                    </tbody>
-                </table>
-
-                <br/><br/>
-                <button type="button" class="am-btn am-btn-warning am-radius">新增</button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="button" class="am-btn am-btn-default" data-am-modal-close>修改</button>
-
-            </div>
-
-
-            <%--查询输入区域--%>
-            <form action="" method="post">
-                <table class="am-table am-table-centered am-text-middle am-text-nowrap" border="0">
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            客户名称&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;所属网点&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-                    </tr>
-
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            银行类型&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;客户手机号&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-                    </tr>
-
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            银行账号&nbsp;:&nbsp;<input type="text" style="width:186px;"/>
-                        </td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           登记证件号&nbsp;:&nbsp;<input type="text" style="width:186px;"/></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           代理人&nbsp;:&nbsp;<input type="text" style="width:186px;"/></td>
-                        <td></td>
-                    </tr>
-
-                </table>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<%--取消登记--%>
-<div class="am-modal am-modal-confirm" tabindex="-1" id="fundquxiao">
-    <div class="am-modal-dialog">
-        <div class="am-btn am-btn-warning am-btn-primary am-btn-block">代付款登记的取消登记</div>
-        <div class="am-modal-bd">
-            你，确定要取消登记这条记录吗？
-        </div>
-        <div class="am-modal-footer">
-            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-        </div>
-    </div>
-</div>
-
-
-
-
-<%--挂失登记--%>
-<div class="am-modal am-modal-no-btn" tabindex="" id="fundguahsi">
-    <div class="am-modal-dialog" style="background-color:white; ">
-        <div class="am-btn am-btn-warning am-btn-primary am-btn-block">挂失操作
-            <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-        </div>
-
-        <div class="am-modal-bd">
-            <%--查询输入区域--%>
-            <form action="" method="post">
-                <table class="am-table am-table-centered am-text-middle am-text-nowrap" border="0">
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                         <input type="radio" value="临时挂失" name="ra">临时挂失
-                            &nbsp;&nbsp;&nbsp;
-                        <input type="radio" value="正式挂失，挂失费20元" name="ra">正式挂失，挂失费20元
-                          &nbsp;&nbsp;&nbsp;
-                        <input type="checkbox" value="挂失费从代收款扣减" name="r">挂失费从代收款扣减
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                         运单号&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-
-
-                        挂失人&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-                        </td>
-
-                    </tr>
-
-                    <tr>
-                        <td>
-                         登记证件号&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-                        </td>
-                    </tr>
-
-                    <tr>
-
-                        <td>
-                         备注&nbsp;:&nbsp;<textarea name="" cols="18" rows="5"></textarea>
-                        </td>
-                    </tr>
-
-                    <tr> <td>
-                        <button type="button" class="am-btn am-btn-warning am-radius" style="height:34px; ">挂失打印</button>
-                        <button type="button" class="am-btn am-btn-default" style="height:34px; " data-am-modal-close>取消</button>
-                    </td>
-                    </tr>
-                </table>
-            </form>
-
-      </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 
