@@ -568,7 +568,10 @@
 
 
     <!-- 内容区域 -->
-    <div class="tpl-content-wrapper" id="app">
+    <div id="app_operation">
+
+
+    <div class="tpl-content-wrapper" >
 
         <div class="container-fluid am-cf" style="height:26px;  ">
             <div class="page-header-heading" ><span class=""></span> 代收货款管理 <small>代收款操作 </small></div>
@@ -579,163 +582,248 @@
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                     <div class="widget am-cf">
+
+
                         <div class="widget-body  am-fr">
 
                             <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                                 <div class="am-form-group">
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs">
-                                            <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 登记审核</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 取消登记</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 取消挂失</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 预警运单</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 取消预警</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 冻结</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 解冻</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 超期申请</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 超期审核</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 取消发款</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 现金发放</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 短信通知</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 批量查询</button>
+                                           <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 现金发放</button>
                                             <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 导出列表</button>
-
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-                                <div class="am-form-group tpl-table-list-select">
-                                    <select data-am-selected="{btnSize: 'sm'}">
-                                        <option value="option1">所有类别</option>
-                                        <option value="option2">IT业界</option>
-                                        <option value="option3">数码产品</option>
-                                        <option value="option3">笔记本电脑</option>
-                                        <option value="option3">平板电脑</option>
-                                        <option value="option3">只能手机</option>
-                                        <option value="option3">超极本</option>
-                                    </select>
-                                </div>
+
+
+                            <div class="widget-head am-cf">
                             </div>
-                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-                                <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                    <input type="text" class="am-form-field ">
-                                    <span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-          </span>
+                            <div class="widget-title  am-cf" style="margin-top:8px; ">查询条件</div>
+                            <br/>
+
+
+                            <form action="" method="post">
+
+                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                    运单号&nbsp;&nbsp;:&nbsp;&nbsp;
+                                    <input type="text" style="width:139px; "/>
                                 </div>
+
+
+                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                    货单号&nbsp;&nbsp;:&nbsp;&nbsp;
+                                    <input type="text" style="width:139px; "/>
+                                </div>
+
+
+
+                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                    E卡通号&nbsp;:&nbsp;
+                                    <input type="text" style="width:134px; "/>
+                                </div>
+
+                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                    <button type="button" class="am-btn am-btn-warning am-square" style="width:68px; height:34px;">添加</button>
+                                    <button type="reset" class="am-btn am-btn-default" style="width:68px; height:34px;  margin-left:10px; ">重置</button>
+                                </div>
+
+                            </form>
+                            <%--搜索区域--%>
+
+                            <br>
+                            <div class="widget-head am-cf">
+                            </div>
+                            <div class="widget-title  am-cf" style="margin-top:8px; ">登记列表</div>
+                            <br/>
+
+                            <div>
+
+                                <span>共计：4票 &nbsp;&nbsp;代收款总计：10000&nbsp;&nbsp;手续费及其他合计：2000 &nbsp;&nbsp; 实转：900800</span>
+                                <br/>
+                                <span>已选：2票 &nbsp;&nbsp;代收款总计：1000 &nbsp;&nbsp;手续费及其他合计：2000 &nbsp;&nbsp; 实转：900800</span>
                             </div>
 
-                            <div class="am-u-sm-12">
-                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+                            <%--表单内容区域--%>
+                            <%--表单内容--%>
+                            <div class="am-scrollable-horizontal">
+                                <table width="100%" class="am-table am-table-bordered am-table-striped am-text-nowrap" id="example-r1" >
                                     <thead>
                                     <tr>
-                                        <th>文章标题</th>
-                                        <th>作者</th>
-                                        <th>时间</th>
+                                        <th>代付款序号</th>
+                                        <th></th>
+                                        <th>E通卡</th>
+                                        <th>运单号</th>
+                                        <th>货单号</th>
+                                        <th>操作状态</th>
+                                        <th>银行收款类型</th>
+                                        <th>银行收款账号</th>
+                                        <th>代收货款</th>
+                                        <th>代收货款服务费</th>
+                                        <th>收扣款总金额</th>
+                                        <th>挂失费</th>
+                                        <th>短信服务费</th>
+                                        <th>转账状态</th>
+                                        <th>转账类型</th>
+                                        <th>转账时间</th>
+                                        <th>寄件网点</th>
+                                        <th>收件网点</th>
+                                        <th>营收日期</th>
+                                        <th>登记联系人</th>
+                                        <th>登记人手机</th>
+                                        <th>寄件联系人</th>
+                                        <th>寄件人手机</th>
+                                        <th>登记人证件号</th>
+                                        <th>操作人</th>
+                                        <th>操作时间</th>
+                                        <th>预警标志</th>
+                                        <th>短信发送标志</th>
+                                        <th>备注</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr class="gradeX">
-                                        <td>Amaze UI 模式窗口</td>
-                                        <td>张鹏飞</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有适配微信小程序的计划吗</td>
-                                        <td>天纵之人</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX">
-                                        <td>请问有没有amazeui 分享插件</td>
-                                        <td>王宽师</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>关于input输入框的问题</td>
-                                        <td>着迷</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有没有发现官网上的下载包不好用</td>
-                                        <td>醉里挑灯看键</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
 
-                                    <tr class="even gradeC">
-                                        <td>我建议WEB版本文件引入问题</td>
-                                        <td>罢了</td>
-                                        <td>2016-09-26</td>
+                                    <tbody id="fund_tb">
+                                    <tr class="gradeX" v-for="(tbwaybill,index) in operation_tbwaybills">
+                                        <td>{{tbwaybill.waybill_id}}</td>
+                                        <td><input type="checkbox" name="id" :value="tbwaybill.waybill_id"></td>
+                                        <td>{{tbwaybill.finance_cop_payment.e_card_no}}</td>
+                                        <td>{{tbwaybill.waybill_no}}</td>
+                                        <td>{{tbwaybill.goods_no}}</td>
+                                        <%--1-无操作,2-取消发款,3-确认已转款,4-冻结,5-解冻,6-登记,7-取消登记,8-登记审核,9-临时挂失,10-正式挂失,11-解挂失,12超期审核,13-删除代收款--%>
+                                        <td v-if="tbwaybill.finance_cop_payment.oper_state=='1'">未登记</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='2'">取消发款</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='3'">确认已转款</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='4'">冻结</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='5'">解冻</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='6'">已登记</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='7'">取消登记</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='8'">登记审核</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='9'">临时挂失</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='10'">正式挂失</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='11'">解挂失</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='12'">超期申请</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='13'">超期审核</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='14'">删除代收款</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='15'">发款审核</td>
+
+                                        <td>{{tbwaybill.finance_cop_payment.bankaccount_type}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.receive_account}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.fee_amount}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.service_fee}}</td>
+
+                                        <td>{{tbwaybill.finance_cop_payment.minus_total_fee}}</td>
+
+                                        <td>{{tbwaybill.finance_cop_payment.lost_fee}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.message_server_fee}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.payment_state}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.payment_type}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.payment_tm}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.source_zone_code}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.dest_zone_code}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.income_tm}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.register_name}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.register_mobile}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.send_peo}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.send_mobile}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.register_identify}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.oper_emp_code}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.oper_tm}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.warning_state}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.messaged_flag}}</td>
+                                        <td>{{tbwaybill.finance_cop_payment.note}}</td>
+
+                                        <%--修改状态--%>
+                                        <%--未登记显示登记操作--%>
                                         <td>
+
+                                        <span v-if="tbwaybill.finance_cop_payment.oper_state=='6'" >
                                             <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
+                                                <a href="javascript:;" @click="operation_dengji(index)">
+                                                    <i class="am-icon-send-o"></i>
+                                                    登记审核
                                                 </a>
                                             </div>
+                                        </span>
+
+                                        <span v-if="tbwaybill.finance_cop_payment.oper_state=='8'" style="margin-top:4px; ">
+                                            <div class="tpl-table-black-operation">
+                                                <a href="javascript:;" @click="operation_dengji_return(index)" class="tpl-table-black-operation-del" >
+                                                    <i class="am-icon-send-o"></i>
+                                                    取消登记审核
+                                                </a>
+
+                                                 <a href="javascript:;" @click="operation_fakaun(index)">
+                                                    <i class="am-icon-send-o"></i>
+                                                    发款审核
+                                                </a>
+                                            </div>
+                                        </span>
+
+                                        <span v-else-if="tbwaybill.finance_cop_payment.oper_state!='6' || tbwaybill.finance_cop_payment.oper_state!='8'"></span>
+
+
+
+                                        <span v-if="tbwaybill.finance_cop_payment.oper_state=='9' || tbwaybill.finance_cop_payment.oper_state=='10'">
+                                            <div class="tpl-table-black-operation">
+                                                <a href="javascript:;" @click="operation_cancel_guashi(index)" class="tpl-table-black-operation-del" >
+                                                    <i class="am-icon-send-o"></i>
+                                                    取消挂失
+                                                </a>
+                                            </div>
+                                        </span>
+                                        <span v-else-if="tbwaybill.finance_cop_payment.oper_state!='9' || tbwaybill.finance_cop_payment.oper_state!='10'"></span>
+
+
+
+                                        <span v-if="tbwaybill.finance_cop_payment.oper_state=='8'" style="margin-top:4px; ">
+                                            <div class="tpl-table-black-operation">
+                                                <a href="javascript:;" @click="operation_frozen(index)" >
+                                                    <i class="am-icon-send-o"></i>
+                                                    冻结
+                                                </a>
+                                            </div>
+                                        </span>
+
+                                        <span v-else-if="tbwaybill.finance_cop_payment.oper_state=='4'" style="margin-top:4px; ">
+                                            <div class="tpl-table-black-operation">
+                                                <a href="javascript:;" @click="operation_frozen_return(index)" class="tpl-table-black-operation-del">
+                                                    <i class="am-icon-send-o"></i>
+                                                    解冻
+                                                </a>
+                                            </div>
+                                        </span>
+                                        <span v-else-if="tbwaybill.finance_cop_payment.oper_state!='4' || tbwaybill.finance_cop_payment.oper_state!='8'"></span>
+
+
+                                        <span v-if="tbwaybill.finance_cop_payment.oper_state=='6' || tbwaybill.finance_cop_payment.oper_state=='9' || tbwaybill.finance_cop_payment.oper_state=='10'">
+                                        <div class="tpl-table-black-operation">
+                                            <a href="javascript:;" @click="operation_cancle_fk(index)" class="tpl-table-black-operation-del">
+                                                <i class="am-icon-send-o"></i>
+                                                取消发款
+                                            </a>
+                                        </div>
+                                        </span>
+                                       <span v-else-if="tbwaybill.finance_cop_payment.oper_state!='6' || tbwaybill.finance_cop_payment.oper_state!='9' || tbwaybill.finance_cop_payment.oper_state!='10'"></span>
+
+
+
+
+
+
                                         </td>
+
+
                                     </tr>
                                     <!-- more data -->
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="am-u-lg-12 am-cf">
+                            <%--表单内容区域--%>
 
+
+                            <div class="am-u-lg-12 am-cf">
                                 <div class="am-fr">
                                     <ul class="am-pagination tpl-pagination">
                                         <li class="am-disabled"><a href="#">«</a></li>
@@ -755,20 +843,356 @@
         </div>
     </div>
 
+        <%--弹框部分--%>
+          <%--登记审核--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="operation_shenghe">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">代收款操作</div>
+                <div class="am-modal-bd">
+                    亲，你确定要登记审核这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="operation_dssure()">确定</span>
+                </div>
+            </div>
+        </div>
+
+           <%--取消登记--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="operation_shenghe_qx">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">代收款操作</div>
+                <div class="am-modal-bd">
+                    亲，你确定要登记审核这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="operation_qssure()">确定</span>
+                </div>
+            </div>
+        </div>
+
+        <%--取消挂失--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="operation_guashi_qx">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">代收款操作</div>
+                <div class="am-modal-bd">
+                    亲，你确定要取消挂失这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="operation_gssure()">确定</span>
+                </div>
+            </div>
+        </div>
+
+        <%--冻结运单--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="operation_guashi_dj">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">代收款操作</div>
+                <div class="am-modal-bd">
+                    亲，你确定要冻结这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="operation_djsure()">确定</span>
+                </div>
+            </div>
+        </div>
 
 
+        <%--解冻--%>
+        <%--冻结运单--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="operation_guashi_jd">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">代收款操作</div>
+                <div class="am-modal-bd">
+                    亲，你确定要解冻这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="operation_jdsure()">确定</span>
+                </div>
+            </div>
+        </div>
+
+        <%--取消发款--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="operation_cancle_qf">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">代收款操作</div>
+                <div class="am-modal-bd">
+                    亲，你确定要取消发款这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="operation_qfsure()">确定</span>
+                </div>
+            </div>
+        </div>
+
+        <%--发款审核--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="operation_fk_sh">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">代收款操作</div>
+                <div class="am-modal-bd">
+                    亲，你确定要取消发款这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="operation_fksure()">确定</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
 
 
 
 </div>
 
 
+<script>
+
+    $(function(){
+        var waybill_id_dengji;
+        var waybill_id_dengji_return;
+        var waybill_id_cancle_gs;
+        var waybill_id_frozen;
+        var waybill_id_frozen_return;
+        var waybill_id_cancle_return;
+        var waybill_id_cancle_fk;
+        var vm = new Vue({
+            el: "#app_operation", //引用div的id
+            data: {
+                submitUrl:"/get_Allwaybillandpayment.action", //跳转的路径
+                tbwaybill:"",
+                operation_tbwaybills: [],  //表单数据集合
+                titleName:"",
+                paymentId:""  //表单数据的id
+            },
+            methods: {
+                //表单绑定数值的方法
+                getAll : function(){
+                    //上面方法从新赋值
+                    var currenr_this=this;
+                    //跳转的路径
+                    currenr_this.submitUrl='/get_Allwaybillandpayment.action';
+                    //通过json方式得到数据
+                    $.getJSON(currenr_this.submitUrl,function(result,status){
+                        //把结果集赋给定义的users，用来页面展示
+                        currenr_this._data.operation_tbwaybills=result;
+                        console.info(result);
+                    })
+                },
+                //登记审核弹框
+                operation_dengji:function(index){
+                    //拿到对象
+                    var item=this.operation_tbwaybills[index];
+                    //获取该对象的id
+                    waybill_id_dengji=item.finance_cop_payment.waybill_id;
+                    $('#operation_shenghe').modal({
+                    });
+                },
+                //审核确定
+                operation_dssure:function () {
+                    $.ajax({
+                        url:'/update_operation_dscontro.action',
+                        data:{waybill_id:waybill_id_dengji},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('登记审核错误！');
+                        },
+                        error:function(result){
+                            alert('登记审核成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
+                },
+                //取消登记审核
+                operation_dengji_return:function(index){
+                    //拿到对象
+                    var item=this.operation_tbwaybills[index];
+                    //获取该对象的id
+                    waybill_id_dengji_return=item.finance_cop_payment.waybill_id;
+                    $('#operation_shenghe_qx').modal({
+                    });
+                },
+                //确定取消
+                operation_qssure:function () {
+                    $.ajax({
+                        url:'/update_operation_qscontro.action',
+                        data:{waybill_id:waybill_id_dengji_return},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('登记审核错误！');
+                        },
+                        error:function(result){
+                            alert('登记审核成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
+                },
+                //取消挂失
+                operation_cancel_guashi:function (index) {
+                    //拿到对象
+                    var item=this.operation_tbwaybills[index];
+                    //获取该对象的id
+                    waybill_id_cancle_gs=item.finance_cop_payment.waybill_id;
+                    $('#operation_guashi_qx').modal({
+                    });
+
+                },
+                //取消挂失确定
+                operation_gssure:function () {
+                    $.ajax({
+                        url:'/update_opration_gscontro.action',
+                        data:{waybill_id:waybill_id_cancle_gs},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('取消审核错误！');
+                        },
+                        error:function(result){
+                            alert('取消审核成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
+                },
+                //冻结
+                operation_frozen:function (index) {
+                    //拿到对象
+                    var item=this.operation_tbwaybills[index];
+                    //获取该对象的id
+                    waybill_id_frozen=item.finance_cop_payment.waybill_id;
+                    $('#operation_guashi_dj').modal({
+                    });
+                },
+                //确定冻结
+                operation_djsure:function () {
+                    $.ajax({
+                        url:'/update_operation_djcontro.action',
+                        data:{waybill_id:waybill_id_frozen},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('冻结错误！');
+                        },
+                        error:function(result){
+                            alert('冻结成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
+                },
+                //解冻
+                operation_frozen_return:function (index) {
+                    //拿到对象
+                    var item=this.operation_tbwaybills[index];
+                    //获取该对象的id
+                    waybill_id_frozen_return=item.finance_cop_payment.waybill_id;
+                    $('#operation_guashi_jd').modal({
+                    });
+                },
+                //解冻确定
+                operation_jdsure:function () {
+                    $.ajax({
+                        url:'/update_operation_jdcontro.action',
+                        data:{waybill_id:waybill_id_frozen_return},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('解冻错误！');
+                        },
+                        error:function(result){
+                            alert('解冻成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
+                },
+                //取消发款
+                operation_cancle_fk:function (index) {
+                    //拿到对象
+                    var item=this.operation_tbwaybills[index];
+                    //获取该对象的id
+                    waybill_id_cancle_return=item.finance_cop_payment.waybill_id;
+                    $('#operation_cancle_qf').modal({});
+                },
+                //确定取消发款
+                operation_qfsure:function () {
+                    $.ajax({
+                        url:'/update_operation_qfcontro.action',
+                        data:{waybill_id:waybill_id_cancle_return},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('取消发款错误！');
+                        },
+                        error:function(result){
+                            alert('取消发款成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
+                },
+                //发款审核
+                operation_fakaun:function (index) {
+                    //拿到对象
+                    var item=this.operation_tbwaybills[index];
+                    //获取该对象的id
+                    waybill_id_cancle_fk=item.finance_cop_payment.waybill_id;
+                    $('#operation_fk_sh').modal({});
+                },
+                //发款审核确定
+                operation_fksure:function () {
+                    $.ajax({
+                        url:'/update_operation_fkcontro.action',
+                        data:{waybill_id:waybill_id_cancle_fk},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('发款审核错误！');
+                        },
+                        error:function(result){
+                            alert('发款审核成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
+                }
 
 
 
 
 
-</div>
+
+
+
+
+
+
+
+            },
+            //页面加载数据
+            created : function(){
+                this.getAll();
+            }
+        });
+
+
+    })
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/amazeui.datatables.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>

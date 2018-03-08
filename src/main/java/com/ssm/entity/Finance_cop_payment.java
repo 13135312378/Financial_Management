@@ -69,12 +69,13 @@ public class Finance_cop_payment {
     private Date apply_tm;		//申请日期
     private  String to_comp_code;		//公司代码(签收公司)
     private Date period_days;		//转款周期
-    private  String batch_code;		//批次号
+
+
     private Date batch_oper_tm;	//批次登记日期
     private  String e_card_no;		//e卡通号
     private  String payee_mobile;		//领款手机
     private  String payee_identify;		//领款人身份证号
-    private  String payee;		//领款人
+    private  String payee;		//收款人
     private  String org_type;		//组织类型
     private  String creater;		//创建人（主键+工号code）
     private  String creater_time;		//创建时间
@@ -99,7 +100,7 @@ public class Finance_cop_payment {
     }
 
 
-    public Finance_cop_payment(int waybill_id, String source_zone_code, String dest_zone_code, Date income_tm, String receive_account, String bankaccount_type, double fee_amount, double service_fee, double minus_total_fee, double lost_fee, Date payment_tm, int payment_type, int payment_state, String register_name, String register_mobile, String register_identify, String send_peo, String send_mobile, String oper_state, String oper_emp_code, Date oper_tm, String note, int warning_state, int messaged_flag, double message_server_fee, String batch_code, String e_card_no) {
+    public Finance_cop_payment(int waybill_id, String source_zone_code, String dest_zone_code, Date income_tm, String receive_account, String bankaccount_type, double fee_amount, double service_fee, double minus_total_fee, double lost_fee, Date payment_tm, int payment_type, int payment_state, String register_name, String register_mobile, String register_identify, String send_peo, String send_mobile, String oper_state, String oper_emp_code, Date oper_tm, String note, int warning_state, int messaged_flag, double message_server_fee,  String e_card_no) {
         this.waybill_id = waybill_id;
         this.source_zone_code = source_zone_code;
         this.dest_zone_code = dest_zone_code;
@@ -125,8 +126,7 @@ public class Finance_cop_payment {
         this.warning_state = warning_state;
         this.messaged_flag = messaged_flag;
         this.message_server_fee = message_server_fee;
-        this.batch_code = batch_code;
-        this.e_card_no = e_card_no;
+         this.e_card_no = e_card_no;
     }
 
     //get
@@ -316,9 +316,6 @@ public class Finance_cop_payment {
         return period_days;
     }
 
-    public String getBatch_code() {
-        return batch_code;
-    }
 
     public Date getBatch_oper_tm() {
         return batch_oper_tm;
@@ -553,10 +550,6 @@ public class Finance_cop_payment {
 
     public void setPeriod_days(Date period_days) {
         this.period_days = period_days;
-    }
-
-    public void setBatch_code(String batch_code) {
-        this.batch_code = batch_code;
     }
 
     public void setBatch_oper_tm(Date batch_oper_tm) {

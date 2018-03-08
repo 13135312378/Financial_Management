@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public class Tb_waybill {
 
-    private int waybill_id;	 //Id号
+    private Integer waybill_id;	 //Id号
     private String waybill_no;	 //运单号
     private String audited_flag;//审核标志
     private Date audited_tm;	//审核时间
@@ -87,6 +87,11 @@ public class Tb_waybill {
 
     }
 
+
+
+
+
+
     public Tb_waybill(int waybill_id, String waybill_no, String goods_no) {
         this.waybill_id = waybill_id;
         this.waybill_no = waybill_no;
@@ -94,7 +99,7 @@ public class Tb_waybill {
     }
 
     //get
-    public int getWaybill_id() {
+    public Integer getWaybill_id() {
         return waybill_id;
     }
 
@@ -340,7 +345,7 @@ public class Tb_waybill {
 
 
     //set
-    public void setWaybill_id(int waybill_id) {
+    public void setWaybill_id(Integer waybill_id) {
         this.waybill_id = waybill_id;
     }
 

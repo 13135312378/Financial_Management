@@ -1,5 +1,6 @@
 package com.ssm.dao;
 
+import com.ssm.entity.Finance_cop_batch_payment;
 import com.ssm.entity.Finance_cop_payment;
 import com.ssm.entity.Tb_waybill;
 
@@ -10,6 +11,10 @@ import java.util.List;
  */
 public interface IFinanceCopPaymentDao {
 
+    /**
+     * 代收款登记
+     * @return
+     */
     //得到运单和代收款信息
     public List<Tb_waybill> getwaybill_payment();
 
@@ -23,13 +28,45 @@ public interface IFinanceCopPaymentDao {
     public void updatepayment_guashi(String oper_state,String lost_name,String lost_identify,String note,double lost_fee,int waybill_id);
 
 
+    /**
+     * 代收款操作
+     */
+    //登记审核
+    public void update_operation_ds(int waybill_id);
+
+    //取消登记审核
+    public void update_operation_qs(int waybill_id);
+
+    //取消挂失
+    public void update_operation_gs(int waybill_id);
+
+    //冻结
+    public void update_operation_dj(int waybill_id);
+
+    //解冻
+    public void update_operation_jd(int waybill_id);
+
+   //取消发款
+    public void update_operation_qf(int waybill_id);
+
+    //发款审核
+    public void update_operation_fk(int waybill_id);
 
 
+    /**
+     * 代收款发款
+     */
+    //绑定代收款发款信息
+    public List<Tb_waybill> getwaybill_payment_fk();
 
+    //审核通过
+    public void update_send_shtg(int waybill_id);
 
+   //撤销审核通过
+    public void update_send_shbtg(int waybill_id);
 
-
-
+   //得到批次管理
+    public List<Finance_cop_batch_payment> getAll_batch();
 
 
 

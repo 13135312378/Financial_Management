@@ -566,7 +566,8 @@
 
 
     <!-- 内容区域 -->
-    <div class="tpl-content-wrapper" id="app">
+    <div id="app_manage">
+    <div class="tpl-content-wrapper" >
 
         <div class="container-fluid am-cf" style="height:26px;  ">
             <div class="page-header-heading" ><span class=""></span> 代收货款管理 <small>代收款批次管理 </small></div>
@@ -710,35 +711,108 @@
                                 <table width="100%" class="am-table am-table-bordered am-table-striped am-text-nowrap" id="example-r1" >
                                     <thead>
                                     <tr>
-                                        <th>序号</th>
-                                        <th><input type="checkbox" name="manage_all" value="1"></th>
+                                        <th>代付款序号</th>
+                                        <th></th>
                                         <th>批次号</th>
+                                        <th>批次状态</th>
+                                        <th>创建时间</th>
+                                        <th>创建者编码</th>
+                                        <th>单数</th>
+                                        <th>总金额</th>
+                                        <th>实际付款金额</th>
+                                        <th>转款时间</th>
+                                        <th>转款人</th>
                                         <th>转款类型</th>
-                                        <th>转款状态</th>
-                                        <th>操作状态</th>
-                                        <th>收款人</th>
-                                        <th>收款人手机</th>
+
+
+                                        <th>手续费</th>
+                                        <th>客户名称</th>
+                                        <th>客户代码</th>
+                                        <th>客户手机</th>
                                         <th>卡号类型</th>
-                                        <th>收款账号</th>
-                                        <th>总笔数</th>
-                                        <th>待收货款</th>
+                                        <th>银行账户</th>
+                                        <th>领款人</th>
+                                        <th>证件号码</th>
+                                        <th>转款状态</th>
+
+
+                                        <th>通知状态</th>
+                                        <th>挂失费</th>
+                                        <th>短信费</th>
+                                        <th>代收扣</th>
+                                        <th>公司编码</th>
+                                        <th>部门编码</th>
+                                        <th>组织类型</th>
+
+                                        <th>创建人</th>
+                                        <th>创建时间</th>
+                                        <th>修改人</th>
+                                        <th>是否删除</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
 
-                                    <tbody id="manage_tb">
-                                    <tr class="gradeX" v-for="(user,index) in users">
-                                        <td>{{user.uid}}</td>
-                                        <td><input type="checkbox" name="id" value="{{ user.uid}}"></td>
-                                        <td>{{user.uname}}</td>
-                                        <td>{{user.upass}}</td>
-                                        <td>{{user.upass}}</td>
-                                        <td>2016-09-26</td>
-                                        <td>{{user.upass}}</td>
-                                        <td>{{user.upass}}</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
-                                        <td>2016</td>
+                                    <tbody id="fund_tb">
+                                    <tr class="gradeX" v-for="(tbwaybill,index) in send_manage" id="merges">
+                                        <td>{{tbwaybill.batch_payment_id}}</td>
+                                        <td><input type="checkbox" name="id"></td>
+                                        <td>{{tbwaybill.batch_no}}</td>
+                                        <%--批次状态:1-无操作, 2-取消转款 3-已审核 4-已驳回--%>
+                                        <td v-if="tbwaybill.batch_status=1">无操作</td>
+                                        <td v-else-if="tbwaybill.batch_status=2">取消转款</td>
+                                        <td v-else-if="tbwaybill.batch_status=3">已审核</td>
+                                        <td v-else-if="tbwaybill.batch_status=4">已驳回</td>
+
+                                        <td>{{tbwaybill.create_tm}}</td>
+                                        <td>{{tbwaybill.create_emp_code}}</td>
+                                        <td>{{tbwaybill.waybill_count}}</td>
+                                        <td>{{tbwaybill.total_amt}}</td>
+                                        <td>{{tbwaybill.real_pay_amt}}</td>
+                                        <td>{{tbwaybill.pay_tm}}</td>
+                                        <td>{{tbwaybill.pay_emp_code}}</td>
+                                        <%--转款类型（1：现金  、 2：银行卡）--%>
+                                        <td v-if="tbwaybill.transfer_type=1">现金</td>
+                                        <td v-else-if="tbwaybill.transfer_type=2">银行卡</td>
+
+
+                                        <td>{{tbwaybill.counter_amt}}</td>
+                                        <td>{{tbwaybill.customer_name}}</td>
+                                        <td>{{tbwaybill.customer_code}}</td>
+                                        <td>{{tbwaybill.customer_phone}}</td>
+                                        <td>{{tbwaybill.card_type}}</td>
+                                        <td>{{tbwaybill.bank_account}}</td>
+                                        <td>{{tbwaybill.payee}}</td>
+                                        <td>{{tbwaybill.identify_number}}</td>
+
+                                        <%--转款状态 ：（1： 已转  、2 ：可转、3：不可转）--%>
+                                        <td v-if="tbwaybill.transfer_status=1">已转 </td>
+                                        <td v-else-if="tbwaybill.transfer_status=2">可转</td>
+                                        <td v-else-if="tbwaybill.transfer_status=3">不可转</td>
+
+
+                                        <%--通知状态 ( 1未通知 2 已通知)--%>
+                                        <td v-if="tbwaybill.inform_status=1">未通知 </td>
+                                        <td v-else-if="tbwaybill.inform_status=2">已通知</td>
+
+                                        <td>{{tbwaybill.lost_fee}}</td>
+                                        <td>{{tbwaybill.msg_service_fee}}</td>
+                                        <td>{{tbwaybill.collect_deduce_fee}}</td>
+                                        <td>{{tbwaybill.comp_code}}</td>
+                                        <td>{{tbwaybill.dept_code}}</td>
+                                        <td>{{tbwaybill.org_type}}</td>
+                                        <td>{{tbwaybill.creater}}</td>
+                                        <td>{{tbwaybill.creater_time}}</td>
+                                        <td>{{tbwaybill.modifier}}</td>
+                                       <%--是否删除 0未删除；1 已删除  默认 0--%>
+                                        <td v-if="tbwaybill.is_delete=1">未删除 </td>
+                                        <td v-else-if="tbwaybill.is_delete=2">已删除 </td>
+
+                                    <%--修改状态--%>
+                                        <%--未登记显示登记操作--%>
+                                        <td>
+                                        </td>
+
+
                                     </tr>
                                     <!-- more data -->
                                     </tbody>
@@ -766,34 +840,25 @@
                 </div>
             </div>
         </div>
+       </div>
+
+
     </div>
-
-
-
-
-
-
 </div>
-
-</div>
-
-
-
-
 
 
 <script>
 
     $(function(){
-        var vm = new Vue({
-            el: "#app", //引用div的id
-            data: {
-                submitUrl:"/getAll.action", //跳转的路径
-                user:"",
-                users: [],  //表单数据集合
-                titleName:"",
-                userId:""  //表单数据的id
 
+        var vm = new Vue({
+            el: "#app_manage", //引用div的id
+            data: {
+                submitUrl:"/getallbatch.action", //跳转的路径
+                tbwaybill:"",
+                send_manage: [],  //表单数据集合
+                titleName:"",
+                paymentId:""  //表单数据的id
             },
             methods: {
                 //表单绑定数值的方法
@@ -801,12 +866,12 @@
                     //上面方法从新赋值
                     var currenr_this=this;
                     //跳转的路径
-                    currenr_this.submitUrl='/getAll.action';
+                    currenr_this.submitUrl='/getallbatch.action';
                     //通过json方式得到数据
                     $.getJSON(currenr_this.submitUrl,function(result,status){
                         //把结果集赋给定义的users，用来页面展示
-                        currenr_this._data.users=result;
-                        // alert(result);  //得到对象集合
+                        currenr_this._data.send_manage=result;
+                        console.info(result);
                     })
                 }
             },
@@ -817,24 +882,10 @@
         });
 
 
-
-        $('#datetimepicker_manage').datetimepicker();  //日期显示
-        $('#datetimepicker1_manage').datetimepicker();  //日期显示
-
-        //全选,设置chheckbox name='all' tbody id=tb
-        $("input[name=manage_all]").click(function () {
-            if (this.checked) {
-                $("#manage_tb :checkbox").prop("checked", true);
-            } else {
-                $("#manage_tb :checkbox").prop("checked", false);
-            }
-        });
-
-
-
     })
 
 </script>
+
 
 
 

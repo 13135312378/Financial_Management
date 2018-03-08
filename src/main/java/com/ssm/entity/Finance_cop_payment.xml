@@ -7,91 +7,172 @@
 
     <!--通过运单表与待收款付款表一对一关系查询得到代收款登记查询结果 resultMap="myFinanceCopPaymentLogin"-->
     <!--一对一关系-->
-    <resultMap id="mygetall" type="com.ssm.entity.Tb_waybill">
-        <id property="waybill_id" column="waybill_id"></id>
-        <result property="waybill_no" column="waybill_no"></result>
-        <result property="goods_no" column="goods_no"></result>
-        <association property="finance_cop_payment"  column="waybill_id" javaType="com.ssm.entity.Finance_cop_payment">
+        <resultMap id="mygetall" type="com.ssm.entity.Tb_waybill">
             <id property="waybill_id" column="waybill_id"></id>
-            <result property="batch_code" column="batch_code"></result>
-            <result property="e_card_no" column="e_card_no"></result>
-            <result property="oper_state" column="oper_state"></result>
-            <result property="bankaccount_type" column="bankaccount_type"></result>
-            <result property="receive_account" column="receive_account"></result>
-            <result property="fee_amount" column="fee_amount"></result>
-            <result property="service_fee" column="service_fee"></result>
-            <result property="minus_total_fee" column="minus_total_fee"></result>
-            <result property="lost_fee" column="lost_fee"></result>
-            <result property="message_server_fee" column="message_server_fee"></result>
-            <result property="payment_state" column="payment_state"></result>
-            <result property="payment_type" column="payment_type"></result>
-            <result property="payment_tm" column="payment_tm"></result>
-            <result property="source_zone_code" column="source_zone_code"></result>
-            <result property="dest_zone_code" column="dest_zone_code"></result>
-            <result property="income_tm" column="income_tm"></result>
-            <result property="register_name" column="register_name"></result>
-            <result property="register_mobile" column="register_mobile"></result>
-            <result property="send_peo" column="send_peo"></result>
-            <result property="send_mobile" column="send_mobile"></result>
-            <result property="register_identify" column="register_identify"></result>
-            <result property="oper_emp_code" column="oper_emp_code"></result>
-            <result property="oper_tm" column="oper_tm"></result>
-            <result property="warning_state" column="warning_state"></result>
-            <result property="messaged_flag" column="messaged_flag"></result>
-            <result property="note" column="note"></result>
-        </association>
-    </resultMap>
+            <result property="waybill_no" column="waybill_no"></result>
+            <result property="goods_no" column="goods_no"></result>
+            <association property="finance_cop_payment"  column="waybill_id" javaType="com.ssm.entity.Finance_cop_payment">
+                <id property="waybill_id" column="waybill_id"></id>
+                <result property="batch_code" column="batch_code"></result>
+                <result property="e_card_no" column="e_card_no"></result>
+                <result property="oper_state" column="oper_state"></result>
+                <result property="bankaccount_type" column="bankaccount_type"></result>
+                <result property="receive_account" column="receive_account"></result>
+                <result property="fee_amount" column="fee_amount"></result>
+                <result property="service_fee" column="service_fee"></result>
+                <result property="minus_total_fee" column="minus_total_fee"></result>
+                <result property="lost_fee" column="lost_fee"></result>
+                <result property="message_server_fee" column="message_server_fee"></result>
+                <result property="payment_state" column="payment_state"></result>
+                <result property="payment_type" column="payment_type"></result>
+                <result property="payment_tm" column="payment_tm"></result>
+                <result property="source_zone_code" column="source_zone_code"></result>
+                <result property="dest_zone_code" column="dest_zone_code"></result>
+                <result property="income_tm" column="income_tm"></result>
+                <result property="register_name" column="register_name"></result>
+                <result property="register_mobile" column="register_mobile"></result>
+                <result property="send_peo" column="send_peo"></result>
+                <result property="send_mobile" column="send_mobile"></result>
+                <result property="register_identify" column="register_identify"></result>
+                <result property="oper_emp_code" column="oper_emp_code"></result>
+                <result property="oper_tm" column="oper_tm"></result>
+                <result property="warning_state" column="warning_state"></result>
+                <result property="messaged_flag" column="messaged_flag"></result>
+                <result property="note" column="note"></result>
+            </association>
+        </resultMap>
 
-    <!--一对一的查询-->
-    <select id="getwaybill_payment"  resultMap="mygetall">
-        select f.* ,t.* from finance_cop_payment f, tb_waybill t  where f.waybill_id=t.waybill_id;
+        <!--一对一的查询-->
+        <select id="getwaybill_payment"  resultMap="mygetall">
+            select f.* ,t.* from finance_cop_payment f, tb_waybill t  where f.waybill_id=t.waybill_id;
 
+        </select>
+
+
+     <!--代收款登记-->
+        <!--修改未登记状态为登记状态 -->
+         <update id="updatepayment_state" parameterType="int" >
+           update finance_cop_payment set oper_state=6  where  waybill_id=#{waybill_id};
+        </update>
+
+        <!--修改已登记状态为未登记》取消登记-->
+         <update id="updatepayment_stateq" parameterType="int">
+              update finance_cop_payment set oper_state=7 where  waybill_id=#{waybill_id};
+         </update>
+
+        <!--修改状态为挂失-->
+        <update id="updatepayment_guashi" parameterType="com.ssm.entity.Finance_cop_payment">
+            update finance_cop_payment set oper_state=#{arg0},lost_name=#{arg1},lost_identify=#{arg2},note=#{arg3},lost_fee=#{arg4} where  waybill_id=#{arg5};
+        </update>
+
+
+     <!--代收款操作-->
+       <!--登记进入登记审核-->
+       <update id="update_operation_ds" parameterType="int">
+           update finance_cop_payment set oper_state=8 where  waybill_id=#{waybill_id};
+       </update>
+
+       <!--取消登记审核-->
+       <update id="update_operation_qs" parameterType="int">
+            update finance_cop_payment set oper_state=6 where  waybill_id=#{waybill_id};
+       </update>
+
+       <!--取消挂失-->
+       <update id="update_operation_gs" parameterType="int">
+           update finance_cop_payment set oper_state=11 where  waybill_id=#{waybill_id};
+       </update>
+
+       <!--冻结-->
+       <update id="update_operation_dj" parameterType="int">
+            update finance_cop_payment set oper_state=4 where  waybill_id=#{waybill_id};
+       </update>
+
+       <!--解冻-->
+        <update id="update_operation_jd" parameterType="int">
+             update finance_cop_payment set oper_state=5 where  waybill_id=#{waybill_id};
+        </update>
+
+        <!--取消发款-->
+        <update id="update_operation_qf" parameterType="int">
+            update finance_cop_payment set oper_state=2 where  waybill_id=#{waybill_id};
+        </update>
+
+        <!--发款审核-->
+         <update id="update_operation_fk" parameterType="int">
+              update finance_cop_payment set oper_state=15 where  waybill_id=#{waybill_id};
+         </update>
+
+
+      <!--代收款发款操作-->
+    <!--一对一关系-->
+        <resultMap id="mygetalls" type="com.ssm.entity.Tb_waybill">
+            <id property="waybill_id" column="waybill_id"></id>
+            <result property="waybill_no" column="waybill_no"></result>
+            <result property="audited_flag" column="audited_flag"></result>
+            <result property="goods_no" column="goods_no"></result>
+            <association property="finance_cop_payment"  column="waybill_id" javaType="com.ssm.entity.Finance_cop_payment">
+                <id property="waybill_id" column="waybill_id"></id>
+                <result property="batch_code" column="batch_code"></result>
+                <result property="e_card_no" column="e_card_no"></result>
+                <result property="oper_state" column="oper_state"></result>
+                <result property="payee" column="payee"></result>
+                <result property="bankaccount_type" column="bankaccount_type"></result>
+                <result property="receive_account" column="receive_account"></result>
+                <result property="fee_amount" column="fee_amount"></result>
+                <result property="service_fee" column="service_fee"></result>
+                <result property="minus_total_fee" column="minus_total_fee"></result>
+                <result property="lost_fee" column="lost_fee"></result>
+                <result property="message_server_fee" column="message_server_fee"></result>
+                <result property="payment_state" column="payment_state"></result>
+                <result property="payment_type" column="payment_type"></result>
+                <result property="payment_tm" column="payment_tm"></result>
+                <result property="source_zone_code" column="source_zone_code"></result>
+                <result property="dest_zone_code" column="dest_zone_code"></result>
+                <result property="income_tm" column="income_tm"></result>
+                <result property="register_name" column="register_name"></result>
+                <result property="register_mobile" column="register_mobile"></result>
+                <result property="send_peo" column="send_peo"></result>
+                <result property="send_mobile" column="send_mobile"></result>
+                <result property="register_identify" column="register_identify"></result>
+                <result property="oper_emp_code" column="oper_emp_code"></result>
+                <result property="oper_tm" column="oper_tm"></result>
+                <result property="warning_state" column="warning_state"></result>
+                <result property="messaged_flag" column="messaged_flag"></result>
+                <result property="note" column="note"></result>
+            </association>
+        </resultMap>
+
+        <!--一对一的查询-->
+        <select id="getwaybill_payment_fk"  resultMap="mygetalls">
+            select f.* ,t.* from finance_cop_payment f, tb_waybill t  where f.waybill_id=t.waybill_id and f.oper_state=15;
+        </select>
+
+         <!--通过审核-->
+         <update id="update_send_shtg" parameterType="int">
+              update tb_waybill set audited_flag=1 where  waybill_id=#{waybill_id};
+         </update>
+
+          <!--撤销审核通过-->
+          <update id="update_send_shbtg" parameterType="int">
+              update tb_waybill set audited_flag=0 where  waybill_id=#{waybill_id};
+          </update>
+
+
+     <!--代收货款付款批次管理-->
+    <!--绑定值-->
+    <select id="getAll_batch"  resultType="com.ssm.entity.Finance_cop_batch_payment">
+        select * from  finance_cop_batch_payment;
     </select>
 
 
 
-    <!--修改未登记状态为登记状态 -->
-     <update id="updatepayment_state" parameterType="int" >
-       update finance_cop_payment set oper_state=6  where  waybill_id=#{waybill_id};
-    </update>
-
-    <!--修改已登记状态为未登记》取消登记-->
-     <update id="updatepayment_stateq" parameterType="int">
-          update finance_cop_payment set oper_state=7 where  waybill_id=#{waybill_id};
-     </update>
-
-    <!--修改状态为挂失-->
-    <update id="updatepayment_guashi" parameterType="com.ssm.entity.Finance_cop_payment">
-        update finance_cop_payment set oper_state=#{arg0},lost_name=#{arg1},lost_identify=#{arg2},note=#{arg3},lost_fee=#{arg4} where  waybill_id=#{arg5};
-    </update>
 
 
 
 
-    <!--通过代收款编号得到运单详情-->
-    <resultMap id="myPaymentLogin" type="com.ssm.entity.Finance_cop_payment">
-    <id property="finance_cop_paymentid" column="finance_cop_paymentid"></id>
 
-    <collection property="tb_waybills" ofType="com.ssm.entity.Tb_waybill">
-    <id property="waybill_id" column="waybill_id"></id>
-    <result property="waybill_no" column="waybill_no"></result>
-    <result property="goods_no" column="goods_no"></result>
-    <result property="status" column="status"></result>
-    <result property="settlement_type_code" column="settlement_type_code"></result>
-    <result property="payment_type_code" column="payment_type_code"></result>
-    <result property="dispatch_area_code" column="dispatch_area_code"></result>
-    <result property="audited_flag" column="audited_flag"></result>
-    <result property="auditer_emp_code" column="auditer_emp_code"></result>
-    <result property="addressee_cont_name" column="addressee_cont_name"></result>
-    <result property="addressee_mobile" column="addressee_mobile"></result>
-    <result property="biz_type_code" column="biz_type_code"></result>
-    </collection>
 
-    </resultMap>
 
-    <select id="getwaybillsById" parameterType="int" resultMap="myPaymentLogin">
-    select f.finance_cop_paymentid ,t.* from finance_cop_payment f, tb_waybill t  where f.finance_cop_paymentid=t.finance_cop_paymentid and f.finance_cop_paymentid=#{finance_cop_paymentid};
-   </select>
 
 
 

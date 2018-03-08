@@ -1,6 +1,7 @@
 package com.ssm.controller;
 
 import com.ssm.dao.IFinanceCopPaymentDao;
+import com.ssm.entity.Finance_cop_batch_payment;
 import com.ssm.entity.Finance_cop_payment;
 import com.ssm.entity.Tb_waybill;
 import com.sun.org.apache.bcel.internal.generic.FieldOrMethod;
@@ -35,9 +36,10 @@ public class FinanceCopPaymentController {
     private IFinanceCopPaymentDao iFinanceCopPaymentDao;
 
     /**
-     * 代收款登记绑定
+     * 代收款登记
      * @return
      */
+    //绑值
     @RequestMapping("get_Allwaybillandpayment")
     @ResponseBody
     public List<Tb_waybill> get_Allwaybillandpayment(){
@@ -51,8 +53,7 @@ public class FinanceCopPaymentController {
      */
     @RequestMapping("update_state_payment")
     public void update_state_payment(int waybill_ids){
-        System.out.println("登记："+waybill_ids);
-        iFinanceCopPaymentDao.updatepayment_state(waybill_ids);
+         iFinanceCopPaymentDao.updatepayment_state(waybill_ids);
     }
 
     /**
@@ -79,15 +80,9 @@ public class FinanceCopPaymentController {
        else{
            lost_fee=0;
        }
-//        Finance_cop_payment financeCopPayment=new Finance_cop_payment(oper_state, lost_name, lost_identify, note, lost_fee);
         iFinanceCopPaymentDao.updatepayment_guashi(oper_state, lost_names, lost_identify, notes, lost_fee,waybill_id);
 
     }
-
-
-
-
-
 
     /**
      * 代收款登记数据导出
@@ -129,32 +124,91 @@ public class FinanceCopPaymentController {
     }
 
 
+    /**
+     * 代收款操作
+     */
+
+    //登记进入登记审核
+    @RequestMapping("update_operation_dscontro")
+     public void update_operation_dscontro(int waybill_id){
+        iFinanceCopPaymentDao.update_operation_ds(waybill_id);
+     }
+
+     //取消登记审核
+    @RequestMapping("update_operation_qscontro")
+     public void update_operation_qscontro(int waybill_id){
+        iFinanceCopPaymentDao.update_operation_qs(waybill_id);
+     }
+
+     //取消挂失
+    @RequestMapping("update_opration_gscontro")
+     public void update_opration_gscontro(int waybill_id){
+        iFinanceCopPaymentDao.update_operation_gs(waybill_id);
+     }
+
+     //冻结
+    @RequestMapping("update_operation_djcontro")
+    public void update_operation_djcontro(int waybill_id){
+        iFinanceCopPaymentDao.update_operation_dj(waybill_id);
+    }
+
+    //解冻
+    @RequestMapping("update_operation_jdcontro")
+    public void update_operation_jdcontro(int waybill_id){
+        iFinanceCopPaymentDao.update_operation_jd(waybill_id);
+    }
 
 
+    //取消发款
+    @RequestMapping("update_operation_qfcontro")
+    public void update_operation_qfcontro(int waybill_id){
+        iFinanceCopPaymentDao.update_operation_qf(waybill_id);
+    }
 
-
-
-
+    //发款审核
+    @RequestMapping("update_operation_fkcontro")
+    public void update_operation_fkcontro(int waybill_id){
+        iFinanceCopPaymentDao.update_operation_fk(waybill_id);
+    }
 
 
     /**
-     *通过代收款编号得到运单详情
+     * 代收款发款
      */
 
-//    @RequestMapping("gettb_waybill")
-//    @ResponseBody
-//    public List<Tb_waybill> gettb_waybill(int finance_cop_paymentid){
-//        System.out.println("得到传递过来的id:"+finance_cop_paymentid);
-//        Finance_cop_payment finance_cop_payment=iFinanceCopPaymentDao.getwaybillsById(finance_cop_paymentid);
-//        List<Tb_waybill> list=new ArrayList<Tb_waybill>();
-//        try {
-//            list = finance_cop_payment.getTb_waybills();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//            return  list;
-//    }
-//
+    //绑定代收款发款为发款审核状态的记录
+    @ResponseBody
+    @RequestMapping("get_All_operationfk")
+    public List<Tb_waybill> get_All_operationfk(){
+        List<Tb_waybill> list=iFinanceCopPaymentDao.getwaybill_payment_fk();
+        return list;
+    }
+
+   //审核通过
+    @RequestMapping("update_send_shtgcontro")
+   public void update_send_shtgcontro(int waybill_id){
+        iFinanceCopPaymentDao.update_send_shtg(waybill_id);
+   }
+
+   //撤销审核
+    @RequestMapping("update_send_shbtgcontro")
+    public void update_send_shbtgcontro(int waybill_id){
+        iFinanceCopPaymentDao.update_send_shbtg(waybill_id);
+    }
+
+
+    /**
+     * 批次管理
+     */
+    @ResponseBody
+    @RequestMapping("getallbatch")
+    public List<Finance_cop_batch_payment> getallbatch(){
+        List<Finance_cop_batch_payment> list=iFinanceCopPaymentDao.getAll_batch();
+        return list;
+    }
+
+
+
 
 
 

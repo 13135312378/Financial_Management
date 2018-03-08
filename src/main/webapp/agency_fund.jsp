@@ -598,6 +598,11 @@
                                 </div>
                             </div>
 
+
+
+
+
+
                             <div class="widget-head am-cf">
                             </div>
                             <div class="widget-title  am-cf" style="margin-top:8px; ">查询条件</div>
@@ -653,7 +658,6 @@
                                     <tr>
                                         <th>代付款序号</th>
                                         <th><input type="checkbox" name="fund_all" value="1"></th>
-                                        <th>登记批次号</th>
                                         <th>E通卡</th>
                                         <th>运单号</th>
                                         <th>货单号</th>
@@ -689,7 +693,6 @@
                                     <tr class="gradeX" v-for="(tbwaybill,index) in tbwaybills">
                                         <td>{{tbwaybill.waybill_id}}</td>
                                         <td><input type="checkbox" name="id" :value="tbwaybill.waybill_id"></td>
-                                        <td>{{tbwaybill.finance_cop_payment.batch_code}}</td>
                                         <td>{{tbwaybill.finance_cop_payment.e_card_no}}</td>
                                         <td>{{tbwaybill.waybill_no}}</td>
                                         <td>{{tbwaybill.goods_no}}</td>
@@ -705,9 +708,10 @@
                                         <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='9'">临时挂失</td>
                                         <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='10'">正式挂失</td>
                                         <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='11'">解挂失</td>
-                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='12'">超期审核</td>
-                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='13'">删除代收款</td>
-
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='12'">超期申请</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='13'">超期审核</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='14'">删除代收款</td>
+                                        <td v-else-if="tbwaybill.finance_cop_payment.oper_state=='15'">发款审核</td>
                                         <td>{{tbwaybill.finance_cop_payment.bankaccount_type}}</td>
                                         <td>{{tbwaybill.finance_cop_payment.receive_account}}</td>
                                         <td>{{tbwaybill.finance_cop_payment.fee_amount}}</td>
