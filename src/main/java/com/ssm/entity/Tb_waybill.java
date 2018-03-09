@@ -82,6 +82,17 @@ public class Tb_waybill {
         this.finance_cop_payment = finance_cop_payment;
     }
 
+    //运单与核销一对一
+    private Finance_rpt_verify finance_rpt_verify;
+
+    public Finance_rpt_verify getFinance_rpt_verify() {
+        return finance_rpt_verify;
+    }
+
+    public void setFinance_rpt_verify(Finance_rpt_verify finance_rpt_verify) {
+        this.finance_rpt_verify = finance_rpt_verify;
+    }
+
     //构造方法
     public  Tb_waybill(){
 

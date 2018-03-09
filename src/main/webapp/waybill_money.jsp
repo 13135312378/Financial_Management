@@ -569,7 +569,8 @@
 
 
     <!-- 内容区域 -->
-    <div class="tpl-content-wrapper" id="waybill">
+    <div id="app_waybill">
+    <div class="tpl-content-wrapper" >
 
         <div class="container-fluid am-cf" style="height:26px;  ">
             <div class="page-header-heading" ><span class=""></span> 主营业务核销 <small>运单费用项核销 </small></div>
@@ -725,97 +726,93 @@
                         <br/>
 
                         <%--表单内容--%>
-                        <div class="am-scrollable-horizontal">
-                            <table width="100%" class="am-table am-table-bordered am-table-striped am-text-nowrap" id="example-r1" >
-                                <thead>
-                                <tr>
-                                    <th>序号</th>
-                                    <th><input type="checkbox" name="all" value="1"></th>
-                                    <th>业务类型</th>
-                                    <th>运单号</th>
-                                    <th>货号</th>
-                                    <th>凭证号</th>
-                                    <th>制单人</th>
-                                    <th>审核状态</th>
-                                    <th>寄件日期</th>
-                                    <th>出账日期</th>
-                                    <th>转款日期-代收款</th>
-                                    <th>发站</th>
-                                    <th>到站</th>
-                                    <th>品名</th>
-                                    <th>件数</th>
-                                    <th>发货人</th>
-                                    <th>收货人</th>
-                                    <th>付款方式</th>
-                                    <th>核销项目</th>
-                                    <th>核销去向</th>
-                                    <th>一级科目</th>
-                                    <th>二级科目</th>
-                                    <th>三级科目</th>
-                                    <th>四级科目</th>
-                                    <th>结算方式</th>
-                                    <th>收入</th>
-                                    <th>支出</th>
-                                    <th>实际金额</th>
-                                    <th>收据号码</th>
-                                    <th>发票号码</th>
-                                    <th>支票号码</th>
-                                    <th>核销人</th>
-                                    <th>核销网点</th>
-                                    <th>核销日期</th>
-                                    <th>出纳审核日期</th>
-                                    <th>凭证审核状态</th>
-                                    <th>凭证审核人</th>
-                                    <th>凭证审核日期</th>
-                                </tr>
-                                </thead>
+                                <div class="am-scrollable-horizontal">
+                                    <table width="100%" class="am-table am-table-bordered am-table-striped am-text-nowrap" id="example-r1" >
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th></th>
+                                            <th>回款流水号</th>
+                                            <th>充值网点</th>
+                                            <th>业务类型</th>
+                                            <th>审核网点</th>
+                                            <th>审核状态</th>
+                                            <th>审核日期</th>
+                                            <th>出账日期</th>
+                                            <th>凭证号</th>
+                                            <th>核销去向</th>
+                                            <th>充值金额</th>
+                                            <th>收入</th>
+                                            <th>支出</th>
+                                            <th>收据号码</th>
+                                            <th>发票号码</th>
+                                            <th>支票号码</th>
+                                            <th>核销人</th>
+                                            <th>核销网点</th>
+                                            <th>核销日期</th>
+                                            <th>出纳审核日期</th>
+                                            <th>凭证审核状态</th>
+                                            <th>凭证审核人</th>
+                                            <th>凭证审核日期</th>
 
-                                <tbody id="tb">
-                                <tr class="gradeX" v-for="(user,index) in users">
-                                    <td>{{user.uid}}</td>
-                                    <td><input type="checkbox" name="id" value="{{ user.uid}}"></td>
-                                    <td>{{user.uname}}</td>
-                                    <td>{{user.upass}}</td>
-                                    <td>{{user.upass}}</td>
-                                    <td>2016-09-26</td>
-                                    <td>{{user.upass}}</td>
-                                    <td>{{user.upass}}</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016</td>
-                                    <td>2016-10-12</td>
-                                </tr>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
 
-                                <!-- more data -->
-                                </tbody>
-                            </table>
-                        </div>
+                                        <tbody id="returned_tb">
+                                        <tr class="gradeX" v-for="(verify,index) in verifys">
+                                            <td>{{verify.verify_id}}</td>
+                                            <td><input type="checkbox"></td>
+                                            <td>{{verify.serial_number}}</td>
+                                            <td>{{verify.dept_code}}</td>
+                                            <td>{{verify.biz_type}}</td>
+                                            <td>{{verify.audit_dept_code}}</td>
+                                            <%--审核状态0 1--%>
+                                            <td v-if="verify.audit_status==0" style="color:red;">未核销</td>
+                                            <td v-else-if="verify.audit_status==1">已核销</td>
+
+
+                                            <td>{{verify.audit_tm}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.charge_off_tm}}</td>
+                                            <td>{{verify.certificate_no}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.verification_direction_code}}</td>
+                                            <td>充值金额未知</td>
+                                            <td>收入未知</td>
+                                            <td>支出未知</td>
+                                            <td>{{verify.finance_rpt_cashier_record.receipt_no}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.invoice_no}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.check_no}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.verification_person_code}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.verification_comp_code}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.verification_tm}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.cashier_audit_d}}</td>
+                                            <%--凭证审核状态--%>
+                                            <td v-if="verify.finance_rpt_cashier_record.certificate_audit_state==0">未审核</td>
+                                            <td v-else-if="verify.finance_rpt_cashier_record.certificate_audit_state==1">已审核</td>
+
+                                            <td>{{verify.finance_rpt_cashier_record.certificate_audit_name}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.certificate_audit_dt}}</td>
+
+                                            <td>
+                                                 <span>
+                                            <div class="tpl-table-black-operation">
+                                                <a href="javascript:;" @click="waybill_yes(index)" v-if="verify.audit_status==0" >
+                                                    <i class="am-icon-send-o"></i>
+                                                    核销
+                                                </a>
+
+                                                <a href="javascript:;" @click="waybill_no(index)" v-if="verify.audit_status==1" class="tpl-table-black-operation-del">
+                                                    <i class="am-icon-send-o"></i>
+                                                    撤销核销
+                                                </a>
+                                            </div>
+                                        </span>
+                                            </td>
+                                        </tr>
+                                        <!-- more data -->
+                                        </tbody>
+                                    </table>
+                                </div>
 
                          <div class="am-u-lg-12 am-cf">
 
@@ -842,7 +839,42 @@
 
 
 
+        <%--核销--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="claimhexiao">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">回款信息的确认</div>
+                <div class="am-modal-bd">
+                    你，确定要核销这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="waybill_hxgsure()">确定</span>
+                </div>
+            </div>
+        </div>
 
+
+
+
+        <%--撤销核销--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="claimchexiao">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">回款信息的撤销确认</div>
+                <div class="am-modal-bd">
+                    你，确定要撤销核销这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="waybill_cxhxgsure()">确定</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
 
 
 </div>
@@ -856,20 +888,18 @@
 </div>
 
 
-<script type="text/javascript">
-
-
-
+<script>
 
     $(function(){
+        var verify_id_ydhx;
+        var verify_id_cxhkyd;
         var vm = new Vue({
-            el: "#waybill", //引用div的id
+            el: "#app_waybill", //引用div的id
             data: {
-                submitUrl:"/getAll.action", //跳转的路径
-                user:"",
-                users: [],  //表单数据集合
-                titleName:"",
-                userId:""  //表单数据的id
+                submitUrl:"/getAllsyd.action", //跳转的路径
+                verify:"",
+                verifys: []//表单数据集合
+
 
             },
             methods: {
@@ -878,32 +908,60 @@
                     //上面方法从新赋值
                     var currenr_this=this;
                     //跳转的路径
-                    currenr_this.submitUrl='/getAll.action';
+                    currenr_this.submitUrl='/getAllsyd.action';
                     //通过json方式得到数据
                     $.getJSON(currenr_this.submitUrl,function(result,status){
                         //把结果集赋给定义的users，用来页面展示
-                        currenr_this._data.users=result;
-                        // alert(result);  //得到对象集合
+                        currenr_this._data.verifys=result;
+                        console.info(result) //得到对象集合
                     })
                 },
-                //批量查寻,弹出模态框
-              many_search:function () {
-                    $('#manysearch').modal({
-                        width:960
-                    });
-               },
                 //核销
-              many_hexiao:function () {
-                  $('#wayhexiao').modal({
-                  });
-              },
-              //撤销核销
-             many_chexiao:function () {
-                 $('#waychexiao').modal({
-                 });
-             }
-
-
+                waybill_yes:function (index) {
+                    //拿到对象
+                    var item=this.verifys[index];
+                    //获取该对象的id
+                    verify_id_ydhx=item.verify_id;
+                    $('#claimhexiao').modal({});
+                },
+                //确定核销
+                waybill_hxgsure:function () {
+                    $.ajax({
+                        url:'/update_verify_ydhxcontro.action',
+                        data:{verify_id:verify_id_ydhx},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('审核失误！');
+                        },
+                        error:function(result){
+                            alert('审核成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
+                },
+                //撤销核销
+                waybill_no:function () {
+                    //拿到对象
+                    var item=this.verifys[index];
+                    //获取该对象的id
+                    verify_id_cxhkyd=item.verify_id;
+                    $('#claimchexiao').modal({});
+                },
+                //确定撤销核销
+                waybill_cxhxgsure:function () {
+                    $.ajax({
+                        url:'/update_verify_ydcxhxcontro.action',
+                        data:{verify_id:verify_id_cxhkyd},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('审核失误！');
+                        },
+                        error:function(result){
+                            alert('审核成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
+                }
             },
             //页面加载数据
             created : function(){
@@ -912,32 +970,26 @@
         });
 
 
-        $('#datetimepicker').datetimepicker();  //日期显示
-        $('#datetimepicker1').datetimepicker();  //日期显示
-        $('#datetimepicker2').datetimepicker();  //日期显示
-        $('#datetimepicker3').datetimepicker();  //日期显示
-        $('#datetimepicker4').datetimepicker();  //日期显示
-        $('#datetimepicker5').datetimepicker();  //日期显示
+
+        $('#datetimepicker_returned').datetimepicker();  //日期显示
+        $('#datetimepicker1_returned').datetimepicker();  //日期显示
+        $('#datetimepicker2_returned').datetimepicker();  //日期显示
+        $('#datetimepicker3_returned').datetimepicker();  //日期显示
 
         //全选,设置chheckbox name='all' tbody id=tb
-        $("input[name=all]").click(function () {
+        $("input[name=returned_all]").click(function () {
             if (this.checked) {
-                $("#tb :checkbox").prop("checked", true);
+                $("#returned_tb :checkbox").prop("checked", true);
             } else {
-                $("#tb :checkbox").prop("checked", false);
+                $("#returned_tb :checkbox").prop("checked", false);
             }
         });
 
 
+
     })
 
-
-
-
-
-
 </script>
-
 
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/amazeui.datatables.min.js"></script>

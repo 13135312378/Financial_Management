@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssm.dao.IFinance_rpt_verifyDao">
+
+
+    <!--预付款充值核销-->
+    <resultMap id="payall" type="com.ssm.entity.Finance_rpt_verify">
+        <id property="verify_id" column="verify_id"></id>
+        <result property="certificate_no" column="certificate_no"></result>
+        <result property="biz_type" column="biz_type"></result>
+        <result property="in_emp" column="in_emp"></result>
+        <result property="audit_status" column="audit_status"></result>
+        <result property="in_tm" column="in_tm"></result>
+        <result property="cop_pay_tm" column="cop_pay_tm"></result>
+        <result property="src_dept_code" column="src_dept_code"></result>
+        <result property="dest_dept_code" column="dest_dept_code"></result>
+        <result property="goods_name" column="goods_name"></result>
+        <result property="total" column="total"></result>
+        <result property="src_emp_name" column="src_emp_name"></result>
+        <result property="dest_emp_name" column="dest_emp_name"></result>
+        <result property="pay_type" column="pay_type"></result>
+        <result property="verify_type" column="verify_type"></result>
+
+        <association property="tbWaybill" column="verify_id" javaType="com.ssm.entity.Tb_waybill">
+            <id property="waybill_id" column="waybill_id"></id>
+            <result property="waybill_no" column="waybill_no"></result>
+        </association>
+
+        <association property="finance_rpt_cashier_record" column="verify_id" javaType="com.ssm.entity.Finance_rpt_cashier_record">
+            <id property="cashier_id" column="cashier_id"></id>
+            <result property="charge_off_tm" column="charge_off_tm"></result>
+            <result property="verification_direction_code" column="verification_direction_code"></result>
+            <result property="actual_fee_ammout" column="actual_fee_ammout"></result>
+            <result property="receipt_no" column="receipt_no"></result>
+            <result property="invoice_no" column="invoice_no"></result>
+            <result property="check_no" column="check_no"></result>
+            <result property="verification_person_code" column="verification_person_code"></result>
+            <result property="verification_comp_code" column="verification_comp_code"></result>
+            <result property="verification_tm" column="verification_tm"></result>
+            <result property="cashier_audit_d" column="cashier_audit_d"></result>
+            <result property="certificate_audit_state" column="certificate_audit_state"></result>
+            <result property="certificate_audit_name" column="certificate_audit_name"></result>
+            <result property="certificate_audit_dt" column="certificate_audit_dt"></result>
+        </association>
+    </resultMap>
+
+    <!--绑定数据-->
+    <select id="getAll_Verify" resultMap="payall" >
+       select t.*, f.*, fi.* from tb_waybill t , finance_rpt_verify f , finance_rpt_cashier_record fi where t.waybill_id=f.verify_id and f.verify_id=fi.cashier_id and f.verify_type=1;
+    </select>
+
+    <!--核销：预付款-->
+    <update id="update_verify_states" parameterType="int">
+        update finance_rpt_verify set audit_status=1 where  verify_id=#{verify_id};
+    </update>
+
+    <!--撤销核销-->
+     <update id="update_verify_statescx" parameterType="int">
+         update finance_rpt_verify set audit_status=0 where  verify_id=#{verify_id};
+     </update>
+
+
+     <!--回款核销-->
+    <resultMap id="payall_hk" type="com.ssm.entity.Finance_rpt_verify">
+        <id property="verify_id" column="verify_id"></id>
+        <result property="serial_number" column="serial_number"></result>
+        <result property="dept_code" column="dept_code"></result>
+        <result property="biz_type" column="biz_type"></result>
+        <result property="audit_dept_code" column="audit_dept_code"></result>
+        <result property="audit_status" column="audit_status"></result>
+        <result property="audit_tm" column="audit_tm"></result>
+        <result property="certificate_no" column="certificate_no"></result>
+
+        <association property="tbWaybill" column="verify_id" javaType="com.ssm.entity.Tb_waybill">
+            <id property="waybill_id" column="waybill_id"></id>
+        </association>
+
+        <association property="finance_rpt_cashier_record" column="verify_id" javaType="com.ssm.entity.Finance_rpt_cashier_record">
+            <id property="cashier_id" column="cashier_id"></id>
+            <result property="charge_off_tm" column="charge_off_tm"></result>
+            <result property="verification_direction_code" column="verification_direction_code"></result>
+            <result property="receipt_no" column="receipt_no"></result>
+            <result property="invoice_no" column="invoice_no"></result>
+            <result property="check_no" column="check_no"></result>
+            <result property="verification_person_code" column="verification_person_code"></result>
+            <result property="verification_comp_code" column="verification_comp_code"></result>
+            <result property="verification_tm" column="verification_tm"></result>
+            <result property="cashier_audit_d" column="cashier_audit_d"></result>
+            <result property="cashier_audit_state" column="cashier_audit_state"></result>
+            <result property="certificate_audit_name" column="certificate_audit_name"></result>
+            <result property="certificate_audit_dt" column="certificate_audit_dt"></result>
+
+        </association>
+    </resultMap>
+
+    <!--绑定数据-->
+    <select id="getALL_hk_Verify" resultMap="payall_hk" >
+        select t.*, f.*, fi.* from tb_waybill t , finance_rpt_verify f , finance_rpt_cashier_record fi where t.waybill_id=f.verify_id and f.verify_id=fi.cashier_id and f.verify_type=2;
+    </select>
+
+    <!--核销-->
+    <update id="update_verify_state_hkhx" parameterType="int">
+         update finance_rpt_verify set audit_status=1 where  verify_id=#{verify_id};
+    </update>
+
+    <!--撤销核销-->
+    <update id="update_verify_state_hkcx" parameterType="int">
+         update finance_rpt_verify set audit_status=0 where  verify_id=#{verify_id};
+    </update>
+
+     <!--理赔核销-->
+    <!--绑定数据-->
+    <!--回款核销-->
+    <resultMap id="payall_lp" type="com.ssm.entity.Finance_rpt_verify">
+        <id property="verify_id" column="verify_id"></id>
+        <result property="serial_number" column="serial_number"></result>
+        <result property="dept_code" column="dept_code"></result>
+        <result property="biz_type" column="biz_type"></result>
+        <result property="audit_dept_code" column="audit_dept_code"></result>
+        <result property="audit_status" column="audit_status"></result>
+        <result property="audit_tm" column="audit_tm"></result>
+        <result property="certificate_no" column="certificate_no"></result>
+
+        <association property="tbWaybill" column="verify_id" javaType="com.ssm.entity.Tb_waybill">
+            <id property="waybill_id" column="waybill_id"></id>
+        </association>
+
+        <association property="finance_rpt_cashier_record" column="verify_id" javaType="com.ssm.entity.Finance_rpt_cashier_record">
+            <id property="cashier_id" column="cashier_id"></id>
+            <result property="charge_off_tm" column="charge_off_tm"></result>
+            <result property="verification_direction_code" column="verification_direction_code"></result>
+            <result property="receipt_no" column="receipt_no"></result>
+            <result property="invoice_no" column="invoice_no"></result>
+            <result property="check_no" column="check_no"></result>
+            <result property="verification_person_code" column="verification_person_code"></result>
+            <result property="verification_comp_code" column="verification_comp_code"></result>
+            <result property="verification_tm" column="verification_tm"></result>
+            <result property="cashier_audit_d" column="cashier_audit_d"></result>
+            <result property="cashier_audit_state" column="cashier_audit_state"></result>
+            <result property="certificate_audit_name" column="certificate_audit_name"></result>
+            <result property="certificate_audit_dt" column="certificate_audit_dt"></result>
+
+        </association>
+    </resultMap>
+
+    <!--绑定数据-->
+    <select id="getAll_Verify_lp" resultMap="payall_lp" >
+        select t.*, f.*, fi.* from tb_waybill t , finance_rpt_verify f , finance_rpt_cashier_record fi where t.waybill_id=f.verify_id and f.verify_id=fi.cashier_id and f.verify_type=3;
+    </select>
+
+   <!--核销-->
+    <update id="update_verify_lphx" parameterType="int">
+          update finance_rpt_verify set audit_status=1 where  verify_id=#{verify_id};
+    </update>
+
+   <!--撤销核销-->
+    <update id="update_verify_cxhxlp" parameterType="int">
+        update finance_rpt_verify set audit_status=0 where  verify_id=#{verify_id};
+    </update>
+
+
+   <!--运单费用项核销-->
+    <resultMap id="payall_yd" type="com.ssm.entity.Finance_rpt_verify">
+        <id property="verify_id" column="verify_id"></id>
+        <result property="serial_number" column="serial_number"></result>
+        <result property="dept_code" column="dept_code"></result>
+        <result property="biz_type" column="biz_type"></result>
+        <result property="audit_dept_code" column="audit_dept_code"></result>
+        <result property="audit_status" column="audit_status"></result>
+        <result property="audit_tm" column="audit_tm"></result>
+        <result property="certificate_no" column="certificate_no"></result>
+
+        <association property="tbWaybill" column="verify_id" javaType="com.ssm.entity.Tb_waybill">
+            <id property="waybill_id" column="waybill_id"></id>
+        </association>
+
+        <association property="finance_rpt_cashier_record" column="verify_id" javaType="com.ssm.entity.Finance_rpt_cashier_record">
+            <id property="cashier_id" column="cashier_id"></id>
+            <result property="charge_off_tm" column="charge_off_tm"></result>
+            <result property="verification_direction_code" column="verification_direction_code"></result>
+            <result property="receipt_no" column="receipt_no"></result>
+            <result property="invoice_no" column="invoice_no"></result>
+            <result property="check_no" column="check_no"></result>
+            <result property="verification_person_code" column="verification_person_code"></result>
+            <result property="verification_comp_code" column="verification_comp_code"></result>
+            <result property="verification_tm" column="verification_tm"></result>
+            <result property="cashier_audit_d" column="cashier_audit_d"></result>
+            <result property="cashier_audit_state" column="cashier_audit_state"></result>
+            <result property="certificate_audit_name" column="certificate_audit_name"></result>
+            <result property="certificate_audit_dt" column="certificate_audit_dt"></result>
+
+        </association>
+    </resultMap>
+
+    <!--绑定数据-->
+    <select id="getAll_verify_ydfy" resultMap="payall_yd" >
+        select t.*, f.*, fi.* from tb_waybill t , finance_rpt_verify f , finance_rpt_cashier_record fi where t.waybill_id=f.verify_id and f.verify_id=fi.cashier_id and f.verify_type=4;
+    </select>
+
+    <!--核销-->
+    <update id="update_verify_ydhx" parameterType="int">
+         update finance_rpt_verify set audit_status=1 where  verify_id=#{verify_id};
+    </update>
+
+    <!--撤销核销-->
+    <update id="update_verify_ydcxhx" parameterType="int">
+         update finance_rpt_verify set audit_status=0 where  verify_id=#{verify_id};
+    </update>
+
+
+
+
+
+</mapper>

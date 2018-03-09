@@ -569,7 +569,8 @@
 
 
     <!-- 内容区域 -->
-    <div class="tpl-content-wrapper" id="app">
+    <div id="app_apply">
+    <div class="tpl-content-wrapper" >
 
         <div class="container-fluid am-cf" style="height:26px;  ">
             <div class="page-header-heading" ><span class=""></span> 主营业务核销 <small>回款核销 </small></div>
@@ -588,8 +589,6 @@
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
                                                 <button type="button" class="am-btn am-btn-default am-btn-success" @click="returned_search()"><span class="am-icon-search"></span> 批量查寻</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-secondary"  @click="returned_hexiao()"><span class="am-icon-save"></span> 核销</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-warning" @click="returned_chexiao()"><span class="am-icon-reply"></span> 撤销核销</button>
                                                 <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-send-o"></span> 导出列表</button>
                                             </div>
                                         </div>
@@ -685,9 +684,9 @@
                                         <thead>
                                         <tr>
                                             <th>序号</th>
-                                            <th><input type="checkbox" name="returned_all" value="1"></th>
+                                            <th></th>
                                             <th>回款流水号</th>
-                                            <th>回款网点</th>
+                                            <th>充值网点</th>
                                             <th>业务类型</th>
                                             <th>审核网点</th>
                                             <th>审核状态</th>
@@ -695,10 +694,6 @@
                                             <th>出账日期</th>
                                             <th>凭证号</th>
                                             <th>核销去向</th>
-                                            <th>一级科目</th>
-                                            <th>二级科目</th>
-                                            <th>三级科目</th>
-                                            <th>四级科目</th>
                                             <th>充值金额</th>
                                             <th>收入</th>
                                             <th>支出</th>
@@ -712,38 +707,60 @@
                                             <th>凭证审核状态</th>
                                             <th>凭证审核人</th>
                                             <th>凭证审核日期</th>
+
+                                            <th>操作</th>
                                         </tr>
                                         </thead>
 
                                         <tbody id="returned_tb">
-                                        <tr class="gradeX" v-for="(user,index) in users">
-                                            <td>{{user.uid}}</td>
-                                            <td><input type="checkbox" name="id" value="{{ user.uid}}"></td>
-                                            <td>{{user.uname}}</td>
-                                            <td>{{user.upass}}</td>
-                                            <td>{{user.upass}}</td>
-                                            <td>2016-09-26</td>
-                                            <td>{{user.upass}}</td>
-                                            <td>{{user.upass}}</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
-                                            <td>2016</td>
+                                        <tr class="gradeX" v-for="(verify,index) in verifys">
+                                            <td>{{verify.verify_id}}</td>
+                                            <td><input type="checkbox"></td>
+                                            <td>{{verify.serial_number}}</td>
+                                            <td>{{verify.dept_code}}</td>
+                                            <td>{{verify.biz_type}}</td>
+                                            <td>{{verify.audit_dept_code}}</td>
+                                            <%--审核状态0 1--%>
+                                            <td v-if="verify.audit_status==0" style="color:red;">未核销</td>
+                                            <td v-else-if="verify.audit_status==1">已核销</td>
+
+
+                                            <td>{{verify.audit_tm}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.charge_off_tm}}</td>
+                                            <td>{{verify.certificate_no}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.verification_direction_code}}</td>
+                                            <td>充值金额未知</td>
+                                            <td>收入未知</td>
+                                            <td>支出未知</td>
+                                            <td>{{verify.finance_rpt_cashier_record.receipt_no}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.invoice_no}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.check_no}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.verification_person_code}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.verification_comp_code}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.verification_tm}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.cashier_audit_d}}</td>
+                                              <%--凭证审核状态--%>
+                                            <td v-if="verify.finance_rpt_cashier_record.certificate_audit_state==0">未审核</td>
+                                            <td v-else-if="verify.finance_rpt_cashier_record.certificate_audit_state==1">已审核</td>
+
+                                            <td>{{verify.finance_rpt_cashier_record.certificate_audit_name}}</td>
+                                            <td>{{verify.finance_rpt_cashier_record.certificate_audit_dt}}</td>
+
+                                             <td>
+                                                 <span>
+                                            <div class="tpl-table-black-operation">
+                                                <a href="javascript:;" @click="apply_yes(index)" v-if="verify.audit_status==0" >
+                                                    <i class="am-icon-send-o"></i>
+                                                    核销
+                                                </a>
+
+                                                <a href="javascript:;" @click="apply_no(index)" v-if="verify.audit_status==1" class="tpl-table-black-operation-del">
+                                                    <i class="am-icon-send-o"></i>
+                                                    撤销核销
+                                                </a>
+                                            </div>
+                                        </span>
+                                             </td>
                                         </tr>
                                         <!-- more data -->
                                         </tbody>
@@ -765,8 +782,6 @@
                                     </ul>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -774,23 +789,57 @@
         </div>
     </div>
 
+
+
+        <%--核销--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="returnedhexiao">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">回款信息的确认</div>
+                <div class="am-modal-bd">
+                    你，确定要核销这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="returned_hxgsure()">确定</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <%--撤销核销--%>
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="returnedchexiao">
+            <div class="am-modal-dialog">
+                <div class="am-btn am-btn-warning am-btn-primary am-btn-block">回款信息的撤销确认</div>
+                <div class="am-modal-bd">
+                    你，确定要撤销核销这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm @click="returned_cxhxgsure()">确定</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
   </div>
-
-</div>
-
-
 
 <script>
 
     $(function(){
+        var verify_id_hkhx;
+        var verify_id_cxhkhx;
         var vm = new Vue({
-            el: "#app", //引用div的id
+            el: "#app_apply", //引用div的id
             data: {
-                submitUrl:"/getAll.action", //跳转的路径
-                user:"",
-                users: [],  //表单数据集合
-                titleName:"",
-                userId:""  //表单数据的id
+                submitUrl:"/getAll_VerifyHK.action", //跳转的路径
+                verify:"",
+                verifys: []//表单数据集合
+
 
             },
             methods: {
@@ -799,32 +848,59 @@
                     //上面方法从新赋值
                     var currenr_this=this;
                     //跳转的路径
-                    currenr_this.submitUrl='/getAll.action';
+                    currenr_this.submitUrl='/getAll_VerifyHK.action';
                     //通过json方式得到数据
                     $.getJSON(currenr_this.submitUrl,function(result,status){
                         //把结果集赋给定义的users，用来页面展示
-                        currenr_this._data.users=result;
-                        // alert(result);  //得到对象集合
+                        currenr_this._data.verifys=result;
+                      console.info(result) //得到对象集合
                     })
                 },
-                //批量查寻,弹出模态框
-                returned_search:function () {
-                    $('#returnedsearch').modal({
-                        width:900,
-                        height:480
-
-
-                    });
-                },
                 //核销
-                returned_hexiao:function () {
-                    $('#returnedhexiao').modal({
-                    });
+                apply_yes:function (index) {
+                    //拿到对象
+                    var item=this.verifys[index];
+                    //获取该对象的id
+                    verify_id_hkhx=item.verify_id;
+                    $('#returnedhexiao').modal({});
+                },
+                //确定核销
+                returned_hxgsure:function () {
+                    $.ajax({
+                        url:'/update_verify_states_hkcontro.action',
+                        data:{verify_id:verify_id_hkhx},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('审核失误！');
+                        },
+                        error:function(result){
+                            alert('审核成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
                 },
                 //撤销核销
-                returned_chexiao:function () {
-                    $('#returnedchexiao').modal({
-                    });
+                apply_no:function () {
+                    //拿到对象
+                    var item=this.verifys[index];
+                    //获取该对象的id
+                    verify_id_cxhkhx=item.verify_id;
+                    $('#returnedchexiao').modal({});
+                },
+                //确定撤销核销
+                returned_cxhxgsure:function () {
+                    $.ajax({
+                        url:'/update_verify_states_hkcxcontro.action',
+                        data:{verify_id:verify_id_cxhkhx},
+                        dataType:'JSON',
+                        success:function(result){
+                            alert('审核失误！');
+                        },
+                        error:function(result){
+                            alert('审核成功！');
+                            location.reload();  //刷新页面
+                        }
+                    })
                 }
             },
             //页面加载数据
@@ -859,115 +935,6 @@
 <script src="assets/js/amazeui.datatables.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>
 <script src="assets/js/app.js"></script>
-
-
-
-<%--模态框--%>
-<%--批量查询--%>
-<div class="am-modal am-modal-no-btn" tabindex="" id="returnedsearch">
-    <div class="am-modal-dialog" style="background-color:white; ">
-        <div class="am-modal-hd">批量查询
-            <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-        </div>
-
-
-        <div class="am-modal-bd">
-            <%--查询输入区域--%>
-            <form action="" method="post">
-                <table class="am-table am-table-centered am-text-middle am-text-nowrap" border="0">
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            回款流水号&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-                        <td>凭证号&nbsp;:&nbsp;<input type="text" style="width:146px;"/></td>
-                       <td>
-                            <button type="button" class="am-btn am-btn-warning am-radius" style="height:34px; ">添加</button>
-                            <button type="button" class="am-btn am-btn-warning am-radius" style="height:34px; ">移除</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-
-
-            <%--表单内容--%>
-            <div class="am-scrollable-vertical" >
-                <table width="100%"  class="am-table am-table-bordered am-table-striped am-text-nowrap" id="example-r">
-                    <thead>
-                    <tr>
-                        <th>序号</th>
-                        <th>业务类型</th>
-                        <th>回款流水号</th>
-                        <th>凭证号</th>
-                        <th>回款操作人</th>
-                        <th>回款网点</th>
-                        <th>回款金额</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr class="gradeX" v-for="">
-                        <td>{{user.uid}}</td>
-                        <td>{{user.uname}}</td>
-                        <td>{{user.upass}}</td>
-                        <td>{{user.upass}}</td>
-                        <td>2016-09-26</td>
-                        <td>{{user.upass}}</td>
-                        <td>{{user.upass}}</td>
-                    </tr>
-                    <tr class="gradeX" v-for="">
-                        <td>{{user.uid}}</td>
-                        <td>{{user.uname}}</td>
-                        <td>{{user.upass}}</td>
-                        <td>{{user.upass}}</td>
-                        <td>2016-09-26</td>
-                        <td>{{user.upass}}</td>
-                        <td>{{user.upass}}</td>
-                    </tr>
-
-
-                    <!-- more data -->
-                    </tbody>
-                </table>
-
-            </div>
-            <br/><br/>
-            <button type="button" class="am-btn am-btn-warning am-radius">确定</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="button" class="am-btn am-btn-default" data-am-modal-close>取消</button>
-        </div>
-    </div>
-</div>
-
-
-<%--核销--%>
-<div class="am-modal am-modal-confirm" tabindex="-1" id="returnedhexiao">
-    <div class="am-modal-dialog">
-        <div class="am-btn am-btn-warning am-btn-primary am-btn-block">回款信息的确认</div>
-        <div class="am-modal-bd">
-            你，确定要核销这条记录吗？
-        </div>
-        <div class="am-modal-footer">
-            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-        </div>
-    </div>
-</div>
-
-
-
-
-<%--撤销核销--%>
-<div class="am-modal am-modal-confirm" tabindex="-1" id="returnedchexiao">
-    <div class="am-modal-dialog">
-        <div class="am-btn am-btn-warning am-btn-primary am-btn-block">回款信息的撤销确认</div>
-        <div class="am-modal-bd">
-            你，确定要撤销核销这条记录吗？
-        </div>
-        <div class="am-modal-footer">
-            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-        </div>
-    </div>
-</div>
 
 
 </body>

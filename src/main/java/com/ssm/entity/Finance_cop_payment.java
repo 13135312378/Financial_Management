@@ -48,9 +48,7 @@ public class Finance_cop_payment {
     private  String send_peo;		//寄件联系人
     private  String send_mobile;		//寄件人电话
     private  Date send_tm;		//寄件时间
-
     private  String oper_state;		//操作状态1-无操作,2-取消发款,3-确认已转款,4-冻结,5-解冻,6-登记,7-取消登记,8-登记审核,9-临时挂失,10-正式挂失,11-解挂失,12超期审核,13-删除代收款,
-
     private  String oper_emp_code;	//操作人
     private  Date oper_tm;		//操作时间
     private  String note;		//备注
@@ -69,8 +67,6 @@ public class Finance_cop_payment {
     private Date apply_tm;		//申请日期
     private  String to_comp_code;		//公司代码(签收公司)
     private Date period_days;		//转款周期
-
-
     private Date batch_oper_tm;	//批次登记日期
     private  String e_card_no;		//e卡通号
     private  String payee_mobile;		//领款手机
