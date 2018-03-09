@@ -58,6 +58,6 @@ public interface IFinance_rpt_verifyDao {
     //撤销核销
     public void update_verify_ydcxhx(int verify_id);
 
-
+     public void update();
 
 }
