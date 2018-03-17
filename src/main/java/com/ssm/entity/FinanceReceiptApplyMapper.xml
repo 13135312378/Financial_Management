@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.FinanceReceiptApplyDao">
+  <resultMap id="BaseResultMap" type="com.ssm.entity.FinanceReceiptApply">
+    <id column="receipt_apply_id" jdbcType="INTEGER" property="receiptApplyId" />
+    <result column="waybill_no" jdbcType="VARCHAR" property="waybillNo" />
+    <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
+    <result column="e_card_no" jdbcType="VARCHAR" property="eCardNo" />
+    <result column="receipt_no" jdbcType="VARCHAR" property="receiptNo" />
+    <result column="register_name" jdbcType="VARCHAR" property="registerName" />
+    <result column="register_mobile" jdbcType="VARCHAR" property="registerMobile" />
+    <result column="tax_identification_no" jdbcType="VARCHAR" property="taxIdentificationNo" />
+    <result column="account_bank" jdbcType="TINYINT" property="accountBank" />
+    <result column="bank_card_no" jdbcType="VARCHAR" property="bankCardNo" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="receipt_amt" jdbcType="VARCHAR" property="receiptAmt" />
+    <result column="receipt_status" jdbcType="TINYINT" property="receiptStatus" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="tax_amt" jdbcType="DECIMAL" property="taxAmt" />
+    <result column="no_tax_amt" jdbcType="DECIMAL" property="noTaxAmt" />
+    <result column="waybill_total" jdbcType="DECIMAL" property="waybillTotal" />
+    <result column="is_duty_free" jdbcType="TINYINT" property="isDutyFree" />
+    <result column="receipt_type" jdbcType="TINYINT" property="receiptType" />
+    <result column="apply_dept" jdbcType="VARCHAR" property="applyDept" />
+    <result column="apply_tm" jdbcType="TIMESTAMP" property="applyTm" />
+    <result column="apply_emp" jdbcType="VARCHAR" property="applyEmp" />
+    <result column="apply_name" jdbcType="VARCHAR" property="applyName" />
+    <result column="drawer_emp" jdbcType="VARCHAR" property="drawerEmp" />
+    <result column="drawer_name" jdbcType="VARCHAR" property="drawerName" />
+    <result column="comp_code" jdbcType="VARCHAR" property="compCode" />
+    <result column="org_type" jdbcType="VARCHAR" property="orgType" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="creater_time" jdbcType="TIMESTAMP" property="createrTime" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modifier_time" jdbcType="TIMESTAMP" property="modifierTime" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="latest_time" jdbcType="TIMESTAMP" property="latestTime" />
+    <result column="record_version" jdbcType="DECIMAL" property="recordVersion" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    receipt_apply_id, waybill_no, serial_number, e_card_no, receipt_no, register_name, 
+    register_mobile, tax_identification_no, account_bank, bank_card_no, address, receipt_amt, 
+    receipt_status, tax_rate, tax_amt, no_tax_amt, waybill_total, is_duty_free, receipt_type, 
+    apply_dept, apply_tm, apply_emp, apply_name, drawer_emp, drawer_name, comp_code, 
+    org_type, creater, creater_time, modifier, modifier_time, is_delete, latest_time, 
+    record_version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from finance_receipt_apply
+    where receipt_apply_id = #{receiptApplyId,jdbcType=INTEGER}
+  </select>
+
+  <!--  查询所有发票 getAllFinanceReceiptApply  -->
+  <select id="getAllFinanceReceiptApply"  resultMap="BaseResultMap" parameterType="com.ssm.entity.FinanceReceiptApply">
+    select
+    <include refid="Base_Column_List" />
+    from finance_receipt_apply
+    where is_delete = 0
+    <if test="eCardNo != null">
+      AND e_card_no like concat(concat("%",#{eCardNo}),"%")
+    </if>
+    <if test="receiptStatus > 0 ">
+      AND receipt_status = #{receiptStatus}
+    </if>
+  </select>
+
+  <!--  删除  -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from finance_receipt_apply
+    where receipt_apply_id = #{receiptApplyId,jdbcType=INTEGER}
+  </delete>
+
+  <!--  添加  -->
+  <insert id="insert" parameterType="com.ssm.entity.FinanceReceiptApply">
+    insert into finance_receipt_apply (receipt_apply_id, waybill_no, serial_number, 
+      e_card_no, receipt_no, register_name, 
+      register_mobile, tax_identification_no, account_bank, 
+      bank_card_no, address, receipt_amt, 
+      receipt_status, tax_rate, tax_amt, 
+      no_tax_amt, waybill_total, is_duty_free, 
+      receipt_type, apply_dept, apply_tm, 
+      apply_emp, apply_name, drawer_emp, 
+      drawer_name, comp_code, org_type, 
+      creater, creater_time, modifier, 
+      modifier_time, is_delete, latest_time, 
+      record_version)
+    values (#{receiptApplyId,jdbcType=INTEGER}, #{waybillNo,jdbcType=VARCHAR}, #{serialNumber,jdbcType=VARCHAR}, 
+      #{eCardNo,jdbcType=VARCHAR}, #{receiptNo,jdbcType=VARCHAR}, #{registerName,jdbcType=VARCHAR}, 
+      #{registerMobile,jdbcType=VARCHAR}, #{taxIdentificationNo,jdbcType=VARCHAR}, #{accountBank,jdbcType=TINYINT}, 
+      #{bankCardNo,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{receiptAmt,jdbcType=VARCHAR}, 
+      #{receiptStatus,jdbcType=TINYINT}, #{taxRate,jdbcType=DECIMAL}, #{taxAmt,jdbcType=DECIMAL}, 
+      #{noTaxAmt,jdbcType=DECIMAL}, #{waybillTotal,jdbcType=DECIMAL}, #{isDutyFree,jdbcType=TINYINT}, 
+      #{receiptType,jdbcType=TINYINT}, #{applyDept,jdbcType=VARCHAR}, #{applyTm,jdbcType=TIMESTAMP}, 
+      #{applyEmp,jdbcType=VARCHAR}, #{applyName,jdbcType=VARCHAR}, #{drawerEmp,jdbcType=VARCHAR}, 
+      #{drawerName,jdbcType=VARCHAR}, #{compCode,jdbcType=VARCHAR}, #{orgType,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createrTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
+      #{modifierTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT}, #{latestTime,jdbcType=TIMESTAMP}, 
+      #{recordVersion,jdbcType=DECIMAL})
+  </insert>
+
+  <!--  添加  -->
+  <insert id="insertSelective" parameterType="com.ssm.entity.FinanceReceiptApply">
+    insert into finance_receipt_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="receiptApplyId != null">
+        receipt_apply_id,
+      </if>
+      <if test="waybillNo != null">
+        waybill_no,
+      </if>
+      <if test="serialNumber != null">
+        serial_number,
+      </if>
+      <if test="eCardNo != null">
+        e_card_no,
+      </if>
+      <if test="receiptNo != null">
+        receipt_no,
+      </if>
+      <if test="registerName != null">
+        register_name,
+      </if>
+      <if test="registerMobile != null">
+        register_mobile,
+      </if>
+      <if test="taxIdentificationNo != null">
+        tax_identification_no,
+      </if>
+      <if test="accountBank != null">
+        account_bank,
+      </if>
+      <if test="bankCardNo != null">
+        bank_card_no,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="receiptAmt != null">
+        receipt_amt,
+      </if>
+      <if test="receiptStatus != null">
+        receipt_status,
+      </if>
+      <if test="taxRate != null">
+        tax_rate,
+      </if>
+      <if test="taxAmt != null">
+        tax_amt,
+      </if>
+      <if test="noTaxAmt != null">
+        no_tax_amt,
+      </if>
+      <if test="waybillTotal != null">
+        waybill_total,
+      </if>
+      <if test="isDutyFree != null">
+        is_duty_free,
+      </if>
+      <if test="receiptType != null">
+        receipt_type,
+      </if>
+      <if test="applyDept != null">
+        apply_dept,
+      </if>
+      <if test="applyTm != null">
+        apply_tm,
+      </if>
+      <if test="applyEmp != null">
+        apply_emp,
+      </if>
+      <if test="applyName != null">
+        apply_name,
+      </if>
+      <if test="drawerEmp != null">
+        drawer_emp,
+      </if>
+      <if test="drawerName != null">
+        drawer_name,
+      </if>
+      <if test="compCode != null">
+        comp_code,
+      </if>
+      <if test="orgType != null">
+        org_type,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createrTime != null">
+        creater_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifierTime != null">
+        modifier_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="latestTime != null">
+        latest_time,
+      </if>
+      <if test="recordVersion != null">
+        record_version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="receiptApplyId != null">
+        #{receiptApplyId,jdbcType=INTEGER},
+      </if>
+      <if test="waybillNo != null">
+        #{waybillNo,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="eCardNo != null">
+        #{eCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptNo != null">
+        #{receiptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="registerName != null">
+        #{registerName,jdbcType=VARCHAR},
+      </if>
+      <if test="registerMobile != null">
+        #{registerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="taxIdentificationNo != null">
+        #{taxIdentificationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountBank != null">
+        #{accountBank,jdbcType=TINYINT},
+      </if>
+      <if test="bankCardNo != null">
+        #{bankCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptAmt != null">
+        #{receiptAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptStatus != null">
+        #{receiptStatus,jdbcType=TINYINT},
+      </if>
+      <if test="taxRate != null">
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmt != null">
+        #{taxAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="noTaxAmt != null">
+        #{noTaxAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="waybillTotal != null">
+        #{waybillTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="isDutyFree != null">
+        #{isDutyFree,jdbcType=TINYINT},
+      </if>
+      <if test="receiptType != null">
+        #{receiptType,jdbcType=TINYINT},
+      </if>
+      <if test="applyDept != null">
+        #{applyDept,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTm != null">
+        #{applyTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyEmp != null">
+        #{applyEmp,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null">
+        #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="drawerEmp != null">
+        #{drawerEmp,jdbcType=VARCHAR},
+      </if>
+      <if test="drawerName != null">
+        #{drawerName,jdbcType=VARCHAR},
+      </if>
+      <if test="compCode != null">
+        #{compCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null">
+        #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null">
+        #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifierTime != null">
+        #{modifierTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="latestTime != null">
+        #{latestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordVersion != null">
+        #{recordVersion,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+  <!--  修改  -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.entity.FinanceReceiptApply">
+    update finance_receipt_apply
+    <set>
+      <if test="waybillNo != null">
+        waybill_no = #{waybillNo},
+      </if>
+      <if test="serialNumber != null">
+        serial_number = #{serialNumber},
+      </if>
+      <if test="eCardNo != null">
+        e_card_no = #{eCardNo},
+      </if>
+      <if test="receiptNo != null">
+        receipt_no = #{receiptNo},
+      </if>
+      <if test="registerName != null">
+        register_name = #{registerName},
+      </if>
+      <if test="registerMobile != null">
+        register_mobile = #{registerMobile},
+      </if>
+      <if test="taxIdentificationNo != null">
+        tax_identification_no = #{taxIdentificationNo},
+      </if>
+      <if test="accountBank != null">
+        account_bank = #{accountBank},
+      </if>
+      <if test="bankCardNo != null">
+        bank_card_no = #{bankCardNo},
+      </if>
+      <if test="address != null">
+        address = #{address},
+      </if>
+      <if test="receiptAmt != null">
+        receipt_amt = #{receiptAmt},
+      </if>
+      <if test="receiptStatus != null">
+        receipt_status = #{receiptStatus},
+      </if>
+      <if test="taxRate != null">
+        tax_rate = #{taxRate},
+      </if>
+      <if test="taxAmt != null">
+        tax_amt = #{taxAmt},
+      </if>
+      <if test="noTaxAmt != null">
+        no_tax_amt = #{noTaxAmt},
+      </if>
+      <if test="waybillTotal != null">
+        waybill_total = #{waybillTotal},
+      </if>
+      <if test="isDutyFree != null">
+        is_duty_free = #{isDutyFree,jdbcType=TINYINT},
+      </if>
+      <if test="receiptType != null">
+        receipt_type = #{receiptType,jdbcType=TINYINT},
+      </if>
+      <if test="applyDept != null">
+        apply_dept = #{applyDept,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTm != null">
+        apply_tm = #{applyTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyEmp != null">
+        apply_emp = #{applyEmp,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null">
+        apply_name = #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="drawerEmp != null">
+        drawer_emp = #{drawerEmp,jdbcType=VARCHAR},
+      </if>
+      <if test="drawerName != null">
+        drawer_name = #{drawerName,jdbcType=VARCHAR},
+      </if>
+      <if test="compCode != null">
+        comp_code = #{compCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null">
+        org_type = #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null">
+        creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifierTime != null">
+        modifier_time = #{modifierTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="latestTime != null">
+        latest_time = #{latestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordVersion != null">
+        record_version = #{recordVersion,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where receipt_apply_id = #{receiptApplyId,jdbcType=INTEGER}
+  </update>
+
+  <!--  修改  -->
+  <update id="updateByPrimaryKey" parameterType="com.ssm.entity.FinanceReceiptApply">
+    update finance_receipt_apply
+    set waybill_no = #{waybillNo,jdbcType=VARCHAR},
+      serial_number = #{serialNumber,jdbcType=VARCHAR},
+      e_card_no = #{eCardNo,jdbcType=VARCHAR},
+      receipt_no = #{receiptNo,jdbcType=VARCHAR},
+      register_name = #{registerName,jdbcType=VARCHAR},
+      register_mobile = #{registerMobile,jdbcType=VARCHAR},
+      tax_identification_no = #{taxIdentificationNo,jdbcType=VARCHAR},
+      account_bank = #{accountBank,jdbcType=TINYINT},
+      bank_card_no = #{bankCardNo,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      receipt_amt = #{receiptAmt,jdbcType=VARCHAR},
+      receipt_status = #{receiptStatus,jdbcType=TINYINT},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      tax_amt = #{taxAmt,jdbcType=DECIMAL},
+      no_tax_amt = #{noTaxAmt,jdbcType=DECIMAL},
+      waybill_total = #{waybillTotal,jdbcType=DECIMAL},
+      is_duty_free = #{isDutyFree,jdbcType=TINYINT},
+      receipt_type = #{receiptType,jdbcType=TINYINT},
+      apply_dept = #{applyDept,jdbcType=VARCHAR},
+      apply_tm = #{applyTm,jdbcType=TIMESTAMP},
+      apply_emp = #{applyEmp,jdbcType=VARCHAR},
+      apply_name = #{applyName,jdbcType=VARCHAR},
+      drawer_emp = #{drawerEmp,jdbcType=VARCHAR},
+      drawer_name = #{drawerName,jdbcType=VARCHAR},
+      comp_code = #{compCode,jdbcType=VARCHAR},
+      org_type = #{orgType,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modifier_time = #{modifierTime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      latest_time = #{latestTime,jdbcType=TIMESTAMP},
+      record_version = #{recordVersion,jdbcType=DECIMAL}
+    where receipt_apply_id = #{receiptApplyId,jdbcType=INTEGER}
+  </update>
+</mapper>

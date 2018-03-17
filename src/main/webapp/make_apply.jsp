@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2018/1/22
@@ -23,10 +24,22 @@
     <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <style>
+        .my-font-size from div label{
+            font-size: 1.5em;
+        }
+    </style>
+
+    <%--时间--%>
+    <link rel="stylesheet" href="assets/css/amazeui.datetimepicker.css"/>
+    <script src="assets/js/amazeui.datetimepicker.min.js"></script>
+
+
 </head>
 
 
-<body data-type="widgets">
+<body data-type="widgets" >
 
 <script src="assets/js/theme.js"></script>
 <div class="am-g tpl-g">
@@ -251,6 +264,7 @@
                     </li>
 
 
+
                     <%--全网营收报表    --%>
                     <li class="sidebar-nav-link">
                         <a href="full_revenue.jsp" >
@@ -273,7 +287,6 @@
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 网点回款管理
                         </a>
                     </li>
-
 
                     <%--回款管理 --%>
                     <li class="sidebar-nav-link" >
@@ -360,24 +373,20 @@
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
 
-                <ul class="sidebar-nav sidebar-nav-sub"   style="display: block;">
-
+                <ul class="sidebar-nav sidebar-nav-sub"  style="display: block;">
                     <%--开票申请--%>
                     <li class="sidebar-nav-link">
-                        <a href="make_apply.jsp" class="sub-active">
+                        <a href="make_apply.jsp"  class="sub-active">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 开票申请
                         </a>
                     </li>
 
-
                     <%--开票管理--%>
                     <li class="sidebar-nav-link">
-                        <a href="make_manage.jsp">
+                        <a href="make_manage.jsp" >
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 开票管理
                         </a>
                     </li>
-
-
                 </ul>
             </li>
 
@@ -391,9 +400,8 @@
                     <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 主营业务核销
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
-                <ul class="sidebar-nav sidebar-nav-sub">
 
-
+                <ul class="sidebar-nav sidebar-nav-sub" >
                     <%--预付款充值核销--%>
                     <li class="sidebar-nav-link">
                         <a href="advance_pay.jsp">
@@ -425,7 +433,6 @@
                     </li>
 
 
-
                 </ul>
             </li>
 
@@ -438,7 +445,6 @@
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
-
 
                     <%--代收款登记--%>
                     <li class="sidebar-nav-link">
@@ -499,7 +505,6 @@
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
-
                     <%--月结明细--%>
                     <li class="sidebar-nav-link">
                         <a href="monthly_detail.jsp">
@@ -538,7 +543,6 @@
                         </a>
                     </li>
 
-
                 </ul>
             </li>
 
@@ -564,210 +568,504 @@
 
 
 
-
-
-
-
-
-
     <!-- 内容区域 -->
-    <div class="tpl-content-wrapper" >
+    <div class="tpl-content-wrapper" id="app">
 
         <div class="container-fluid am-cf" style="height:26px;  ">
-            <div class="page-header-heading" ><span class=""></span> 营收款管理 <small>开票申请 </small></div>
+            <div class="page-header-heading" ><span class=""></span> 发票管理<small>开票申请 </small></div>
         </div>
-
 
         <div class="row-content am-cf">
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                     <div class="widget am-cf">
-                        <div class="widget-head am-cf">
-                            <div class="widget-title  am-cf">文章列表</div>
+                        <%--<div class="widget-head am-cf">--%>
+                        <%--<div class="widget-title  am-cf">文章列表</div>--%>
 
 
-                        </div>
+                        <%--</div>--%>
                         <div class="widget-body  am-fr">
-
-                            <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                            <%--操作按钮区域--%>
+                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                                 <div class="am-form-group">
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs">
-                                            <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                            <button  class="am-btn am-btn-default am-btn-secondary" data-am-modal="{target: '#addform', closeViaDimmer: 0, width: 900}"><span class="am-icon-plus"></span> 发票申请</button>
+                                            <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-save"></span> 导出</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-                                <div class="am-form-group tpl-table-list-select">
-                                    <select data-am-selected="{btnSize: 'sm'}">
-                                        <option value="option1">所有类别</option>
-                                        <option value="option2">IT业界</option>
-                                        <option value="option3">数码产品</option>
-                                        <option value="option3">笔记本电脑</option>
-                                        <option value="option3">平板电脑</option>
-                                        <option value="option3">只能手机</option>
-                                        <option value="option3">超极本</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-                                <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                    <input type="text" class="am-form-field ">
-                                    <span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-          </span>
-                                </div>
-                            </div>
 
-                            <div class="am-u-sm-12">
-                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
-                                    <thead>
-                                    <tr>
-                                        <th>文章标题</th>
-                                        <th>作者</th>
-                                        <th>时间</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="gradeX">
-                                        <td>Amaze UI 模式窗口</td>
-                                        <td>张鹏飞</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有适配微信小程序的计划吗</td>
-                                        <td>天纵之人</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX">
-                                        <td>请问有没有amazeui 分享插件</td>
-                                        <td>王宽师</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>关于input输入框的问题</td>
-                                        <td>着迷</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有没有发现官网上的下载包不好用</td>
-                                        <td>醉里挑灯看键</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
 
-                                    <tr class="even gradeC">
-                                        <td>我建议WEB版本文件引入问题</td>
-                                        <td>罢了</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- more data -->
-                                    </tbody>
-                                </table>
+                            <div class="widget-head am-cf">
                             </div>
-                            <div class="am-u-lg-12 am-cf">
+                            <div class="widget-title  am-cf" style="margin-top:8px; ">&nbsp;&nbsp;查询条件</div>
+                            <br/>
 
-                                <div class="am-fr">
-                                    <ul class="am-pagination tpl-pagination">
-                                        <li class="am-disabled"><a href="#">«</a></li>
-                                        <li class="am-active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>
-                                </div>
+                            <%--查询条件--%>
+                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12" >
+                                <form class="am-form am-form-horizontal" style="font-size: 0.8em">
+                                    <div class="am-form-group">
+                                        <label  class="am-u-sm-1 am-form-label" >E卡通号</label>
+                                        <div class="am-u-sm-2">
+                                            <input type="text" v-model="eCardNo">
+                                        </div>
+                                        <label  class="am-u-sm-1 am-form-label">发票状态</label>
+                                        <div class="am-u-sm-2">
+                                            <select v-model="selected">
+                                                <option value="0">显示全部</option>
+                                                <option value="1">未申请</option>
+                                                <option value="2">已申请</option>
+                                                <option value="3">未审核</option>
+                                                <option value="4">已审核</option>
+                                                <option value="5">未开发票</option>
+                                                <option value="6">已开发票</option>
+                                                <option value="7">发票作废</option>
+                                            </select>
+                                        </div>
+                                        <div class="am-u-sm-1 am-u-end">
+                                            <span class="am-btn am-btn-default am-btn-warning" @click="MySearch()">查询</span>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
+
+
+                        <br>
+                        <div class="widget-head am-cf">
+                        </div>
+                        <div class="widget-title  am-cf" style="margin-top:8px; ">&nbsp;&nbsp;查询列表</div>
+                        <br/>
+
+                        <%--表单内容区域--%>
+                        <div class="am-u-sm-12">
+                            <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th><input type="checkbox" name="interest" value="1"></th>
+                                    <th>运单号</th>
+                                    <th>货单号</th>
+                                    <th>提货方式</th>
+                                    <th>业务类型</th>
+                                    <th>应收金额</th>
+                                    <th>付款方式</th>
+                                    <th>结算类型</th>
+                                    <th>发票状态</th>
+                                    <th>发票单号</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+
+                                <tbody >
+                                <tr class="gradeX" v-for="(finance,index) in finance">
+                                    <td>{{finance.receiptApplyId}}</td>
+                                    <td><input type="checkbox" name="interest" :value="finance.receiptApplyId"></td>
+                                    <td>货单号未知</td>
+                                    <td>提货方式未知</td>
+                                    <td>业务类型未知</td>
+                                    <td>{{finance.receiptAmt}}</td>
+                                    <td>付款方式未知</td>
+                                    <th>结算未知</th>
+                                    <td>结算类型未知</td>
+                                    <td v-if="finance.receiptStatus == 1">未申请</td>
+                                    <td v-else-if="finance.receiptStatus == 2">已申请</td>
+                                    <td v-else-if="finance.receiptStatus == 3">未审核</td>
+                                    <td v-else-if="finance.receiptStatus == 4">已审核</td>
+                                    <td v-else-if="finance.receiptStatus == 5">未开发票</td>
+                                    <td v-else-if="finance.receiptStatus == 6">已开发票</td>
+                                    <td v-else-if="finance.receiptStatus == 7">发票作废</td>
+                                    <td>{{finance.receiptNo}}</td>
+                                    <td><span v-if="finance.receiptStatus <= 2"><button class="am-btn" @click="getOne(finance)">修改</button></span> &nbsp;<button class="am-btn"  @click="del(finance)">删除</button></td>
+                                </tr>
+
+                                <!-- more data -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <%--表单内容区域--%>
+
+
+                        <%--分页区域--%>
+                        <div class="am-u-lg-12 am-cf">
+                            <div class="am-fr">
+                                <ul class="am-pagination tpl-pagination">
+                                    <li class="am-disabled"><a href="#">«</a></li>
+                                    <li class="am-active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">»</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <%--分页区域--%>
+
+
                     </div>
                 </div>
             </div>
         </div>
+
+
+
     </div>
+</div>
 
-
-
-
-
-
+<%--body结束--%>
 </div>
 
 
 
 
+<script>
+    var vm = new Vue({
+        el: "#app", //引用div的id
+        data: function(){
+            return {
+                submitUrl:"", //跳转的路径
+                finance: [] , //表单数据集合
+                selected:"0",
+                eCardNo:""
+            }
+        },
+        methods: {
+            //表单绑定数值的方法
+            getAll : function(){
+                //上面方法从新赋值
+                var currenr_this=this;
+                //跳转的路径
+                currenr_this.submitUrl='finance/getAllFinanceReceiptApply.action';
+                //通过json方式得到数据
+                $.getJSON(currenr_this.submitUrl,function(result,status){
+                    //把结果集赋给定义的users，用来页面展示
+                    currenr_this._data.finance=result;
+                })
+            },//添加按钮模态框
+            MySearch:function () {
+                var receiptStatus =  this.selected;
+                var No = this.eCardNo;
+                var currenr_this=this;
+                $.ajax({
+                    type: 'POST',
+                    url: "finance/getAllFinanceReceiptApply.action",
+                    data: {
+                        "eCardNo":No,
+                        "receiptStatus":receiptStatus
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        currenr_this._data.finance=data;
+                    },
+                    error: function (exception) {
+                        console.log('Exeption:' + exception);
+                    }
+                });
 
+            },
+            add:function(){
+                $('#addform').modal({
+                    width:900,
+                    closeViaDimmer:false
+                });
+                // this.submitUrl='';
+            },
+            //单个删除的方法
+            remove: function(index) {
+                // var item=this.users[index];
 
+            },
+            del:function (finance) {
+                if (confirm('确定要删除?')) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "finance/delFinanceReceiptApply.action",
+                        data: {
+                            "receiptApplyId":finance.receiptApplyId
+                        },
+                        dataType: 'json',
+                        success: function (data) {
 
-</div>
+                        },
+                        error: function (exception) {
+                            console.log('Exeption:' + exception);
+                        }
+                    });
+                    this.getAll();
+                }
+            },
+            getOne:function (finance) {
+                $("#receiptApplyId").val(finance.receiptApplyId);
+                $("#upeCardNo").val(finance.eCardNo);
+                $("#upregisterName").val(finance.registerName);
+                $("#upregisterMobile").val(finance.registerMobile);
+                $("#uptaxIdentificationNo").val(finance.taxIdentificationNo);
+                $("#upaccountBank").val(finance.accountBank);
+                $("#upbankCardNo").val(finance.bankCardNo);
+                $("#upaddress").val(finance.address);
+                $("#upcompCode").val(finance.compCode);
+                $("#upreceiptType").val(finance.receiptType);
+                if(finance.isDutyFree == 0){
+                    $("input[name='upisDutyFree']")[0].checked = true;
+                }else{
+                    $("input[name='upisDutyFree']")[1].checked = true;
+                }
+                $("#uptaxRate").val(finance.taxRate);
+                $("#uptaxAmt").val(finance.taxAmt);
+                $("#upreceiptAmt").val(finance.receiptAmt);
+                $("#upserialNumber").val(finance.serialNumber);
+                $("#upwaybillTotal").val(finance.waybillTotal);
+                $('#upform').modal({
+                    width:900,
+                    closeViaDimmer:false
+                });
+            }
+        },
+        //页面加载数据
+        mounted: function(){
+            this.getAll();
+        }
+    });
+
+    function empty() {
+        $("#eCardNo").val("");
+        $("#registerName").val("");
+        $("#registerMobile").val("");
+        $("#taxIdentificationNo").val("");
+        $("#accountBank").val("");
+        $("#bankCardNo").val("");
+        $("#address").val("");
+        $("#compCode").val("");
+        $("#receiptType").val("");
+        $("#isDutyFree").val("");
+        $("#taxRate").val("");
+        $("#taxAmt").val("");
+        $("#receiptAmt").val("");
+        $("#serialNumber").val("");
+        $("#waybillTotal").val("");
+    }
+
+    function add () {
+        var value = {
+            "eCardNo":$("#eCardNo").val(),
+            "registerName":$("#registerName").val(),
+            "registerMobile":$("#registerMobile").val(),
+            "taxIdentificationNo":$("#taxIdentificationNo").val(),
+            "accountBank":$("#accountBank").val(),
+            "bankCardNo":$("#bankCardNo").val(),
+            "address":$("#address").val(),
+            "compCode":$("#compCode").val(),
+            "receiptType":$("#receiptType").val(),
+            "isDutyFree":$("#isDutyFree").val(),
+            "taxRate":$("#taxRate").val(),
+            "taxAmt":$("#taxAmt").val(),
+            "receiptAmt":$("#receiptAmt").val(),
+            "serialNumber":$("#serialNumber").val(),
+            "waybillTotal":$("#waybillTotal").val(),
+
+        };
+        $.ajax({
+            type: 'POST',
+            url: "finance/addFinanceReceiptApply.action",
+            data: value,
+            dataType: 'json',
+            success: function (data) {
+                $('#addform').modal("close");
+                vm.getAll();
+            },
+            error: function (exception) {
+                console.log('Exeption:' + exception);
+            }
+        });
+        empty();
+    }
+    function update() {
+        var value = {
+            "receiptApplyId":$("#receiptApplyId").val(),
+            "eCardNo":$("#upeCardNo").val(),
+            "registerName":$("#upregisterName").val(),
+            "registerMobile":$("#upregisterMobile").val(),
+            "taxIdentificationNo":$("#uptaxIdentificationNo").val(),
+            "accountBank":$("#upaccountBank").val(),
+            "bankCardNo":$("#upbankCardNo").val(),
+            "address":$("#upaddress").val(),
+            "compCode":$("#upcompCode").val(),
+            "receiptType":$("#upreceiptType").val(),
+            "isDutyFree":$("#upisDutyFree").val(),
+            "taxRate":$("#uptaxRate").val(),
+            "taxAmt":$("#uptaxAmt").val(),
+            "receiptAmt":$("#upreceiptAmt").val(),
+            "serialNumber":$("#upserialNumber").val(),
+            "waybillTotal":$("#upwaybillTotal").val(),
+
+        };
+        $.ajax({
+            type: 'POST',
+            url: "finance/updateFinanceReceiptApply.action",
+            data: value,
+            dataType: 'json',
+            success: function (data) {
+                $('#upform').modal("close");
+                vm.getAll();
+            },
+            error: function (exception) {
+                console.log('Exeption:' + exception);
+            }
+        });
+
+    }
+
+</script>
+
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/amazeui.datatables.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>
 <script src="assets/js/app.js"></script>
+
+
+
+<div class="am-modal" tabindex="-1" id="upform">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">修改
+            <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+        </div>
+        <div class="am-modal-bd">
+            <table class="am-table am-table-centered am-text-middle am-text-nowrap">
+                <input type="hidden" id="receiptApplyId" >
+                <tr>
+                    <td>E卡通/会员名</td>
+                    <td><input type="text" id="upeCardNo" class="am-modal-prompt-input"></td>
+                    <td>登记人</td>
+                    <td><input type="text" id="upregisterName" class="am-modal-prompt-input"></td>
+                    <td>登记人电话</td>
+                    <td><input type="text" id="upregisterMobile" class="am-modal-prompt-input"></td>
+                <tr>
+                    <td>纳税人识别号</td>
+                    <td><input type="text" id="uptaxIdentificationNo" class="am-modal-prompt-input"></td>
+                    <td>开户行</td>
+                    <td><input type="text" id="upaccountBank" class="am-modal-prompt-input"></td>
+                    <td>银行卡号</td>
+                    <td><input type="text" id="upbankCardNo" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr>
+                    <td>地址</td>
+                    <td colspan="3"><input type="text" id="upaddress" class="am-modal-prompt-input"></td>
+                    <td>运单金额</td>
+                    <td><input type="text"  class="am-modal-prompt-input"></td>
+                </tr>
+                <tr>
+                    <td>公司名称</td>
+                    <td colspan="3"><input id="upcompCode" type="text" class="am-modal-prompt-input"></td>
+                    <td>开票类型</td>
+                    <td><input type="text" id="upreceiptType" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr>
+                    <td>是否含税：</td>
+                    <td><input type="radio" id="upisDutyFree"  name="upisDutyFree" value="0">是
+                        <input type="radio" id="upisDutyFree" name="upisDutyFree" value="1">否
+                    </td>
+                    <td> 税率</td>
+                    <td><input type="text" id="uptaxRate" class="am-modal-prompt-input"></td>
+                    <td>税额</td>
+                    <td><input type="text" id="uptaxAmt" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr>
+                    <td>发票金额</td>
+                    <td><input type="text" id="upreceiptAmt" class="am-modal-prompt-input"></td>
+                    <td> 申请流水号</td>
+                    <td><input type="text" id="upserialNumber" class="am-modal-prompt-input"></td>
+                    <td>运单数</td>
+                    <td><input type="text" id="upwaybillTotal" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr>
+                    <td>备注</td>
+                    <td colspan="5"><input type="text" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr >
+                    <td colspan="6">
+                        <span class="am-btn am-btn-default am-btn-warning"  onclick="update()">修改</span>
+                        &nbsp;&nbsp;<span class="am-btn am-btn-default am-btn-warning" data-am-modal-close>关闭</span>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="am-modal" tabindex="-1" id="addform">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">开票申请
+            <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+        </div>
+        <div class="am-modal-bd">
+            <table class="am-table am-table-centered am-text-middle am-text-nowrap">
+                <tr>
+                    <td>E卡通/会员名</td>
+                    <td><input type="text" id="eCardNo" class="am-modal-prompt-input"></td>
+                    <td>登记人</td>
+                    <td><input type="text" id="registerName" class="am-modal-prompt-input"></td>
+                    <td>登记人电话</td>
+                    <td><input type="text" id="registerMobile" class="am-modal-prompt-input"></td>
+                <tr>
+                    <td>纳税人识别号</td>
+                    <td><input type="text" id="taxIdentificationNo" class="am-modal-prompt-input"></td>
+                    <td>开户行</td>
+                    <td><input type="text" id="accountBank" class="am-modal-prompt-input"></td>
+                    <td>银行卡号</td>
+                    <td><input type="text" id="bankCardNo" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr>
+                    <td>地址</td>
+                    <td colspan="3"><input type="text" id="address" class="am-modal-prompt-input"></td>
+                    <td>运单金额</td>
+                    <td><input type="text" id="" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr>
+                    <td>公司名称</td>
+                    <td colspan="3"><input id="compCode" type="text" class="am-modal-prompt-input"></td>
+                    <td>开票类型</td>
+                    <td><input type="text" id="receiptType" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr>
+                    <td>是否含税：</td>
+                    <td><input type="radio" id="isDutyFree" checked="checked" name="mg.gwaibao" value="0">是
+                        <input type="radio" id="isDutyFree" name="mg.gwaibao" value="1">否
+                    </td>
+                    <td> 税率</td>
+                    <td><input type="text" id="taxRate" class="am-modal-prompt-input"></td>
+                    <td>税额</td>
+                    <td><input type="text" id="taxAmt" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr>
+                    <td>发票金额</td>
+                    <td><input type="text" id="receiptAmt" class="am-modal-prompt-input"></td>
+                    <td> 申请流水号</td>
+                    <td><input type="text" id="serialNumber" class="am-modal-prompt-input"></td>
+                    <td>运单数</td>
+                    <td><input type="text" id="waybillTotal" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr>
+                    <td>备注</td>
+                    <td colspan="5"><input type="text" class="am-modal-prompt-input"></td>
+                </tr>
+                <tr >
+                    <td colspan="6">
+                        <span class="am-btn am-btn-default am-btn-warning"  onclick="add()">保存</span>
+                        &nbsp;&nbsp;<span class="am-btn am-btn-default am-btn-warning" data-am-modal-close>关闭</span>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
 
 </body>
 
