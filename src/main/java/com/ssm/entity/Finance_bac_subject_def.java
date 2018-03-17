@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 public class Finance_bac_subject_def {
+    //科目
       private  int sub_id;//id
       private  String subject_name;//科目名称
       private  String subject_code;//科目代码

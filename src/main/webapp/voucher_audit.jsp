@@ -29,6 +29,96 @@
 <body data-type="widgets">
 
 <script src="assets/js/theme.js"></script>
+
+<script src="js/vue.js"></script>
+<script>
+
+    $(function(){
+            var vm=new Vue({
+                el:'#voucher',
+                data: {
+                    submitUrl: "/getvoucher.action", //跳转的路径
+                    user: "",
+                    users: [],  //表单数据集合
+                    titleName: "",
+                    TyuserId: "" , //表单数据的id
+                    nowIndex:-1,
+                    uname:"",
+                    upwd:"",
+                    uid:"",
+                    uss:[],
+                    ua:""
+                }
+                ,
+                methods:{
+                    getAll : function(){
+                        //上面方法从新赋值
+                        var currenr_this=this;
+                        //跳转的路径
+                        currenr_this.submitUrl='/getvoucher.action';
+                        //通过json方式得到数据
+                        $.getJSON(currenr_this.submitUrl,function(result,status){
+                            //把结果集赋给定义的users，用来页面展示
+                            currenr_this._data.users=result;
+                            // alert(result);  //得到对象集合
+                        })
+                    },
+
+
+
+                    add : function () {
+                        //   $('#addform').modal('show');
+
+                    },
+                    update :function (index) {
+                        var current_this=this;
+                        var item=this.users[index];
+                        current_this.uname=item.uname;
+                        current_this.upwd=item.upwd;
+                        current_this. uid=item.uid;
+                    },
+                    search_waybill:function(index){
+                        var item=this.users[index];
+
+                        var currenr_thises=this;
+
+                        //跳转的路径
+                        //currenr_thises.submitUrl='/gettb_waybill.action?pay_receivable_id='+pay_receivable_id;
+                        //通过json方式得到数据
+                        // $.getJSON(currenr_thises.submitUrl,function(result,status){
+                        //把结果集赋给定义的users，用来页面展示
+                        currenr_thises.uss=item.finance_rpt_voucher_details;
+                        //  currenr_thises.tb_waybills=result;
+                      //  currenr_thises.uss=item.finance_cas_pay_rec_details;
+                      //  console.info(item);
+                        //  alert(currenr_thises.uss[0].pay_rec_detail_id);
+                        //   if(result!=null){
+                        $('#search').modal({
+                            width:860,
+                            height:360
+                        });
+                        //  }
+                        // else if(result==null){
+                        //  $('#nulls').modal({
+                        //   });
+                        // }
+                        // })
+
+                    }
+
+
+                },
+
+                created : function(){
+                    this.getAll();
+                },
+
+
+            });
+        }
+    )
+
+</script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
     <header>
@@ -570,7 +660,7 @@
 
 
 
-
+<div id="voucher">
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper" >
 
@@ -628,97 +718,38 @@
                                 <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                                     <thead>
                                     <tr>
-                                        <th>文章标题</th>
-                                        <th>作者</th>
-                                        <th>时间</th>
-                                        <th>操作</th>
+                                        <th>状态</th>
+                                        <th>资金去向</th>
+                                        <th>核销去向</th>
+
+                                        <th>登记日期</th>
+                                        <th>凭证号</th>
+                                        <th>科目</th>
+                                        <th>金额</th>
+                                        <th>笔数</th>
+                                        <th>核销日期</th>
+                                        <th>核销人</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="gradeX">
-                                        <td>Amaze UI 模式窗口</td>
-                                        <td>张鹏飞</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有适配微信小程序的计划吗</td>
-                                        <td>天纵之人</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX">
-                                        <td>请问有没有amazeui 分享插件</td>
-                                        <td>王宽师</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>关于input输入框的问题</td>
-                                        <td>着迷</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有没有发现官网上的下载包不好用</td>
-                                        <td>醉里挑灯看键</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <tr v-for="(user,index) in users" class="text-center">
 
-                                    <tr class="even gradeC">
-                                        <td>我建议WEB版本文件引入问题</td>
-                                        <td>罢了</td>
-                                        <td>2016-09-26</td>
+
+                                        <td>{{user.audited_flg}}</td>
+                                        <td>{{user.income_type}}</td>
+                                        <td >{{user.vertical_item}}</td>
+                                        <td>{{user.creater_time}}</td>
+                                        <td>{{user.voucher_no}}</td>
+                                        <td>{{user.first_grade}}</td>
+                                        <td>{{user.fee_amt}}</td>
+                                        <td>{{user.gl_number}}</td>
+                                        <td>{{user.input_tm}}</td>
+                                        <td>{{user.audited_emp_code}}</td>
                                         <td>
                                             <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
+                                                <a href="javascript:;" @click="search_waybill(index)">
+                                                    <i class="am-icon-pencil"></i> 详情
                                                 </a>
                                                 <a href="javascript:;" class="tpl-table-black-operation-del">
                                                     <i class="am-icon-trash"></i> 删除
@@ -744,6 +775,7 @@
                                     </ul>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -751,10 +783,49 @@
         </div>
     </div>
 
+    <div class="am-modal am-modal-no-btn" tabindex="" id="search">
+        <div class="am-modal-dialog" style="background-color:white; ">
+            <div class="am-btn am-btn-warning am-btn-primary am-btn-block">账单明细
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <%--表单内容--%>
+                <div class="am-scrollable-vertical" >
+                    <table width="100%"  class="am-table am-table-bordered am-table-striped am-text-nowrap" id="searchs">
+                        <thead>
+                        <tr>
+                            <th>运单号</th>
+                            <th>凭证号</th>
+                            <th>收据号码</th>
+                            <th>发票号码</th>
+                            <th>支票号码</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr class="gradeX"  v-for="(ua,index) in uss">
+
+                            <td>{{ua.waybill_no}}</td>
+                            <td>{{ua.voucher_no}}</td>
+                            <td>{{ua.receipt_no}}</td>
+                            <td>{{ua.invoice_no}}</td>
+                            <td>{{ua.check_no}}</td>
 
 
+                        </tr>
+                        <!-- more data -->
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
+</div>
 
 </div>
 
