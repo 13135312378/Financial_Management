@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 public class Finance_cas_payable_receivable {
+    //账单主表
     private int pay_receivable_id;//账单ID
     private  String bill_no;//账单流水号
     private Date bill_dt;//账单日期

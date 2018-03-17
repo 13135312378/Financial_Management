@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class Finance_cas_pay_rec_details {
+    //账单明细
     private int  pay_rec_detail_id;//表ID
   //  private int pay_receivable_id;//账单ID
   //  private String bill_no;//账单流水号

@@ -29,6 +29,66 @@
 <body data-type="widgets">
 
 <script src="assets/js/theme.js"></script>
+<script src="js/vue.js"></script>
+
+<script>
+
+    $(function(){
+            var vm=new Vue({
+                el:'#recordb',
+                data: {
+                    submitUrl: "/getrecordb.action", //跳转的路径
+                    user: "",
+                    users: [],  //表单数据集合
+                    titleName: "",
+                    TyuserId: "" , //表单数据的id
+                    nowIndex:-1,
+                    uname:"",
+                    upwd:"",
+                    uid:""
+                }
+                ,
+                methods:{
+                    getAll : function(){
+                        //上面方法从新赋值
+                        var currenr_this=this;
+                        //跳转的路径
+                        currenr_this.submitUrl='/getrecordb.action';
+                        //通过json方式得到数据
+                        $.getJSON(currenr_this.submitUrl,function(result,status){
+                            //把结果集赋给定义的users，用来页面展示
+                            currenr_this._data.users=result;
+                            // alert(result);  //得到对象集合
+                        })
+                    },
+
+
+
+                    add : function () {
+                        //   $('#addform').modal('show');
+
+                    },
+                    update :function (index) {
+                        var current_this=this;
+                        var item=this.users[index];
+                        current_this.uname=item.uname;
+                        current_this.upwd=item.upwd;
+                        current_this. uid=item.uid;
+                    }
+
+
+                },
+
+                created : function(){
+                    this.getAll();
+                },
+
+
+            });
+        }
+    )
+
+</script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
     <header>
@@ -572,7 +632,7 @@
 
 
     <!-- 内容区域 -->
-    <div class="tpl-content-wrapper" >
+    <div class="tpl-content-wrapper" id="recordb" >
 
         <div class="container-fluid am-cf" style="height:26px;  ">
             <div class="page-header-heading" ><span class=""></span> 营收款管理 <small>出纳记账 </small></div>
@@ -628,104 +688,63 @@
                                 <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                                     <thead>
                                     <tr>
-                                        <th>文章标题</th>
-                                        <th>作者</th>
-                                        <th>时间</th>
-                                        <th>操作</th>
+                                        <th>运单号</th>
+                                        <th>凭证号</th>
+                                        <th>资金去向</th>
+                                        <th>核销去向</th>
+                                        <th>凭证类别</th>
+                                        <th>科目</th>
+
+
+                                        <th>收据号码</th>
+                                        <th>发票号码</th>
+                                        <th>支票号码 </th>
+
+                                        <th>核销状态 </th>
+                                        <th>核销日期 </th>
+
+
+                                        <th>核销人 </th>
+
+                                        <th>核销网点 </th>
+
+
+                                        <th>凭证审核日期 </th>
+                                        <th>凭证审核人 </th>
+
+
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="gradeX">
-                                        <td>Amaze UI 模式窗口</td>
-                                        <td>张鹏飞</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有适配微信小程序的计划吗</td>
-                                        <td>天纵之人</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX">
-                                        <td>请问有没有amazeui 分享插件</td>
-                                        <td>王宽师</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>关于input输入框的问题</td>
-                                        <td>着迷</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有没有发现官网上的下载包不好用</td>
-                                        <td>醉里挑灯看键</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
+                                    <tr v-for="(user,index) in users" class="text-center">
+                                      <td>{{user.waybill_no}}</td>
+                                      <td>{{user.certificate_no}}</td>
+                                      <td>{{user.balofpay_type}}</td>
+                                      <td>{{user.verification_direction_name}}</td>
+                                      <td>{{user.certificate_type_code}}</td>
+                                      <td>{{user.financial_subjet_level1_code}}</td>
+                                         <td>{{user.receipt_no}}</td>
+                                         <td>{{user.invoice_no}}</td>
+                                        <td>{{user.check_no}}</td>
+
+
+                                        <td>{{user.cashier_audit_state}}</td>
+
+
+
+                                        <td>{{user.cashier_audit_dt}}</td>
+
+
+                                        <td>{{user.cashier_auditor_name}}</td>
+                                        <td>{{user.cashier_dept_area_code}}</td>
+
+                                        <td>{{user.certificate_audit_dt}}</td>
+                                        <td>{{user.certificate_auditor_name}}</td>
+                                        <td>{{user.invoice_no}}</td>
+
+
                                     </tr>
 
-                                    <tr class="even gradeC">
-                                        <td>我建议WEB版本文件引入问题</td>
-                                        <td>罢了</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
                                     <!-- more data -->
                                     </tbody>
                                 </table>

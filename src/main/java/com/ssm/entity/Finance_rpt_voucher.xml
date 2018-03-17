@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssm.dao.IFinance_rpt_voucher">
+
+    <resultMap id="mvoche" type="com.ssm.entity.Finance_rpt_voucher">
+        <id property="voucher_id" column="voucher_id"></id>
+        <result property="audited_flg" column="audited_flg"></result>
+        <result property="income_type" column="income_type"></result>
+        <result property="vertical_item" column="vertical_item" ></result>
+        <result property="creater_time" column="creater_time"></result>
+        <result property="voucher_no" column="voucher_no"></result>
+
+        <result property="first_grade" column="first_grade"></result>
+        <result property="fee_amt" column="fee_amt"></result>
+        <result property="gl_number" column="gl_number"></result>
+       <result property="input_tm"  column="input_tm"></result>
+        <result property="audited_emp_code" column="audited_emp_code"></result>
+        <collection property="Finance_rpt_voucher_details" ofType="com.ssm.entity.Finance_rpt_voucher_details">
+            <result property="vertical_item" column="vertical_item"></result>
+            <result property="voucher_no" column="voucher_no"></result>
+             <result property="receipt_no" column="receipt_no"></result>
+             <result property="invoice_no" column="invoice_no"></result>
+             <result property="check_no" column="check_no"></result>
+        </collection>
+
+
+
+
+
+    </resultMap>
+
+     <select id="getvouche"  resultMap="mvoche">
+        select *from finance_rpt_voucher_details a ,finance_rpt_voucher b where a.voucher_id=b.voucher_id;
+     </select>
+
+
+</mapper>
